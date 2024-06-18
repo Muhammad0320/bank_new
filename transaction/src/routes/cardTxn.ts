@@ -71,12 +71,13 @@ router.post(
 
     const isCorrectCardNo = await CryptoManager.compare(
       currentCard.info.no,
-      cardNumber
+      "" + cardNumber
     );
 
     const isCorrectCardCvv = await CryptoManager.compare(
       currentCard.info.cvv,
-      cvv
+      "" + cvv
+
     );
 
     const account = await Account.findById(currentCard.account);
