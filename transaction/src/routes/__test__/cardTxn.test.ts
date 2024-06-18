@@ -14,11 +14,12 @@ import { app } from '../../app';
 import { Account, AccountDoc } from '../../model/account';
 import { Card } from '../../model/card';
 import { dateFxns } from '../../service/helper';
+import { generateTenDigitInt } from '../../../../account/src/services/generateAccountNumber';
 
 const accountBuilder = async (status?: AccountStatus, balance?: number) => {
   return await Account.buildAccount({
     id: new mongoose.Types.ObjectId().toHexString(),
-    no: 9381347599,
+    no: generateTenDigitInt(),
     user: {
       id: new mongoose.Types.ObjectId().toHexString(),
       name: 'Lisan al Gaib'
@@ -317,6 +318,8 @@ it('returns a 403 if a user tried to transact with another users card', async ()
     })
     .expect(403);
 });
+
+
 
 it('returns a 400 on invalid credentials ', async () => {
   const unhashedNo = '1234899183918329';
