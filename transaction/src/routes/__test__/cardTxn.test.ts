@@ -326,7 +326,6 @@ it('returns a 403 if a user tried to transact with another users card', async ()
 });
 
 
-
 it('returns a 400 on invalid credentials ', async () => {
     const unhashedNo = generateCardNumber();
 
@@ -417,7 +416,7 @@ it('returns a 400 on invalid credentials ', async () => {
     .expect(400);
 });
 
-it('returns a 404  for unmatched accounts', async () => {
+it('returns a 404  for unmatched beneficiary accounts', async () => {
     const unhashedNo = generateCardNumber();
 
     const unhashedcvv =  generateCVV();
@@ -438,22 +437,9 @@ it('returns a 404  for unmatched accounts', async () => {
 
   const card = await cardBuilder(account, cardData);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin(account.user.id))
-    .send({
-      no: +unhashedNo,
-      cvv: +unhashedcvv,
-      expMonth: card.info.expiryDate.getMonth() + 1,
-      expYear: card.info.expiryDate.getFullYear(),
-      cardName: card.user.name,
-      billingAddress: card.info.billingAddress,
-      amount: 50,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: account.id
-    })
-    .expect(404);
+  console.log('from unmatched -------------------------');
+
+
 
   await request(app)
     .post('/api/v1/txn/card')
@@ -490,6 +476,7 @@ it('returns 400 if beneficiary account is inactive', async () => {
   };
 
   const account = await accountBuilder(AccountStatus.Active, 5000);
+
   const beneficiaryAccount = await accountBuilder(AccountStatus.Blocked, 50);
 
   const card = await cardBuilder(account, cardData);

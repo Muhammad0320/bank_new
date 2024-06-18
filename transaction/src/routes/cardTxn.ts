@@ -84,6 +84,10 @@ router.post(
 
     if (!account) throw new NotFound('Account not found');
 
+    const beneficiaryAcc = await Account.findById(beneficiary);
+
+    if (!beneficiaryAcc) throw new NotFound('Beneficiary account not fount');
+
     if (req.currentUser.id !== account.user.id)
       throw new Forbidden('You are not authorized to perform this action');
 
@@ -109,9 +113,7 @@ router.post(
     if (currentCard.info.status === CardStatus.Expired)
       throw new BadRequest('Expired card');
 
-    const beneficiaryAcc = await Account.findById(beneficiary);
 
-    if (!beneficiaryAcc) throw new NotFound('Beneficiary account not fount');
 
     if (beneficiaryAcc.status !== AccountStatus.Active)
       throw new BadRequest(' Inactive beneficiary account ');
