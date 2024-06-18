@@ -417,10 +417,9 @@ it('returns a 400 on invalid credentials ', async () => {
 });
 
 it('returns a 404  for unmatched accounts', async () => {
-    const unhashedNo = generateCardNumber();
+  const unhashedNo = generateCardNumber();
 
-    const unhashedcvv =  generateCVV();
-
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -437,8 +436,6 @@ it('returns a 404  for unmatched accounts', async () => {
 
   const card = await cardBuilder(account, cardData);
 
-  console.log('from unmatched -------------------------');
-  
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin(account.user.id))
@@ -455,14 +452,12 @@ it('returns a 404  for unmatched accounts', async () => {
       account: account.id
     })
     .expect(404);
-
 });
 
 it('returns 400 if beneficiary account is inactive', async () => {
-    const unhashedNo = generateCardNumber();
+  const unhashedNo = generateCardNumber();
 
-    const unhashedcvv =  generateCVV();
-
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -499,10 +494,9 @@ it('returns 400 if beneficiary account is inactive', async () => {
 });
 
 it('returns a 400 for expired or inactive card', async () => {
-    const unhashedNo = generateCardNumber();
+  const unhashedNo = generateCardNumber();
 
-    const unhashedcvv =  generateCVV();
-
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -539,10 +533,9 @@ it('returns a 400 for expired or inactive card', async () => {
 });
 
 it('returns a 400 for insufficient fund', async () => {
-    const unhashedNo = generateCardNumber();
+  const unhashedNo = generateCardNumber();
 
-    const unhashedcvv =  generateCVV();
-
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -558,6 +551,8 @@ it('returns a 400 for insufficient fund', async () => {
   const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
 
   const card = await cardBuilder(account, cardData);
+
+  console.log('from unmatched -------------------------');
 
   await request(app)
     .post('/api/v1/txn/card')
