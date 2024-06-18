@@ -296,10 +296,13 @@ it('returns a 403 if a user tried to transact with another users card', async ()
     billingAddress: 'G50, Balogun Gambari compound'
   };
 
+
   const account = await accountBuilder(AccountStatus.Active, 5000);
   const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
 
   const card = await cardBuilder(account, cardData);
+
+  console.log( typeof +unhashedNo, 'from the 403 test' )
 
   await request(app)
     .post('/api/v1/txn/card')

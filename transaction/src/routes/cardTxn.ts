@@ -67,7 +67,7 @@ router.post(
     if (!currentCard)
       throw new BadRequest('Invalid card credentials: account ');
 
-    console.log(currentCard);
+    console.log(currentCard, 'from the card transaction');
 
     const isCorrectCardNo = await CryptoManager.compare(
       currentCard.info.no,
