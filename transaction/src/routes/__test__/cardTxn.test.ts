@@ -294,8 +294,6 @@ it('returns a 403 if a user tried to transact with another users card', async ()
 
   const hashedcvv = await CryptoManager.hash(unhashedcvv);
 
-  console.log( unhashedcvv, '-------------------------' );
-
   const cardData: cardDataType = {
     no: hashedNo,
     cvv: hashedcvv,
@@ -311,7 +309,7 @@ it('returns a 403 if a user tried to transact with another users card', async ()
 
   await request(app)
     .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin(account.user.id))
+    .set('Cookie', await global.signin())
     .send({
       no: +unhashedNo,
       cvv: +unhashedcvv,
