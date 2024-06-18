@@ -11,9 +11,9 @@ import {
   Settings,
   User
 } from '@m0banking/common';
-import { hashingWork } from '../services/crypto';
 import { DateFxns } from '../services/helper';
 import { Account, AccountDoc } from './Account';
+import { hashingWork } from '../services/crypto';
 
 type CardDoc = mongoose.Document & {
   account: AccountDoc;
