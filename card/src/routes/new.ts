@@ -12,7 +12,7 @@ import {
   typeValidator
 } from '../services/validators';
 import { Card } from '../model/card';
-import { Account } from '../model/account';
+import { Account } from '../model/Account';
 import express, { Response, Request } from 'express';
 
 const router = express.Router();

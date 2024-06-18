@@ -6,7 +6,7 @@ import {
 } from '@m0banking/common';
 import { queueGroupName } from './queueGroupName';
 import { Message } from 'node-nats-streaming';
-import { Account } from '../../model/account';
+import { Account } from '../../model/Account';
 
 export class AccountBlockedListener extends Listener<AccountBlockedEvent> {
   readonly subject = Subjects.AccountBlocked;

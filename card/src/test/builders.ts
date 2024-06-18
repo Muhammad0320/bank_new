@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Account } from '../model/account';
+import { Account } from '../model/Account';
 import { Card } from '../model/card';
 import {
   AccountCurrency,

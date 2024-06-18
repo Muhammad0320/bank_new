@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Account, AccountDoc } from './account';
+
 import {
   AccountStatus,
   BadRequest,
@@ -13,6 +13,7 @@ import {
 } from '@m0banking/common';
 import { hashingWork } from '../services/crypto';
 import { DateFxns } from '../services/helper';
+import { Account, AccountDoc } from './Account';
 
 type CardDoc = mongoose.Document & {
   account: AccountDoc;
