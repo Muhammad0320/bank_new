@@ -101,8 +101,7 @@ router.post(
     )
       throw new BadRequest('Invalid card credentials');
 
-    if (currentCard.account.balance <= +amount)
-      throw new BadRequest('Insufficient fund');
+    if (account.balance <= +amount) throw new BadRequest('Insufficient fund');
 
     if (
       currentCard.info.status === CardStatus.Inactive ||
@@ -112,7 +111,6 @@ router.post(
 
     if (currentCard.info.status === CardStatus.Expired)
       throw new BadRequest('Expired card');
-
 
 
     if (beneficiaryAcc.status !== AccountStatus.Active)

@@ -552,7 +552,7 @@ it('returns a 400 for insufficient fund', async () => {
 
   const card = await cardBuilder(account, cardData);
 
-  console.log('from unmatched -------------------------');
+  console.log(account, 'from insufficient -------------------------');
 
   await request(app)
     .post('/api/v1/txn/card')
