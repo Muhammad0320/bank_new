@@ -32,6 +32,7 @@ import {
 
 const router = express.Router();
 
+
 router.post(
   '/card',
   requireAuth,
