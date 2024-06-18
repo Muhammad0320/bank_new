@@ -20,16 +20,15 @@ export const expiryMonthValidator = () =>
 export const expiryYearValidator = () => {
   const  date = new Date();
 
-  // date.getFullYear();
 
   return check('expYear')
-    .isInt({ min: date.getFullYear(), max: date.getFullYear() + 5 })
+    .isInt({ min: date.getFullYear(), max: date.getFullYear() + 6 })
+    .withMessage(' Invalid expiry year ')
     .custom(
       (input: number, { req }) =>
         input === date.getFullYear() && +req.expMonth - 1 >= date.getMonth()
     )
-    .withMessage('Expired card!')
-    .withMessage(' Invalid expiry year ');
+    .withMessage('Expired card!');
 };
 export const cardNameValidator = () =>
   check('cardName')
