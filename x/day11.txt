@@ -1,0 +1,168 @@
+
+
+
+
+Day 11 🚀 :  Listened for the UserCreatedEvent, to make the copy of user model in the account service up tp date. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Listened for the UserUpdatedEvent.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic
+
+
+Day 11 🚀 :  Listened for the UserUpdatedEvent, to make sure user documents are updated. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Create an AccountCreatedPublisher.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic
+
+
+
+
+
+Day 11 🚀 :  Create an AccountCreatedPublisher, for the route responsible for creating new account (do that later). 
+
+Follow for more ✨💻
+
+NextUp ⏭: Create an AccountBlockedPublisher.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic
+
+
+
+Day 11 🚀 :  Create an AccountBlockedublisher, this is incredibly useful for the transaction service (do that later). 
+
+Follow for more ✨💻
+
+NextUp ⏭: Create an AccountUnblockedPublisher.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic
+
+
+Day 11 🚀 :  Create an AccountUnblockedPublisher, this is incredibly useful for the transaction service also (do that later). 
+
+
+Follow for more ✨💻
+
+NextUp ⏭: Almost forgot; Add tests for the userCreatedListener  .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 11 🚀 :  Added tests for the userCreatedListener, to make sure we're still alright. 
+
+Follow for more ✨💻
+
+NextUp ⏭:  Add tests for the userUpdatedListener  .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+
+Day 11 🚀 :  Added tests for the userUpdatedListener, to make sure we're still on track. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Publish an account created event in the route necessary for that.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 11 🚀 : Publish an AccountCreatedEvent from the route that creates new account. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Publish an account blocked event in the route necessary for that.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 11 🚀 : Publish an AccountBlockedEvent from the route that block accounts. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Publish an AccountUnblockedEvent in the route necessary for that.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 11 🚀 : Publish an AccountUnblockedEvent from the route that block accounts. 
+
+NextUp ⏭: We'll move to the most important service: Transaction service in sha Allah, Don't miss out. 
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+////////////////////////////////////////////////////////
+
+
+Day 12 🚀 : Set up for transaction service: set up transaction and transaction mongo services (not working though). 
+
+Follow for more ✨💻
+
+NextUp ⏭: set up skaffold file syncing and ingres-nginx for routing.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 12 🚀 : Set up for transaction service:  set up skaffold file syncing and ingres-nginx for routing. 
+
+Follow for more ✨💻
+
+NextUp ⏭: create a transaction schema & model.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 12 🚀 :  create a model and schema for the transaction service. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Data reduplication: repeat the account model in transaction service.   
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 12 🚀 : Add the account schema and model in the transaction service , which is crucial for transaction account validation and security. 
+
+Follow for more ✨💻
+
+NextUp ⏭: set up Account related listeners.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 12 🚀 :  Add the AccountCreatedListenenr to help create an account that's accessible by the transaction service. 
+
+
+Follow for more ✨💻
+
+NextUp ⏭:  Listen for AccountBlockedListener.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 12 🚀 : Listened for the AccountBlockedListener to help to update the related account. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Listen for AccountUnblocedListener.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 12 🚀 : Listened for AccountUnblocedListener: to unblock a blocked account. 
+
+Follow for more ✨💻
+
+NextUp ⏭: Till tomorrow: Will solely on the txn routes and real testing (becase I'm unable to connect to mongo and nats service, So i have to heavily rely on tests).
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 

@@ -1,0 +1,233 @@
+
+
+
+
+Day 15 🚀 :  Today, we shall dive into the notification service .
+
+Follow for more ✨💻
+
+NextUp ⏭:  create the kubenertes deployment files.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 :  Created the kubenertes deployment files: notification & notification mongo (I've also added it to skaffold for file sync) .
+
+Follow for more ✨💻
+
+NextUp ⏭:  To create account created listener.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 15 🚀 :  Created a tiny message status enum.
+
+Follow for more ✨💻
+
+NextUp ⏭:  Create notification model.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 :  Created notification model successfully.
+
+Follow for more ✨💻
+
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+Day 15 🚀 :  Created account created listener: to send notification when new account is created.
+
+Follow for more ✨💻
+
+NextUp ⏭:  Listen for account blocked.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+Day 15 🚀 :  Listened for account blocked: to create notification when an account is successfully blocked.
+
+Follow for more ✨💻
+
+NextUp ⏭: Listen for account unblocked .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 :  Listend for account unblocked: to send notification when user account is successfully unblocked.
+
+Follow for more ✨💻
+
+NextUp ⏭:  Listen for pinupdated .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 15 🚀 :  Listened for pinupdated: to notify user about essential account settings updated.
+
+Follow for more ✨💻
+
+NextUp ⏭:  Listens for transaction deposit .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+Day 15 🚀 :  Listened for transaction deposit event: to notify user about account's balance update.
+
+Follow for more ✨💻
+
+NextUp ⏭:  listen for transaction withdraw event.   
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 :  Listened for transaction withdraw event: to notify user about account's balance update.
+
+Follow for more ✨💻
+
+NextUp ⏭:  listens for transaction transfer.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 :  Listened for transaction transfer event: to notify user about account's balance update.'
+
+Follow for more ✨💻
+
+NextUp ⏭:  create all necessary handlers.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 15 🚀 : All the neccessary route handlers for notification: Get all, Getone, Delete all and delete one.
+
+Follow for more ✨💻
+
+NextUp ⏭:  That's all for notification service we transition to the most fun service: REPORT service .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 16 🚀 : A quick reminder, forgot to add a route for when a user tried to updates password on whim.
+
+Follow for more ✨💻
+
+NextUp ⏭:  Add logic to save the changes made by the user for analysis (REPORT).  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+Day 16 🚀 : Almost forgot to wire it up to the app. 
+
+Follow for more ✨💻
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 16 🚀 :  Added a logic to save all the changes made by the user: which is an objet w/ old, new, field and time .
+
+Follow for more ✨💻
+
+NextUp ⏭: Add logic for storing password update also.
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+
+Day 16 🚀 : Added logic to store used password for analysis purpose.
+
+Follow for more ✨💻
+
+NextUp ⏭: Add account model to the report srv .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 16 🚀 : Added account srv to the report srv . 
+
+Follow for more ✨💻
+
+NextUp ⏭: Add txn model to the report srv.   
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 16 🚀 : Added txn model to the report srv.
+
+Follow for more ✨💻
+
+NextUp ⏭: To add all listeners.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+///////////////////////
+Day 16 🚀 : Added account created listeners to register newly created accounts for report.
+
+Follow for more ✨💻
+
+NextUp ⏭: Add account blocked listener.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 16 🚀 : Added account blocked listener to update account status.
+
+Follow for more ✨💻
+
+NextUp ⏭: Add account unblocked listener.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 16 🚀 : Added Txn deposit listener to register all deposits transactions made.
+
+Follow for more ✨💻
+
+NextUp ⏭: Add txn withdrawal listener .   
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 16 🚀 : Added txn withdrawal listener to save all withdraw transactions made by the account.
+
+Follow for more ✨💻
+
+NextUp ⏭: Add txn transfer listener .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 16 🚀 : Add txn transfer listener to save all transfer transactions made by the account.
+
+Follow for more ✨💻
+
+NextUp ⏭: Addd account summary route .  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+Day 16 🚀 : Add account summary route w/ mongodb aggregation pipeline (not tested yet) I've been facing issue accesscing services from my pod.
+Please help
+Follow for more ✨💻
+
+NextUp ⏭: Show the error I've been mulling over and over to fix.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+
+
+Day 16 🚀 : people please help me fix this bug, I have no idea why this is happening, I'm unable to connect to no service.
+
+Follow for more ✨💻
+
+NextUp ⏭: I'm already forgetting some parts of frontend so i have to relearn it, to consolidate the frontend look.  
+
+#100DaysOfCode #CodeNewbie #programming #buildinpublic 
+
+

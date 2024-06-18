@@ -1,0 +1,52 @@
+
+
+// Learn about ts list format --shit
+// Add reason to account block event -- done
+// Add users account userId, and amount to txn -- done
+// Add name and type of the account to the user;  --done
+// Add name and to account created listener user field; --done
+// Don't forget to check the account pin shit for txn srv --done
+// Almost everywhere I added 'Customer' should be updated w/  name -- done 
+
+
+
+/////////////////////////
+
+
+ // add year checking to params checker
+
+ // 11 june
+
+Cvv and card no hasing should be done in the model
+
+Update how user send jwt data as session: i.e just the user object only and nothing else
+
+ Add a middlware that runs before all card handlers, in the app ts, that make sure that the account trying to do that is active,
+
+ Add a middleware that also runs after all card handlers, to make sure a card belonging to a user isn't blocked.
+
+Before blocking a card, account pin must me provided.
+
+Add eventing to card srv route handlers
+
+Tranferring naira to dollar account and vise versa.
+
+Deduct from dad's airtime tomorrow.
+
+will change all card forbidden to a middle that automatically does that.
+
+Add The cryto and helper fxns to common.
+
+Add show, getAll and getOne card to card srv.
+
+Adhere to the fat model and thin controller principle - so add the card info hasing to the model. ✅
+
+Before blocking a card, the card it self must have a status of ACTIVE
+
+Apart from assertion with status code, also use data
+
+
+Add test to chek for the new presave hook added in card model
+
+
+ Post on linkindin today, About the project and NEVER MISS A DAY and create a brand new X account, for all coding related stuffs.
