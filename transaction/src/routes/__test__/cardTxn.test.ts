@@ -416,7 +416,7 @@ it('returns a 400 on invalid credentials ', async () => {
     .expect(400);
 });
 
-it('returns a 404  for unmatched beneficiary accounts', async () => {
+it('returns a 404  for unmatched accounts', async () => {
     const unhashedNo = generateCardNumber();
 
     const unhashedcvv =  generateCVV();
@@ -438,9 +438,7 @@ it('returns a 404  for unmatched beneficiary accounts', async () => {
   const card = await cardBuilder(account, cardData);
 
   console.log('from unmatched -------------------------');
-
-
-
+  
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin(account.user.id))
@@ -453,10 +451,11 @@ it('returns a 404  for unmatched beneficiary accounts', async () => {
       billingAddress: card.info.billingAddress,
       amount: 50,
       reason: 'Shit',
-      beneficiary: beneficiaryAccount.id,
-      account: new mongoose.Types.ObjectId().toHexString()
+      beneficiary: new mongoose.Types.ObjectId().toHexString(),
+      account: account.id
     })
     .expect(404);
+
 });
 
 it('returns 400 if beneficiary account is inactive', async () => {
