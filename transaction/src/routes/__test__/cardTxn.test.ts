@@ -15,6 +15,7 @@ import { Account, AccountDoc } from '../../model/account';
 import { Card } from '../../model/card';
 import { dateFxns } from '../../service/helper';
 import { generateTenDigitInt } from '../../../../account/src/services/generateAccountNumber';
+import { generateCardNumber, generateCVV } from '../../service/crypto';
 
 const accountBuilder = async (status?: AccountStatus, balance?: number) => {
   return await Account.buildAccount({
@@ -210,6 +211,9 @@ it('returns a 400 for invalid expiry date format', async () => {
 });
 
 it('returns a 400 for invalid cardName format ', async () => {
+
+
+
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin())
@@ -283,8 +287,8 @@ it('returns a 400 if the provides account are not of valid format ', async () =>
 });
 
 it('returns a 403 if a user tried to transact with another users card', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+  const unhashedNo = generateCardNumber();
+  const unhashedcvv =  generateCVV() ;
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -302,7 +306,6 @@ it('returns a 403 if a user tried to transact with another users card', async ()
 
   const card = await cardBuilder(account, cardData);
 
-  console.log( typeof +unhashedNo, 'from the 403 test' )
 
   await request(app)
     .post('/api/v1/txn/card')

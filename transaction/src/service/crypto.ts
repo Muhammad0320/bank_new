@@ -14,14 +14,14 @@ type CryptoReturnType = {
 };
 
 // Function to generate a 16-digit card number
-function generateCardNumber(): string {
+export function generateCardNumber(): string {
   let cardNumber = randomatic('0', 15); // Generate first 15 digits
   let checksum = luhnChecksum(cardNumber);
   return cardNumber + checksum;
 }
 
 // Function to generate a 3-digit CVV
-function generateCVV(): string {
+export function generateCVV(): string {
   return randomatic('0', 3);
 }
 
