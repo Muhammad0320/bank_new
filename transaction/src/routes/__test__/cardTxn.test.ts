@@ -288,7 +288,7 @@ it('returns a 400 if the provides account are not of valid format ', async () =>
 
 it('returns a 403 if a user tried to transact with another users card', async () => {
   const unhashedNo = generateCardNumber();
-  const unhashedcvv =  generateCVV() ;
+  const unhashedcvv =  generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -328,8 +328,10 @@ it('returns a 403 if a user tried to transact with another users card', async ()
 
 
 it('returns a 400 on invalid credentials ', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -416,8 +418,10 @@ it('returns a 400 on invalid credentials ', async () => {
 });
 
 it('returns a 404  for unmatched accounts', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -470,8 +474,10 @@ it('returns a 404  for unmatched accounts', async () => {
 });
 
 it('returns 400 if beneficiary account is inactive', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -507,8 +513,10 @@ it('returns 400 if beneficiary account is inactive', async () => {
 });
 
 it('returns a 400 for expired or inactive card', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -545,8 +553,10 @@ it('returns a 400 for expired or inactive card', async () => {
 });
 
 it('returns a 400 for insufficient fund', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -582,8 +592,10 @@ it('returns a 400 for insufficient fund', async () => {
 });
 
 it('returns a 200 when everything is valid', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+    const unhashedNo = generateCardNumber();
+
+    const unhashedcvv =  generateCVV();
+
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
