@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 export const cardNumberValidator = () =>
   check('no')
-    .isCreditCard()
+    .isLength({min: 16, max: 16})
     .withMessage('Invalid Credit Card format!');
 
 export const cvvValidator = () =>
