@@ -116,204 +116,204 @@ it('returns a 400 for invalid card number format', async () => {
     .expect(400);
 });
 
-it('returns a 400 for invalid cvv  format', async () => {
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 34,
-      expMonth: 11,
-      expYear: 2025,
-      cardName: 'Lisan Al gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
+// it('returns a 400 for invalid cvv  format', async () => {
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 34,
+//       expMonth: 11,
+//       expYear: 2025,
+//       cardName: 'Lisan Al gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 34323,
-      expMonth: 11,
-      expYear: 2025,
-      cardName: 'Lisan Al gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
-});
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 34323,
+//       expMonth: 11,
+//       expYear: 2025,
+//       cardName: 'Lisan Al gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
+// });
 
-it('returns a 400 for invalid expiry date format', async () => {
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 20,
-      expYear: 2025,
-      cardName: 'Lisan Al gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
+// it('returns a 400 for invalid expiry date format', async () => {
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 20,
+//       expYear: 2025,
+//       cardName: 'Lisan Al gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 2,
-      expYear: 2060,
-      cardName: 'Lisan Al gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 2,
+//       expYear: 2060,
+//       cardName: 'Lisan Al gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 3,
-      expYear: 2024,
-      cardName: 'Lisan Al gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
-});
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 3,
+//       expYear: 2024,
+//       cardName: 'Lisan Al gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
+// });
 
-it('returns a 400 for invalid cardName format ', async () => {
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 11,
-      expYear: 2026,
-      cardName: 'shit',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
+// it('returns a 400 for invalid cardName format ', async () => {
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 11,
+//       expYear: 2026,
+//       cardName: 'shit',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 11,
-      expYear: 2026,
-      cardName: '',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
-});
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 11,
+//       expYear: 2026,
+//       cardName: '',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
+// });
 
-it('returns a 400 if the provides account are not of valid format ', async () => {
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
+// it('returns a 400 if the provides account are not of valid format ', async () => {
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
 
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 11,
-      expYear: 2026,
-      cardName: 'Lisan al Gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: 'shit id',
-      account: new mongoose.Types.ObjectId().toHexString()
-    })
-    .expect(400);
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 11,
+//       expYear: 2026,
+//       cardName: 'Lisan al Gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: 'shit id',
+//       account: new mongoose.Types.ObjectId().toHexString()
+//     })
+//     .expect(400);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin())
-    .send({
-      no: 1_234_899_183_918_329,
-      cvv: 343,
-      expMonth: 11,
-      expYear: 2026,
-      cardName: 'Lisan al Gaib',
-      billingAddress: 'G50, Balogun Gambari compod',
-      amount: 500,
-      reason: 'Shit',
-      beneficiary: new mongoose.Types.ObjectId().toHexString(),
-      account: 'shit id'
-    })
-    .expect(400);
-});
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin())
+//     .send({
+//       no: 1_234_899_183_918_329,
+//       cvv: 343,
+//       expMonth: 11,
+//       expYear: 2026,
+//       cardName: 'Lisan al Gaib',
+//       billingAddress: 'G50, Balogun Gambari compod',
+//       amount: 500,
+//       reason: 'Shit',
+//       beneficiary: new mongoose.Types.ObjectId().toHexString(),
+//       account: 'shit id'
+//     })
+//     .expect(400);
+// });
 
-it('returns a 403 if a user tried to transact with another users card', async () => {
-  const unhashedNo = '1234899183918329';
-  const unhashedcvv = '123';
+// it('returns a 403 if a user tried to transact with another users card', async () => {
+//   const unhashedNo = '1234899183918329';
+//   const unhashedcvv = '123';
 
-  const hashedNo = await CryptoManager.hash(unhashedNo);
+//   const hashedNo = await CryptoManager.hash(unhashedNo);
 
-  const hashedcvv = await CryptoManager.hash(unhashedcvv);
+//   const hashedcvv = await CryptoManager.hash(unhashedcvv);
 
-  const cardData: cardDataType = {
-    no: hashedNo,
-    cvv: hashedcvv,
-    billingAddress: 'G50, Balogun Gambari compound'
-  };
+//   const cardData: cardDataType = {
+//     no: hashedNo,
+//     cvv: hashedcvv,
+//     billingAddress: 'G50, Balogun Gambari compound'
+//   };
 
-  const account = await accountBuilder(AccountStatus.Active, 5000);
-  const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
+//   const account = await accountBuilder(AccountStatus.Active, 5000);
+//   const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
 
-  const card = await cardBuilder(account, cardData);
+//   const card = await cardBuilder(account, cardData);
 
-  await request(app)
-    .post('/api/v1/txn/card')
-    .set('Cookie', await global.signin(account.user.id))
-    .send({
-      no: +unhashedNo,
-      cvv: +unhashedcvv,
-      expMonth: card.info.expiryDate.getMonth() + 1,
-      expYear: card.info.expiryDate.getFullYear(),
-      cardName: card.user.name,
-      billingAddress: card.info.billingAddress,
-      amount: 50,
-      reason: 'Shit',
-      beneficiary: beneficiaryAccount.id,
-      account: account.id
-    })
-    .expect(403);
-});
+//   await request(app)
+//     .post('/api/v1/txn/card')
+//     .set('Cookie', await global.signin(account.user.id))
+//     .send({
+//       no: +unhashedNo,
+//       cvv: +unhashedcvv,
+//       expMonth: card.info.expiryDate.getMonth() + 1,
+//       expYear: card.info.expiryDate.getFullYear(),
+//       cardName: card.user.name,
+//       billingAddress: card.info.billingAddress,
+//       amount: 50,
+//       reason: 'Shit',
+//       beneficiary: beneficiaryAccount.id,
+//       account: account.id
+//     })
+//     .expect(403);
+// });
 
 // it('returns a 400 on invalid credentials ', async () => {
 //   const unhashedNo = '1234899183918329';

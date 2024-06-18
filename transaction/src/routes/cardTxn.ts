@@ -17,7 +17,6 @@ import { Account } from '../model/account';
 import { Card } from '../model/card';
 import { Txn } from '../model/transaction';
 import { natsWrapper } from '../natswrapper';
-import { decrypt } from '../service/crypto';
 import {
   accountValidator,
   billingAddressValidator,
@@ -37,14 +36,14 @@ router.post(
   '/card',
   requireAuth,
   [
-    cardNumberValidator,
-    cvvValidator,
-    expiryMonthValidator,
-    expiryYearValidator,
-    cardNameValidator,
-    billingAddressValidator,
-    txnAmountValidator,
-    txnReasonValidator,
+    cardNumberValidator(),
+    cvvValidator(),
+    expiryMonthValidator(),
+    expiryYearValidator(),
+    cardNameValidator(),
+    billingAddressValidator(),
+    txnAmountValidator(),
+    txnReasonValidator(),
     accountValidator('account'),
     accountValidator('beneficiary')
   ],
@@ -125,6 +124,7 @@ router.post(
       { balance: beneficiaryAcc.balance + +amount },
       { new: true }
     );
+    
 
     const newTransfer = await Txn.buildTxn({
       account: currentCard.account.id,

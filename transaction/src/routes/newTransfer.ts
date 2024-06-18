@@ -57,6 +57,8 @@ router.post(
       { new: true }
     );
 
+    console.log(updatedAccount, 'updatedAccount') 
+
     const updatedBeneficiary = await beneficiary.updateOne(
       { balance: beneficiary.balance + +amount },
       { new: true }
