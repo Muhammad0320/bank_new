@@ -125,18 +125,6 @@ it('returns a 404 on valid but not matched accountId', async () => {
     .expect(404);
 });
 
-it('returns a 400 on valid but not matched accountId', async () => {
-  await request(app)
-    .post('/api/v1/card')
-    .set('Cookie', await global.signin())
-    .send({
-      accountId: new mongoose.Types.ObjectId().toHexString(),
-      billingAddress: 'G50 Balogun gambari compd',
-      networkType: CardNetwork.Visa,
-      type: CardType.Credit
-    })
-    .expect(404);
-});
 
 it('returns a 400, if the provided accountId is blocked', async () => {
   const account = await accountBuilder(
