@@ -47,3 +47,10 @@ export * from "./events/txn/TxnTransferCreatedEvent";
 export * from "./events/user/UserPasswordUpdatedEvent";
 export * from "./events/txn/TxnWithdrawalCreatedEvent";
 export * from "./events/types/AccountCurrencyEnum";
+
+export * from "./events/card/CardBlockedEvent";
+export * from "./events/card/CardCreatedEvent";
+export * from "./events/card/CardUpdatedEvent";
+export * from "./events/card/CardActivatedEvent";
+
+
