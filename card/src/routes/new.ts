@@ -47,7 +47,7 @@ router.post(
 
     const existingCard = await Card.findOne({ account: account.id });
 
-    if (existingCard?.info.status !== CardStatus.Expired)
+    if (!!existingCard && existingCard.info.status !== CardStatus.Expired)
       throw new BadRequest('You already own an unexpired card');
 
     const newCard = await Card.buildCard({

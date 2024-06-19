@@ -142,17 +142,11 @@ it('returns a 403, if an user tried to create card for another user', async () =
 });
 
 it('returns a 400, if the provided accountId is blocked', async () => {
-  console.log(
-    'From the 400 blocked accountID --------------------------------'
-  );
-
   const account = await accountBuilder(
     undefined,
     undefined,
     AccountStatus.Blocked
   );
-
-  console.log(account, 'from the 400 blocked accountID -------- ');
 
   await request(app)
     .post('/api/v1/card')
@@ -223,6 +217,8 @@ it('returns a 201, when the existing card has expired', async () => {
     })
     .expect(201);
 
+    console.log(data, 'The date from the last one ----------------');
+
   // Assert the changes
 
   const updatedCard = await Card.findByIdAndUpdate(
@@ -244,3 +240,4 @@ it('returns a 201, when the existing card has expired', async () => {
     })
     .expect(201);
 });
+
