@@ -80,7 +80,7 @@ const cardSchema = new mongoose.Schema({
       enum: Object.values(CardNetwork)
     },
 
-    type: {
+    cardType: {
       type: String,
       enum: Object.values(CardType)
     },
@@ -117,7 +117,7 @@ cardSchema.set('versionKey', 'version');
 cardSchema.plugin(updateIfCurrentPlugin);
 
 cardSchema.pre('save', async function(next) {
-  if (this.isModified() && this.info?.type === CardType.Debit) {
+  if (this.isModified() && this.info?.cardType === CardType.Debit) {
     // @ts-ignore
     this.info.maxCredit = undefined;
   }
