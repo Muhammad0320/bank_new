@@ -113,10 +113,6 @@ it('returns a 400, for invalid card type ', async () => {
 });
 
 it('returns a 404 on valid but not matched accountId', async () => {
-
-  console.log('From the 404 --------------------------------');
-  
-
   await request(app)
     .post('/api/v1/card')
     .set('Cookie', await global.signin())
@@ -130,15 +126,22 @@ it('returns a 404 on valid but not matched accountId', async () => {
 });
 
 it('returns a 400, if the provided accountId is blocked', async () => {
+
+  console.log(
+    'From the 400 blocked accountID --------------------------------'
+  );
+
   const account = await accountBuilder(
     undefined,
     undefined,
     AccountStatus.Blocked
   );
 
+
+
   await request(app)
     .post('/api/v1/card')
-    .set('Cookie', await global.signin())
+    .set('Cookie', await global.signin(account.user.id))
     .send({
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
