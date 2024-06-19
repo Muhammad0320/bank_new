@@ -20,13 +20,19 @@ router.patch(
     if (!card) throw new NotFound('Card not found');
 
     const activatedCard = await card.updateOne(
-      { info: { status: CardStatus.Active } },
+      {
+        info: {
+          status: CardStatus.Active
+        }
+      },
       { new: true }
     );
 
-    if (!activatedCard) throw new BadRequest('Something bad happened');
-
-    res.status(200).json({ status: 'sucess', data: card });
+    res.status(200).json({
+      status: 'sucess',
+      data: activatedCard
+    });
+  
   }
 );
 

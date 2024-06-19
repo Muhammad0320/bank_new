@@ -34,11 +34,11 @@ type CardAttrs = {
 
 type CardDoc = mongoose.Document &
   CardAttrs & {
+    settings: Settings;
     version: number;
     account: AccountDoc;
     user: User;
     info: Info;
-    settings: Settings;
   };
 
 type CardModel = mongoose.Model<CardDoc> & {
