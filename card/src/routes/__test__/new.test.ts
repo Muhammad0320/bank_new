@@ -217,17 +217,21 @@ it('returns a 201, when the existing card has expired', async () => {
     })
     .expect(201);
 
-    console.log(data, 'The date from the last one ----------------');
-
   // Assert the changes
 
   const updatedCard = await Card.findByIdAndUpdate(
     data.id,
-    { info: { status: CardStatus.Expired } },
-    { new: true }
+    {
+      info: {
+        status: CardStatus.Expired
+      }
+    },
+    {
+      new: true
+    }
   );
 
-  console.log(updatedCard, 'From the 201 last one');
+  expect(updatedCard?.info.status).toBe(CardStatus.Expired);
 
   await request(app)
     .post('/api/v1/card')
