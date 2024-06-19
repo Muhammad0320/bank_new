@@ -1,4 +1,6 @@
 import {
+  AccountStatus,
+  BadRequest,
   Forbidden,
   NotFound,
   requestValidator,
@@ -33,6 +35,9 @@ router.post(
     const account = await Account.findById(accountId).populate('user');
 
     if (!!!account) throw new NotFound('Account not found');
+
+    if (account.status === AccountStatus.Blocked)
+      throw new BadRequest('Cannot create Card with a blocked account');
 
     if (req.currentUser.id !== account.user.id)
       throw new Forbidden(
