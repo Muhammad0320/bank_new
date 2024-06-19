@@ -1,15 +1,27 @@
 import crypto from 'crypto';
 import randomatic from 'randomatic';
 
+type CryptoReturnType = {
+  card: {
+    hashed: string;
+    unhashed: string;
+  };
+
+  cvv: {
+    hashed: string;
+    unhashed: string;
+  };
+};
+
 // Function to generate a 16-digit card number
-function generateCardNumber(): string {
+export function generateCardNumber(): string {
   let cardNumber = randomatic('0', 15); // Generate first 15 digits
   let checksum = luhnChecksum(cardNumber);
   return cardNumber + checksum;
 }
 
 // Function to generate a 3-digit CVV
-function generateCVV(): string {
+export function generateCVV(): string {
   return randomatic('0', 3);
 }
 
@@ -27,6 +39,8 @@ function luhnChecksum(number: string): string {
   return ((10 - (sum % 10)) % 10) + '';
 }
 
+
+
 // Function to hash data with a salt
 function hashData(data: string): { hash: string; salt: string } {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -40,20 +54,24 @@ function hashData(data: string): { hash: string; salt: string } {
 // Function to encrypt data
 function encryptData(
   data: string,
-  key: Buffer
+  key: string
 ): { iv: string; encryptedData: string } {
+  const bufferedKey = Buffer.from(key);
+
   const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+  const cipher = crypto.createCipheriv('aes-256-cbc', bufferedKey, iv);
   let encrypted = cipher.update(data, 'utf8', 'hex');
   encrypted += cipher.final('hex');
   return { iv: iv.toString('hex'), encryptedData: encrypted };
 }
 
 // Function to decrypt data
-function decryptData(encryptedData: string, key: Buffer, iv: string): string {
+function decryptData(encryptedData: string, key: string, iv: string): string {
+  const bufferedKey = Buffer.from(key);
+
   const decipher = crypto.createDecipheriv(
     'aes-256-cbc',
-    key,
+    bufferedKey,
     Buffer.from(iv, 'hex')
   );
   let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
@@ -63,22 +81,11 @@ function decryptData(encryptedData: string, key: Buffer, iv: string): string {
 
 // Example usage
 
-type CryptoReturnType = {
-  card: {
-    hashed: string;
-    unhashed: string;
-  };
-
-  cvv: {
-    hashed: string;
-    unhashed: string;
-  };
-};
-
 export const hashingWork = (): CryptoReturnType => {
   const cardNumber = generateCardNumber();
   const cvv = generateCVV();
-  const encryptionKey = crypto.randomBytes(32); // Key should be securely stored
+
+  const encryptionKey = crypto.randomBytes(32).toString('hex'); // Key should be securely stored
 
   const encryptedCard = encryptData(cardNumber, encryptionKey);
   const encryptedCVV = encryptData(cvv, encryptionKey);
@@ -90,12 +97,12 @@ export const hashingWork = (): CryptoReturnType => {
 
   return {
     card: {
-      hashed: encryptedCard.encryptedData,
+      hashed: `${encryptedCard.encryptedData}.${encryptionKey}.${encryptedCard.iv}`,
       unhashed: cardNumber
     },
 
     cvv: {
-      hashed: encryptedCVV.encryptedData,
+      hashed: `${encryptedCVV.encryptedData}.${encryptionKey}.${encryptedCVV.iv}`,
       unhashed: cvv
     }
   };
@@ -103,11 +110,12 @@ export const hashingWork = (): CryptoReturnType => {
 
 // To decrypt
 
-/*
-const decryptedCard = decryptData(encryptedCard.encryptedData, encryptionKey, encryptedCard.iv);
-const decryptedCVV = decryptData(encryptedCVV.encryptedData, encryptionKey, encryptedCVV.iv);
+export const decrypt = (encryptedData: string): string => {
+  const [encrypted, key, iv] = encryptedData.split('.');
 
-console.log('Decrypted Card:', decryptedCard);
-console.log('Decrypted CVV:', decryptedCVV);
+  const decryptedCard = decryptData(encrypted, key, iv);
 
-*/
+  console.log('Decrypted Card:', decryptedCard);
+
+  return decryptedCard;
+};
