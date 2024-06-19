@@ -9,9 +9,9 @@ import {
 } from '@m0banking/common';
 import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
+import { DateFxns } from '../services/helper';
 import { generateCardNumber } from '../services/crypto';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { DateFxns } from '../services/helper';
 
 type CardTxnAttrs = {
   no: string;
@@ -23,23 +23,23 @@ type CardTxnAttrs = {
   billingAddress: string;
 };
 
-
-
 type CardAttrs = {
-
   account: AccountDoc;
   user: User;
 
   billingAddress: string;
   networkType: CardNetwork;
   type: CardType;
-
 };
 
-type CardDoc = mongoose.Document & CardAttrs & { version: number;   account: AccountDoc;
-  user: User;
+type CardDoc = mongoose.Document &
+  CardAttrs & {
+    version: number;
+    account: AccountDoc;
+    user: User;
 
-info: Info };
+    info: Info;
+  };
 
 type CardModel = mongoose.Model<CardDoc> & {
   findByLastVersionAndId(id: string, version: number): Promise<CardDoc | null>;
@@ -139,12 +139,9 @@ cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
     const { mm, yy } = DateFxns();
 
-    const cardNumber = generateCardNumber();
-    const cvv = generateCardNumber();
-
     this.info!.expiryDate = new Date(yy, mm);
-    this.info!.no = (await CryptoManager.hash(cardNumber)) as string;
-    this.info!.cvv = (await CryptoManager.hash(cvv)) as string;
+    this.info!.no = (await CryptoManager.hash(this.info!.no)) as string;
+    this.info!.cvv = (await CryptoManager.hash(this.info!.cvv)) as string;
   }
 
   if (this.isNew) {
@@ -159,13 +156,18 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
 };
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
+  const cardNumber = generateCardNumber();
+  const cvv = generateCardNumber();
+
   const cardObject = {
     account: attrs.account,
     user: attrs.user,
     info: {
       billingAddress: attrs.billingAddress,
       networkType: attrs.networkType,
-      cardType: attrs.type
+      cardType: attrs.type,
+      no: cardNumber,
+      cvv: cvv
     }
   };
 
@@ -173,7 +175,6 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
 
   return card;
 };
-
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,
@@ -187,4 +188,5 @@ cardSchema.statics.findByLastVersionAndId = async function(
 const Card = mongoose.model<CardDoc, CardModel>('Card', cardSchema);
 
 export { Card };
+
 
