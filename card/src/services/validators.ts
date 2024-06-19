@@ -66,8 +66,8 @@ export const monthlyLimitsValidator = () =>
            .withMessage('please provide a valid number')
            .custom(
              (input: number, { req }) =>
-               input > req.body.daily && input > req.body.monthly
+               input > req.body.daily && input > req.body.weekly
            )
            .withMessage(
-             'Monthly Limit must be greater than daily and monthly limit'
+             'Monthly Limit must be greater than daily and weekly limit'
            );
