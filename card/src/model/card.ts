@@ -23,16 +23,23 @@ type CardTxnAttrs = {
   billingAddress: string;
 };
 
+
+
 type CardAttrs = {
+
   account: AccountDoc;
   user: User;
 
   billingAddress: string;
   networkType: CardNetwork;
   type: CardType;
+
 };
 
-type CardDoc = mongoose.Document & CardAttrs & { version: number };
+type CardDoc = mongoose.Document & CardAttrs & { version: number;   account: AccountDoc;
+  user: User;
+
+info: Info };
 
 type CardModel = mongoose.Model<CardDoc> & {
   findByLastVersionAndId(id: string, version: number): Promise<CardDoc | null>;
