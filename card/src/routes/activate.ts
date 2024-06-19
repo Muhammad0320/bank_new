@@ -10,11 +10,7 @@ router.patch(
   requireAuth,
   paramsChecker('id'),
   async (req: Request, res: Response) => {
-    const card = await Card.findByIdAndUpdate(
-      req.params.id,
-      { info: { status: CardStatus.Active } },
-      { new: true }
-    );
+    const card = await Card.findById(req.params.id);
 
     if (!card) throw new NotFound('Card not found');
 
