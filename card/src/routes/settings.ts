@@ -18,7 +18,7 @@ router.patch(
   '/:id/settings',
   requireAuth,
   paramsChecker('id'),
-  [dailyLimitsValidator, weeklyLimitsValidator, monthlyLimitsValidator],
+  [dailyLimitsValidator(), weeklyLimitsValidator(), monthlyLimitsValidator()],
   requestValidator,
   async (req: Request, res: Response) => {
     const { weekly, monthly, daily } = req.body;
