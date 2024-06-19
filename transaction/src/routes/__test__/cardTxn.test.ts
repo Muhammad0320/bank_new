@@ -572,7 +572,7 @@ it('returns a 400 for insufficient fund', async () => {
     .expect(400);
 });
 
-it('returns a 200 when everything is valid', async () => {
+it('returns a 201 when everything is valid', async () => {
     const unhashedNo = generateCardNumber();
 
     const unhashedcvv =  generateCVV();
@@ -608,5 +608,5 @@ it('returns a 200 when everything is valid', async () => {
       beneficiary: beneficiaryAccount.id,
       account: account.id
     })
-    .expect(200);
+    .expect(201);
 });
