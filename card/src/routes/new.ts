@@ -21,10 +21,10 @@ router.post(
   '/',
   requireAuth,
   [
-    accountValidator,
-    billingAddressValidator,
-    netwokTypeValidator,
-    typeValidator
+    accountValidator(),
+    billingAddressValidator(),
+    netwokTypeValidator(),
+    typeValidator()
   ],
   requestValidator,
   async (req: Request, res: Response) => {
