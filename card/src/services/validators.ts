@@ -19,13 +19,13 @@ export const billingAddressValidator = () =>
     .withMessage('Address must be at leat 10 and and at most 200 chars');
 
 export const netwokTypeValidator = () =>
-  body('netwokType')
-    .trim()
-    .notEmpty()
-    .custom((input: string) =>
-      Object.values(CardNetwork).includes(input as CardNetwork)
-    )
-    .withMessage('please provide a valid network type');
+         body('networkType')
+           .trim()
+           .notEmpty()
+           .custom((input: string) =>
+             Object.values(CardNetwork).includes(input as CardNetwork)
+           )
+           .withMessage('please provide a valid network type');
 
 export const typeValidator = () =>
   body('type')
