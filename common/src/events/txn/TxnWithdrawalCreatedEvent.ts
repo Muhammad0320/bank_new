@@ -1,15 +1,15 @@
-import { Subjects } from "./Subjects";
+import { Subjects } from "../Subjects";
 
-export interface TxnDepositCreatedEvent {
-  subject: Subjects.TxnDepositCreated;
+export interface TxnWithdrawalCreatedEvent {
+  subject: Subjects.TxnWithdrawalCreated;
 
   data: {
     id: string;
     version: number;
     amount: number;
     account: {
-      userId: string;
       id: string;
+      userId: string;
       version: number;
       balance: number;
     };
