@@ -36,13 +36,9 @@ type CardModel = mongoose.Model<CardDoc> & {
   buildCard(attrs: CardAttrs): Promise<CardDoc>;
 };
 
-const cardSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true
-  },
 
+
+const cardSchema = new mongoose.Schema({
   account: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Account'
@@ -125,6 +121,13 @@ cardSchema.pre('save', async function(next) {
   next();
 });
 
+cardSchema.pre('save', function(next) {
+  if (this.isModified()) {
+  }
+
+  next();
+});
+
 cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
   // const {card: decryptedCard, cvv: decryptedCvv} = decrypt(no, cvv)
 };
@@ -134,7 +137,6 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
 
   return card;
 };
-
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,
