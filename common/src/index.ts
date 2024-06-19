@@ -31,6 +31,8 @@ export * from "./enums/AccountTypeEnum";
 export * from "./types/CardFieldTypes";
 
 export * from "./service/Crypto";
+export * from "./service/helper";
+export * from "./service/CardCrypto";
 
 export * from "./events/Listener";
 export * from "./events/Subjects";
@@ -52,5 +54,3 @@ export * from "./events/card/CardBlockedEvent";
 export * from "./events/card/CardCreatedEvent";
 export * from "./events/card/CardUpdatedEvent";
 export * from "./events/card/CardActivatedEvent";
-
-
