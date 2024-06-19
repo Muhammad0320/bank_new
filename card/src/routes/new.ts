@@ -30,7 +30,7 @@ router.post(
   async (req: Request, res: Response) => {
     const { accountId, billingAddress, networkType, type } = req.body;
 
-    const account = await Account.findById(accountId);
+    const account = await Account.findById(accountId).populate('user');
 
     if (!!!account) throw new NotFound('Account not found');
 
@@ -43,10 +43,14 @@ router.post(
       );
 
     const newCard = await Card.buildCard({
-      accountId,
+      account: accountId,
       billingAddress,
       networkType,
-      type
+      type,
+      user: {
+        id: account.user.id,
+        name: account.user.name
+      }
     });
 
     res.status(201).json({
