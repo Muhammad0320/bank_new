@@ -1,8 +1,17 @@
-import { Subjects } from "./Subjects";
-import { UserUpdatesObj } from "./UserUpdatedEvent";
+import { Subjects } from "../Subjects";
+
+export type UserUpdatesObj = {
+  timeStamp: Date;
+
+  old: string;
+
+  new: string;
+
+  updatedField: string;
+};
 
 // evemt
-export interface PasswordUpdatedEvent {
+export interface UserUpdatedEvent {
   subject: Subjects.UserUpdated;
 
   data: {
