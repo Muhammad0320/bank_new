@@ -14,4 +14,10 @@ export enum Subjects {
   TxnTransferCreated = "txnTransfer:created",
 
   //
+
+  CardCreated = "card:created",
+  CardBlocked = "card:blocked",
+  CardActivated = "card:activated",
+  CardUpdated = "card:updated",
 }
+
