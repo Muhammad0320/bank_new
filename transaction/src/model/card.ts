@@ -101,8 +101,7 @@ const cardSchema = new mongoose.Schema({
     },
 
     maxCredit: {
-      type: Number,
-      default: 50
+      type: Number
     },
 
     status: {
@@ -118,8 +117,15 @@ cardSchema.plugin(updateIfCurrentPlugin);
 
 cardSchema.pre('save', async function(next) {
   if (this.isModified() && this.info?.cardType === CardType.Debit) {
-    // @ts-ignore
-    this.info.maxCredit = undefined;
+
+    this.info!.maxCredit = undefined;
+
+  } else {
+
+    this.info!.maxCredit = 50;
+
+
+
   }
 
   next();
