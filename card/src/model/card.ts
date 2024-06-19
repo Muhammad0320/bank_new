@@ -46,81 +46,91 @@ type CardModel = mongoose.Model<CardDoc> & {
   buildCard(attrs: CardAttrs): Promise<CardDoc>;
 };
 
-const cardSchema = new mongoose.Schema({
-  account: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Account'
-  },
-
-  user: {
-    id: String,
-    name: String
-  },
-
-  settings: {
-    dailyLimit: {
-      type: Number,
-      default: 500
+const cardSchema = new mongoose.Schema(
+  {
+    account: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Account'
     },
-    weeklyLimit: {
-      type: Number,
-      default: 500
+
+    user: {
+      id: String,
+      name: String
     },
-    monthlyLimit: {
-      type: Number,
-      default: 5000
+
+    settings: {
+      dailyLimit: {
+        type: Number,
+        default: 500
+      },
+      weeklyLimit: {
+        type: Number,
+        default: 500
+      },
+      monthlyLimit: {
+        type: Number,
+        default: 5000
+      }
+    },
+
+    info: {
+      no: {
+        type: String,
+        required: true,
+        unique: true
+      },
+
+      network: {
+        type: String,
+        enum: Object.values(CardNetwork),
+        default: CardNetwork.Visa
+      },
+
+      cardType: {
+        type: String,
+        enum: Object.values(CardType),
+        default: CardType.Debit
+      },
+
+      cvv: {
+        type: String,
+        required: true,
+        unique: true
+      },
+      expiryDate: {
+        type: Date
+      },
+      issueDate: {
+        type: Date,
+        default: new Date()
+      },
+      billingAddress: {
+        type: String,
+        required: true,
+        maxlength: 200,
+        minlength: 20
+      },
+
+      maxCredit: {
+        type: Number
+      },
+
+      status: {
+        type: String,
+        enum: Object.values(CardStatus),
+        default: CardStatus.Inactive
+      }
     }
   },
-
-  info: {
-    no: {
-      type: String,
-      required: true,
-      unique: true
-    },
-
-    network: {
-      type: String,
-      enum: Object.values(CardNetwork),
-      default: CardNetwork.Visa
-    },
-
-    cardType: {
-      type: String,
-      enum: Object.values(CardType),
-      default: CardType.Debit
-    },
-
-    cvv: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    expiryDate: {
-      type: Date
-    },
-    issueDate: {
-      type: Date,
-      default: new Date()
-    },
-    billingAddress: {
-      type: String,
-      required: true,
-      maxlength: 200,
-      minlength: 20
-    },
-
-    maxCredit: {
-      type: Number
-    },
-
-    status: {
-      type: String,
-      enum: Object.values(CardStatus),
-      default: CardStatus.Inactive
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      }
     }
   }
-});
+);
 
 cardSchema.set('versionKey', 'version');
 cardSchema.plugin(updateIfCurrentPlugin);
