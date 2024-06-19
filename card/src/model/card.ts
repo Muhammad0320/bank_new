@@ -37,8 +37,8 @@ type CardDoc = mongoose.Document &
     version: number;
     account: AccountDoc;
     user: User;
-
     info: Info;
+    settings: Settings;
   };
 
 type CardModel = mongoose.Model<CardDoc> & {

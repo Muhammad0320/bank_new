@@ -21,31 +21,38 @@ it('returns a 400 for invalid card ', async () => {
 });
 
 it('returns a 400 on invalid dailyLimit', async () => {
-  const id = new mongoose.Types.ObjectId().toHexString();
+                                                        const id = new mongoose.Types.ObjectId().toHexString();
 
+                                                        await request(app)
+                                                          .patch(
+                                                            `/api/v1/card/${id}/settings`
+                                                          )
+                                                          .set(
+                                                            'Cookie',
+                                                            await global.signin()
+                                                          )
+                                                          .send({
+                                                            daily: 500,
+                                                            weekly: 50,
+                                                            monthly: 5000
+                                                          })
+                                                          .expect(400);
 
-  console.log('For the failing daily ----------------------');
-
-  await request(app)
-    .patch(`/api/v1/card/${id}/settings`)
-    .set('Cookie', await global.signin())
-    .send({
-      daily: 500,
-      weekly: 50,
-      monthly: 5000
-    })
-    .expect(400);
-
-  await request(app)
-    .patch(`/api/v1/card/${id}/settings`)
-    .set('Cookie', await global.signin())
-    .send({
-      daily: 0,
-      weekly: 500,
-      monthly: 5000
-    })
-    .expect(400);
-});
+                                                        await request(app)
+                                                          .patch(
+                                                            `/api/v1/card/${id}/settings`
+                                                          )
+                                                          .set(
+                                                            'Cookie',
+                                                            await global.signin()
+                                                          )
+                                                          .send({
+                                                            daily: 0,
+                                                            weekly: 500,
+                                                            monthly: 5000
+                                                          })
+                                                          .expect(400);
+                                                      });
 
 it('returns a 400 on invalid weeklyLimit', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -125,13 +132,20 @@ it('returns 200, when everything is working', async () => {
     })
     .expect(201);
 
-  await request(app)
+  const {
+    body: { data: updatedCard }
+  } = await request(app)
     .patch(`/api/v1/card/${data.id}/settings`)
     .set('Cookie', await global.signin())
     .send({
-      daily: 50,
-      weekly: 500,
-      monthly: 5000
+      daily: 500,
+      weekly: 5000,
+      monthly: 50000
     })
     .expect(200);
+
+    console.log(updatedCard, 'From the shit last one -----------------------');
+
+    
+ 
 });

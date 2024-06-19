@@ -27,8 +27,16 @@ router.patch(
 
     if (!card) throw new NotFound('Card not found error');
 
+
+
     const updatedCard = await card.updateOne(
-      { settings: { weekly, monthly, daily } },
+      {
+        settings: {
+          dailyLimit: +daily,
+          weeklyLimit: weekly,
+          monthlyLimit: +monthly
+        }
+      },
       { new: true }
     );
 
@@ -40,3 +48,5 @@ router.patch(
 );
 
 export { router as cardUpdateRouter };
+
+
