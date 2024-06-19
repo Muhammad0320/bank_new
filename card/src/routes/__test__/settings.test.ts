@@ -123,7 +123,7 @@ it('returns 200, when everything is working', async () => {
     .expect(201);
 
   await request(app)
-    .patch(`/${data.id}/settings`)
+    .patch(`/api/v1/card/${data.id}/settings`)
     .set('Cookie', await global.signin())
     .send({
       daily: 50,
