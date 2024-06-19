@@ -125,31 +125,6 @@ it('returns a 404 on valid but not matched accountId', async () => {
     .expect(404);
 });
 
-it('returns a 400, if the provided accountId is blocked', async () => {
-
-  console.log(
-    'From the 400 blocked accountID --------------------------------'
-  );
-
-  const account = await accountBuilder(
-    undefined,
-    undefined,
-    AccountStatus.Blocked
-  );
-
-
-
-  await request(app)
-    .post('/api/v1/card')
-    .set('Cookie', await global.signin(account.user.id))
-    .send({
-      accountId: account.id,
-      billingAddress: 'G50 Balogun gambari compd',
-      networkType: CardNetwork.Visa,
-      type: CardType.Credit
-    })
-    .expect(400);
-});
 
 it('returns a 403, if an user tried to create card for another user', async () => {
   const account = await accountBuilder();
@@ -165,6 +140,33 @@ it('returns a 403, if an user tried to create card for another user', async () =
     })
     .expect(403);
 });
+
+it('returns a 400, if the provided accountId is blocked', async () => {
+  console.log(
+    'From the 400 blocked accountID --------------------------------'
+  );
+
+  const account = await accountBuilder(
+    undefined,
+    undefined,
+    AccountStatus.Blocked
+  );
+
+  console.log(account, 'from the 400 blocked accountID -------- ');
+
+  await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin())
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(400);
+});
+
+
 
 it(' returns a 201 when there is no issue ', async () => {
   const account = await accountBuilder();
