@@ -9,7 +9,7 @@ import { CardStatus } from '../../enums/CardStatus';
 
 it('it returns a 401 for unautheticated user', async () => {
   await request(app)
-    .patch('/shit_id/block')
+    .patch('/api/v1/card/shit_id/block')
     .send()
     .expect(401);
 });
@@ -18,7 +18,7 @@ it('returns a 404 if the provided id is not matched w/ any card ', async () => {
   const cardId = new mongoose.Types.ObjectId().toHexString();
 
   await request(app)
-    .patch(`/${cardId}/block`)
+    .patch(`/api/v1/card/${cardId}/block`)
     .set('Cookie', await global.signin())
     .send()
     .expect(404);
@@ -49,7 +49,7 @@ it('returns a 400 if the card is alredy blocked ', async () => {
   );
 
   await request(app)
-    .patch(`/${data.id}/block`)
+    .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
     .send()
     .expect(400);
@@ -72,7 +72,7 @@ it('returns a 200, when everything is valid', async () => {
     .expect(201);
 
   await request(app)
-    .patch(`/${data.id}/block`)
+    .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
     .send()
     .expect(200);
