@@ -34,10 +34,7 @@ router.post(
 
     if (!!!account) throw new NotFound('Account not found');
 
-    if (
-      req.currentUser.role === UserRole.User &&
-      req.currentUser.id !== account.user.id
-    )
+    if (req.currentUser.id !== account.user.id)
       throw new Forbidden(
         'You are not allowed to create card for another user'
       );
