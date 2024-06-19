@@ -156,7 +156,7 @@ it('returns a 400, if the provided accountId is blocked', async () => {
 
   await request(app)
     .post('/api/v1/card')
-    .set('Cookie', await global.signin())
+    .set('Cookie', await global.signin(account.user.id))
     .send({
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
@@ -165,8 +165,6 @@ it('returns a 400, if the provided accountId is blocked', async () => {
     })
     .expect(400);
 });
-
-
 
 it(' returns a 201 when there is no issue ', async () => {
   const account = await accountBuilder();
@@ -232,6 +230,8 @@ it('returns a 201, when the existing card has expired', async () => {
     { info: { status: CardStatus.Expired } },
     { new: true }
   );
+
+  console.log(updatedCard, 'From the 201 last one');
 
   await request(app)
     .post('/api/v1/card')
