@@ -2,6 +2,7 @@ import {
   CardNetwork,
   CardStatus,
   CardType,
+  CryptoManager,
   Info,
   Settings,
   User
@@ -35,8 +36,6 @@ type CardModel = mongoose.Model<CardDoc> & {
   findByLastVersionAndId(id: string, version: number): Promise<CardDoc | null>;
   buildCard(attrs: CardAttrs): Promise<CardDoc>;
 };
-
-
 
 const cardSchema = new mongoose.Schema({
   account: {
@@ -76,12 +75,16 @@ const cardSchema = new mongoose.Schema({
       enum: Object.values(CardNetwork)
     },
 
-    type: {
+    cardType: {
       type: String,
       enum: Object.values(CardType)
     },
 
-    cvv: String,
+    cvv: {
+      type: String,
+      required: true,
+      unique: true
+    },
     expiryDate: {
       type: Date
     },
@@ -113,7 +116,7 @@ cardSchema.set('versionKey', 'version');
 cardSchema.plugin(updateIfCurrentPlugin);
 
 cardSchema.pre('save', async function(next) {
-  if (this.isModified() && this.info?.type === CardType.Debit) {
+  if (this.isModified() && this.info?.cardType === CardType.Debit) {
     // @ts-ignore
     this.info.maxCredit = undefined;
   }
@@ -121,8 +124,14 @@ cardSchema.pre('save', async function(next) {
   next();
 });
 
-cardSchema.pre('save', function(next) {
+cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
+    this.info!.no = (await CryptoManager.hash(this.info!.no)) as string;
+    this.info!.cvv = (await CryptoManager.hash(this.info!.cvv)) as string;
+  }
+
+  if (this.isNew) {
+    console.log('This is a new copy of card document');
   }
 
   next();
