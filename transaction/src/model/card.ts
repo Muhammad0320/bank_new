@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 import { AccountDoc } from './account';
 
 type CardTxnAttrs = {
+  id: string;
   no: string;
   cvv: string;
   expYear: number;
@@ -35,6 +36,12 @@ type CardModel = mongoose.Model<CardDoc> & {
 };
 
 const cardSchema = new mongoose.Schema<CardDoc, CardModel>({
+  id: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
   account: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Account'

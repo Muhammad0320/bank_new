@@ -21,6 +21,9 @@ Cvv and card no hasing should be done in the model
 
 Fix the current user is the common module 
 
+
+Add card publisher ans listeners to common module
+
 Update how user send jwt data as session: i.e just the user object only and nothing else
 
  Add a middlware that runs before all card handlers, in the app ts, that make sure that the account trying to do that is active,
