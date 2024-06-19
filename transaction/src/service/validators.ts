@@ -19,14 +19,15 @@ export const expiryMonthValidator = () =>
 
 export const expiryYearValidator = () => {
   const  date = new Date();
-
+   
   return check('expYear')
     .isInt({ min: date.getFullYear(), max: date.getFullYear() + 6 })
     .withMessage(' Invalid expiry year ')
     .custom((input: number, { req }) => {
-
-
-      return  !(input === date.getFullYear() && +req.body.expMonth - 1 >= date.getMonth() )
+      return !(
+        input === date.getFullYear() &&
+        +req.body.expMonth - 1 >= date.getMonth()
+      );
     })
     .withMessage('Expired card!');
 };

@@ -35,6 +35,7 @@ app.use(rootUrl, cardCreatedRouter);
 app.use(rootUrl, cardBlockedRouter);
 app.use(rootUrl, cardActivatedRouter);
 
+
 app.all('*', () => {
   throw new NotFound('Route not found');
 });
