@@ -8,14 +8,15 @@ import {
 } from '@m0banking/common';
 import mongoose from 'mongoose';
 import { AccountDoc } from './account';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 type CardTxnAttrs = {
-  id: string;
   no: string;
   cvv: string;
   expYear: number;
   cardName: string;
   expMonth: number;
+
   billingAddress: string;
 };
 
@@ -35,7 +36,7 @@ type CardModel = mongoose.Model<CardDoc> & {
   buildCard(attrs: CardAttrs): Promise<CardDoc>;
 };
 
-const cardSchema = new mongoose.Schema<CardDoc, CardModel>({
+const cardSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
@@ -112,8 +113,12 @@ const cardSchema = new mongoose.Schema<CardDoc, CardModel>({
   }
 });
 
+cardSchema.set('versionKey', 'version');
+cardSchema.plugin(updateIfCurrentPlugin);
+
 cardSchema.pre('save', async function(next) {
-  if (this.isModified() && this.info.type === CardType.Debit) {
+  if (this.isModified() && this.info?.type === CardType.Debit) {
+    // @ts-ignore
     this.info.maxCredit = undefined;
   }
 
@@ -129,6 +134,8 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
 
   return card;
 };
+
+
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,
