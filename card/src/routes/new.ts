@@ -1,6 +1,7 @@
 import {
   AccountStatus,
   BadRequest,
+  CardStatus,
   Forbidden,
   NotFound,
   requestValidator,
@@ -43,6 +44,11 @@ router.post(
       throw new Forbidden(
         'You are not allowed to create card for another user'
       );
+
+    const existingCard = await Card.findOne({ account: account.id });
+
+    if (existingCard?.info.status !== CardStatus.Expired)
+      throw new BadRequest('You already own an unexpired card');
 
     const newCard = await Card.buildCard({
       account: accountId,
