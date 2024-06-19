@@ -23,7 +23,7 @@ it('retuns a 400, for invalid accountId ', async () => {
       accountId: 'shit id',
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 
@@ -34,7 +34,7 @@ it('retuns a 400, for invalid accountId ', async () => {
       accountId: '',
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 });
@@ -47,7 +47,7 @@ it('returns a 400, for invalid billingAddress', async () => {
       accountId: new mongoose.Types.ObjectId().toHexString(),
       billingAddress: 'G50',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 
@@ -58,7 +58,7 @@ it('returns a 400, for invalid billingAddress', async () => {
       accountId: new mongoose.Types.ObjectId().toHexString(),
       billingAddress: '',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 });
@@ -71,7 +71,7 @@ it('returns a 400, for invalid network type', async () => {
       accountId: new mongoose.Types.ObjectId().toHexString(),
       billingAddress: 'G50 Balogun gambari compd',
       networkType: 'viso',
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 
@@ -82,7 +82,7 @@ it('returns a 400, for invalid network type', async () => {
       accountId: new mongoose.Types.ObjectId().toHexString(),
       billingAddress: 'G50 Balogun gambari compd',
       networkType: '',
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 });
@@ -96,7 +96,7 @@ it('returns a 400, for invalid card type ', async () => {
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
 
-      type: 'credo'
+      netwokType: 'credo'
     })
     .expect(400);
 
@@ -113,6 +113,8 @@ it('returns a 400, for invalid card type ', async () => {
 });
 
 it('returns a 404 on valid but not matched accountId', async () => {
+  console.log('From the 404 --------------------------------');
+
   await request(app)
     .post('/api/v1/card')
     .set('Cookie', await global.signin())
@@ -120,11 +122,10 @@ it('returns a 404 on valid but not matched accountId', async () => {
       accountId: new mongoose.Types.ObjectId().toHexString(),
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(404);
 });
-
 
 it('returns a 400, if the provided accountId is blocked', async () => {
   const account = await accountBuilder(
@@ -140,7 +141,7 @@ it('returns a 400, if the provided accountId is blocked', async () => {
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 });
@@ -155,7 +156,7 @@ it('returns a 403, if an user tried to create card for another user', async () =
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(403);
 });
@@ -170,7 +171,7 @@ it(' returns a 201 when there is no issue ', async () => {
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(201);
 });
@@ -185,7 +186,7 @@ it(' returns a 400 if user has an unexpired card and tries to create another ', 
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(201);
 
@@ -196,7 +197,7 @@ it(' returns a 400 if user has an unexpired card and tries to create another ', 
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(400);
 });
@@ -213,7 +214,7 @@ it('returns a 201, when the existing card has expired', async () => {
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(201);
 
@@ -232,7 +233,7 @@ it('returns a 201, when the existing card has expired', async () => {
       accountId: account.id,
       billingAddress: 'G50 Balogun gambari compd',
       networkType: CardNetwork.Visa,
-      type: CardType.Credit
+      netwokType: CardType.Credit
     })
     .expect(201);
 });
