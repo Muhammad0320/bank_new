@@ -9,9 +9,9 @@ import {
 } from '@m0banking/common';
 import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { dateFxns } from '../../../transaction/src/service/helper';
 import { generateCardNumber } from '../services/crypto';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { DateFxns } from '../services/helper';
 
 type CardTxnAttrs = {
   no: string;
@@ -130,7 +130,7 @@ cardSchema.pre('save', async function(next) {
 
 cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
-    const { mm, yy } = dateFxns();
+    const { mm, yy } = DateFxns();
 
     const cardNumber = generateCardNumber();
     const cvv = generateCardNumber();
@@ -166,8 +166,6 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
 
   return card;
 };
-
-
 
 
 cardSchema.statics.findByLastVersionAndId = async function(

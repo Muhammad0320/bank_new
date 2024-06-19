@@ -13,3 +13,4 @@ export const dateFxns = (): DateReturnType => {
     dd: date.getDate()
   };
 };
+
