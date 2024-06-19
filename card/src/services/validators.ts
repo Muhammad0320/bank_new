@@ -38,8 +38,6 @@ export const typeValidator = () =>
 
 export const dailyLimitsValidator = () =>
   body('daily')
-    .trim()
-    .notEmpty()
     .isFloat({ gt: 0 })
     .withMessage('please provide a valid number')
     .custom(
@@ -50,8 +48,6 @@ export const dailyLimitsValidator = () =>
 
 export const weeklyLimitsValidator = () =>
   body('weekly')
-    .trim()
-    .notEmpty()
     .isFloat({ gt: 0 })
     .withMessage('please provide a valid number')
     .custom(
@@ -64,8 +60,6 @@ export const weeklyLimitsValidator = () =>
 
 export const monthlyLimitsValidator = () =>
   body('monthly')
-    .trim()
-    .notEmpty()
     .isFloat({ gt: 0 })
     .withMessage('please provide a valid number')
     .custom(
