@@ -23,6 +23,9 @@ it('returns a 400 for invalid card ', async () => {
 it('returns a 400 on invalid dailyLimit', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
 
+
+  console.log('For the failing daily ----------------------');
+
   await request(app)
     .patch(`/api/v1/card/${id}/settings`)
     .set('Cookie', await global.signin())

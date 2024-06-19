@@ -37,33 +37,37 @@ export const typeValidator = () =>
     .withMessage('Please provide a valid Card type');
 
 export const dailyLimitsValidator = () =>
-  body('daily')
-    .isFloat({ gt: 0 })
-    .withMessage('please provide a valid number')
-    .custom(
-      (input: number, { req }) =>
-        input < req.body.weekly || input < req.body.monthly
-    )
-    .withMessage('Daily limit must be less than weekly and monthly limits ');
+         body('daily')
+           .isFloat({ gt: 0 })
+           .withMessage('please provide a valid number')
+           .custom(
+             (input: number, { req }) =>
+               input < req.body.weekly && input < req.body.monthly
+           )
+           .withMessage(
+             'Daily limit must be less than weekly and monthly limits '
+           );
 
 export const weeklyLimitsValidator = () =>
-  body('weekly')
-    .isFloat({ gt: 0 })
-    .withMessage('please provide a valid number')
-    .custom(
-      (input: number, { req }) =>
-        input > req.body.daily || input < req.body.monthly
-    )
-    .withMessage(
-      'Weekly Limit must be greater than daily and less that monthly limit'
-    );
+         body('weekly')
+           .isFloat({ gt: 0 })
+           .withMessage('please provide a valid number')
+           .custom(
+             (input: number, { req }) =>
+               input > req.body.daily && input < req.body.monthly
+           )
+           .withMessage(
+             'Weekly Limit must be greater than daily and less that monthly limit'
+           );
 
 export const monthlyLimitsValidator = () =>
-  body('monthly')
-    .isFloat({ gt: 0 })
-    .withMessage('please provide a valid number')
-    .custom(
-      (input: number, { req }) =>
-        input > req.body.daily || input > req.body.monthly
-    )
-    .withMessage('Monthly Limit must be greater than daily and monthly limit');
+         body('monthly')
+           .isFloat({ gt: 0 })
+           .withMessage('please provide a valid number')
+           .custom(
+             (input: number, { req }) =>
+               input > req.body.daily && input > req.body.monthly
+           )
+           .withMessage(
+             'Monthly Limit must be greater than daily and monthly limit'
+           );
