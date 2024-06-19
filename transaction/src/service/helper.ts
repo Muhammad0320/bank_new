@@ -10,6 +10,6 @@ export const dateFxns = (): DateReturnType => {
   return {
     yy: date.getFullYear() + 5,
     mm: date.getMonth(),
-    dd: date.getDate() - 1
+    dd: date.getDate()
   };
 };

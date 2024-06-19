@@ -39,6 +39,8 @@ function luhnChecksum(number: string): string {
   return ((10 - (sum % 10)) % 10) + '';
 }
 
+
+
 // Function to hash data with a salt
 function hashData(data: string): { hash: string; salt: string } {
   const salt = crypto.randomBytes(16).toString('hex');

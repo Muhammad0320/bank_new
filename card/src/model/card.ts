@@ -10,6 +10,7 @@ import {
 import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { dateFxns } from '../../../transaction/src/service/helper';
 
 type CardTxnAttrs = {
   no: string;
@@ -22,15 +23,15 @@ type CardTxnAttrs = {
 };
 
 type CardAttrs = {
-  id: string;
   account: AccountDoc;
   user: User;
-  settings: Settings;
-  info: Info;
-  version: number;
+
+  billingAddress: string;
+  networkType: CardNetwork;
+  type: CardType;
 };
 
-type CardDoc = mongoose.Document & CardAttrs;
+type CardDoc = mongoose.Document & CardAttrs & { version: number };
 
 type CardModel = mongoose.Model<CardDoc> & {
   findByLastVersionAndId(id: string, version: number): Promise<CardDoc | null>;
@@ -72,12 +73,14 @@ const cardSchema = new mongoose.Schema({
 
     network: {
       type: String,
-      enum: Object.values(CardNetwork)
+      enum: Object.values(CardNetwork),
+      default: CardNetwork.Visa
     },
 
     cardType: {
       type: String,
-      enum: Object.values(CardType)
+      enum: Object.values(CardType),
+      default: CardType.Debit
     },
 
     cvv: {
@@ -95,7 +98,7 @@ const cardSchema = new mongoose.Schema({
     billingAddress: {
       type: String,
       required: true,
-      maxlength: 400,
+      maxlength: 200,
       minlength: 20
     },
 
@@ -126,6 +129,9 @@ cardSchema.pre('save', async function(next) {
 
 cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
+    const { mm, yy } = dateFxns();
+
+    this.info!.expiryDate = new Date(yy, mm);
     this.info!.no = (await CryptoManager.hash(this.info!.no)) as string;
     this.info!.cvv = (await CryptoManager.hash(this.info!.cvv)) as string;
   }
@@ -142,10 +148,25 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
 };
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
+  const cardObject = {
+    account: attrs.account,
+    user: attrs.user,
+    info: {
+      billingAddress: attrs.billingAddress,
+      networkType: attrs.networkType,
+      cardType: attrs.type
+    }
+  };
+
   const card = await Card.create(attrs);
 
   return card;
 };
+
+
+
+
+
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,
