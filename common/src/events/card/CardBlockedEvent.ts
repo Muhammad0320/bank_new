@@ -1,10 +1,13 @@
-import { Info } from "../../types/CardFieldTypes";
+import { Info, User } from "../../types/CardFieldTypes";
 import { Subjects } from "../Subjects";
 
 export interface CardBlockedEent {
   subject: Subjects.CardBlocked;
 
   data: {
-    info: Info;
+    id: string;
+    version: number;
+    reason: string;
+    user: User;
   };
 }
