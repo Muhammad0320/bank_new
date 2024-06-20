@@ -1,7 +1,8 @@
-import { CardBlockedEent } from '@m0banking/common';
+import { CardBlockedEent, CardStatus } from '@m0banking/common';
 import { natsWrapper } from '../../../natswrapper';
 import { CardBuilder } from '../../../test/builders';
 import { CardBlockedListener } from '../CardBlockedListener';
+import { Card } from '../../../model/card';
 
 const setup = async () => {
   const listener = new CardBlockedListener(natsWrapper.client);
@@ -22,3 +23,15 @@ const setup = async () => {
 
   return { listener, data, msg };
 };
+
+it('updates and saves the card', async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const updatedCard = await Card.findById(data.id);
+
+  if (!updatedCard) throw new Error('Card not found');
+
+  expect(updatedCard.info.status).toEqual(CardStatus.Blocked);
+});
