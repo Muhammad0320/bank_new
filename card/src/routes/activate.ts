@@ -1,12 +1,9 @@
-import { Card } from '../model/card';
-import { CardStatus } from '../enums/CardStatus';
+import { NotFound, paramsChecker, requireAuth } from '@m0banking/common';
 import express, { Request, Response } from 'express';
-import {
-  BadRequest,
-  NotFound,
-  paramsChecker,
-  requireAuth
-} from '@m0banking/common';
+import { CardStatus } from '../enums/CardStatus';
+import { Card } from '../model/card';
+import { CardActivatedPublisher } from '../events/publisher/CardActivatedPublisher';
+import { natsWrapper } from '../natswrapper';
 
 const router = express.Router();
 
@@ -28,11 +25,16 @@ router.patch(
       { new: true }
     );
 
+    await new CardActivatedPublisher(natsWrapper.client).publish({
+      id: activatedCard.id,
+      version: activatedCard.versio,
+      user: activatedCard.user
+    });
+
     res.status(200).json({
       status: 'sucess',
       data: activatedCard
     });
-  
   }
 );
 
