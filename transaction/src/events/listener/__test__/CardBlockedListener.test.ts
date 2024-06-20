@@ -35,3 +35,13 @@ it('updates and saves the card', async () => {
 
   expect(updatedCard.info.status).toEqual(CardStatus.Blocked);
 });
+
+
+
+it('acks the message', async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
