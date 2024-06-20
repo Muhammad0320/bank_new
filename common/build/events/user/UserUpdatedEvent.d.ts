@@ -1,4 +1,4 @@
-import { Subjects } from "./Subjects";
+import { Subjects } from "../Subjects";
 export type UserUpdatesObj = {
     timeStamp: Date;
     old: string;

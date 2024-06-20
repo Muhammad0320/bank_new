@@ -1,4 +1,4 @@
-import { Subjects } from "./Subjects";
+import { Subjects } from "../Subjects";
 import { UserUpdatesObj } from "./UserUpdatedEvent";
 export interface PasswordUpdatedEvent {
     subject: Subjects.UserUpdated;

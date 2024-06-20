@@ -1,5 +1,5 @@
-import { UserRole } from "../enums/UserRoles";
-import { Subjects } from "./Subjects";
+import { UserRole } from "../../enums/UserRoles";
+import { Subjects } from "../Subjects";
 export interface USerCreatedEvent {
     subject: Subjects.UserCreated;
     data: {

@@ -1,10 +1,9 @@
-import { Subjects } from "./Subjects";
-export interface AccountBlockedEvent {
-    subject: Subjects.AccountBlocked;
+import { Subjects } from "../Subjects";
+export interface AccountUnBlockedEvent {
+    subject: Subjects.AccountUnblocked;
     data: {
         id: string;
         version: number;
-        reason: string;
         user: {
             id: string;
             name: string;

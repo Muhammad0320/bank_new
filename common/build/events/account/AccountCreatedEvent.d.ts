@@ -1,8 +1,8 @@
-import { AccountTier } from "../enums/AccountTier";
-import { AccountType } from "../enums/AccountTypeEnum";
-import { Subjects } from "./Subjects";
-import { AccountCurrency } from "./types/AccountCurrencyEnum";
-import { AccountStatus } from "./types/AccountStatusEnum";
+import { AccountTier } from "../../enums/AccountTier";
+import { AccountType } from "../../enums/AccountTypeEnum";
+import { Subjects } from "../Subjects";
+import { AccountCurrency } from "../types/AccountCurrencyEnum";
+import { AccountStatus } from "../types/AccountStatusEnum";
 export interface AccountCreatedEvent {
     subject: Subjects.AccountCreated;
     data: {
