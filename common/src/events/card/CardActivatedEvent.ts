@@ -7,7 +7,7 @@ export interface CardActivatedEvent {
   data: {
     id: string;
     version: number;
-    reason: string;
+
     user: User;
   };
 }
