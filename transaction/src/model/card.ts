@@ -22,14 +22,15 @@ type CardTxnAttrs = {
 
 type CardAttrs = {
   id: string;
-  account: AccountDoc;
+  account: string;
   user: User;
   settings: Settings;
   info: Info;
   version: number;
 };
 
-type CardDoc = mongoose.Document & CardAttrs;
+
+type CardDoc = mongoose.Document & CardAttrs & { account: AccountDoc } ;
 
 type CardModel = mongoose.Model<CardDoc> & {
   findByLastVersionAndId(id: string, version: number): Promise<CardDoc | null>;
