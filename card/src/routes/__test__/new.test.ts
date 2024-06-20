@@ -7,6 +7,7 @@ import { AccountStatus } from '@m0banking/common';
 import { CardStatus } from '../../enums/CardStatus';
 import { accountBuilder } from '../../test/builders';
 import { CardNetwork } from '../../enums/CardNewtwork';
+import { natsWrapper } from '../../natswrapper';
 
 it('returns a 401 for unauthenticated route access', async () => {
   await request(app)
@@ -245,4 +246,27 @@ it('returns a 201, when the existing card has expired', async () => {
     .expect(201);
 });
 
+
+it('publishes a card created publisher on succssful card creation ', async () => {
+  const account = await accountBuilder();
+
+  await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  console.log((natsWrapper.client.publish as jest.Mock).mock.calls[0][1]);
+
+  expect(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  ).toBeDefined();
+});
 
