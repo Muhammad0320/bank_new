@@ -5,6 +5,7 @@ import { CardType } from '../../enums/CardType';
 import { accountBuilder } from '../../test/builders';
 import { CardNetwork } from '../../enums/CardNewtwork';
 import { Card } from '../../model/card';
+import { natsWrapper } from '../../natswrapper';
 
 it(' returns a 401 for unauthenticated requests ', async () => {
   await request(app)
@@ -140,5 +141,35 @@ it('returns 200, when everything is working', async () => {
   expect(updatedCard?.settings.monthlyLimit).toEqual(50000);
 });
 
+it('publishes a cardUpdatedEvent, on successful card update', async () => {
+  const account = await accountBuilder();
 
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
 
+  await request(app)
+    .patch(`/api/v1/card/${data.id}/settings`)
+    .set('Cookie', await global.signin())
+    .send({
+      daily: 500,
+      weekly: 5000,
+      monthly: 50000
+    })
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  expect(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  ).toBeDefined();
+});
