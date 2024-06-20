@@ -3,6 +3,8 @@ import {
   CardStatus,
   CardType,
   CryptoManager,
+  generateCardNumber,
+  generateCVV,
   Info,
   Settings,
   User
@@ -10,7 +12,7 @@ import {
 import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
 import { DateFxns } from '../services/helper';
-import { generateCardNumber } from '../services/crypto';
+
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 type CardTxnAttrs = {
@@ -167,7 +169,7 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
-  const cvv = generateCardNumber();
+  const cvv = generateCVV();
 
   const cardObject = {
     account: attrs.account,
