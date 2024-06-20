@@ -49,3 +49,11 @@ it("updates the card's settings ", async () => {
 
 
   
+
+it('acks the messgae', async () => {
+  const { msg, listener, data } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
