@@ -4,18 +4,17 @@ import { natsWrapper } from '../../../natswrapper';
 import { CardActivatedEvent, CardStatus } from '@m0banking/common';
 import { CardActivatedListener } from '../CardActivatedListener';
 import { Card } from '../../../model/card';
+import { CardBuilder } from '../../../test/builders';
 
 const setup = async () => {
   const listener = new CardActivatedListener(natsWrapper.client);
 
-  const data: CardActivatedEvent['data'] = {
-    id: new mongoose.Types.ObjectId().toHexString(),
-    version: 1,
-    user: {
-      id: new mongoose.Types.ObjectId().toHexString(),
+  const card = await CardBuilder();
 
-      name: 'Lisan al gaib '
-    }
+  const data: CardActivatedEvent['data'] = {
+    id: card.id,
+    version: card.version + 1,
+    user: card.user
   };
 
   //@ts-ignore
@@ -40,10 +39,11 @@ it(' updated and saved the the card info  ', async () => {
 
 
 
-it('acks the messgae', async () => {
+it('acks the message', async () => {
   const { listener, data, msg } = await setup();
 
   await listener.onMessage(data, msg);
 
   expect(msg.ack).toHaveBeenCalled();
 });
+
