@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { CardType } from '../../enums/CardType';
 import { accountBuilder } from '../../test/builders';
 import { CardNetwork } from '../../enums/CardNewtwork';
+import { natsWrapper } from '../../natswrapper';
 
 it(' returns a 401 for unauthenticated requests ', async () => {
   await request(app)
@@ -51,4 +52,33 @@ it('returns a 200 when everyting is valid ', async () => {
     .set('Cookie', await global.signin())
     .send()
     .expect(200);
+});
+
+it('publishes a cardActivatedPublishr with the right data, on successful activation', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .patch(`/api/v1/card/${data.id}/activate`)
+    .set('Cookie', await global.signin())
+    .send()
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  expect(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  ).toBeDefined();
 });
