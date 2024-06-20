@@ -11,6 +11,8 @@ import {
   weeklyLimitsValidator
 } from '../services/validators';
 import { Card } from '../model/card';
+import { CardUpdatedPublisher } from '../events/publisher/CardUpdatedEvent';
+import { natsWrapper } from '../natswrapper';
 
 const router = express.Router();
 
@@ -27,16 +29,24 @@ router.patch(
 
     if (!card) throw new NotFound('Card not found error');
 
-    const updatedCard = await card.updateOne(
-      {
-        settings: {
-          dailyLimit: +daily,
-          weeklyLimit: +weekly,
-          monthlyLimit: +monthly
-        }
-      },
-      { new: true }
-    );
+   await card.updateOne(
+     {
+       settings: {
+         dailyLimit: +daily,
+         weeklyLimit: +weekly,
+         monthlyLimit: +monthly
+       }
+     },
+     { new: true }
+   );
+
+    const updatedCard = await Card.findById(card.id);
+
+    await new CardUpdatedPublisher(natsWrapper.client).publish({
+      id: card.id,
+      version: card.version + 1,
+      settings: updatedCard!.settings
+    });
 
     res.status(200).json({
       status: 'success',
