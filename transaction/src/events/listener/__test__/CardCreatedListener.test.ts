@@ -75,3 +75,13 @@ it('created and saved the card', async () => {
   expect(card.user.name).toEqual(account.user.name);
 });
 
+
+
+it('acks the message', async () => {
+  const { data, msg, listener } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
+
