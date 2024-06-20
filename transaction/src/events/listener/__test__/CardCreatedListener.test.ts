@@ -11,6 +11,7 @@ import { natsWrapper } from '../../../natswrapper';
 import { CardCreatedListener } from '../CardCreatedListener';
 import mongoose from 'mongoose';
 import { accountBuilder } from '../../../test/builders';
+import { Card } from '../../../model/card';
 
 const setup = async () => {
   const listener = new CardCreatedListener(natsWrapper.client);
@@ -53,3 +54,24 @@ const setup = async () => {
 
   return { data, msg, listener, account };
 };
+
+
+
+it('created and saved the card', async () => {
+  const { data, msg, listener, account } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const card = await Card.findById(data.id);
+
+  expect(card).toBeDefined();
+
+  if (!card) throw new Error(`Cannot find card `);
+
+  expect(card.account).toEqual(account.id);
+
+  expect(card.user.id).toEqual(account.user.id);
+
+  expect(card.user.name).toEqual(account.user.name);
+});
+
