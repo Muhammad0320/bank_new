@@ -37,3 +37,13 @@ it(' updated and saved the the card info  ', async () => {
 
   expect(updatedCard.info.status).toEqual(CardStatus.Active);
 });
+
+
+
+it('acks the messgae', async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
