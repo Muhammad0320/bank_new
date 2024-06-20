@@ -26,9 +26,9 @@ router.patch(
     );
 
     await new CardActivatedPublisher(natsWrapper.client).publish({
-      id: activatedCard.id,
-      version: activatedCard.versio,
-      user: activatedCard.user
+      id: card.id,
+      version: card.version + 1,
+      user: card.user
     });
 
     res.status(200).json({
@@ -39,3 +39,5 @@ router.patch(
 );
 
 export { router as cardActivatedRouter };
+
+
