@@ -17,6 +17,8 @@ import {
 import { Card } from '../model/card';
 import { Account } from '../model/Account';
 import express, { Response, Request } from 'express';
+import { CardCreatedPublisher } from '../events/publisher/CardCreatedPublisher';
+import { natsWrapper } from '../natswrapper';
 
 const router = express.Router();
 
@@ -59,6 +61,15 @@ router.post(
         id: account.user.id,
         name: account.user.name
       }
+    });
+
+    await new CardCreatedPublisher(natsWrapper.client).publish({
+      id: newCard.id,
+      version: newCard.version,
+      account: account.id,
+      user: account.user,
+      settings: newCard.settings,
+      info: newCard.info
     });
 
     res.status(201).json({
