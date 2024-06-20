@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { Message } from 'node-nats-streaming';
 import { natsWrapper } from '../../../natswrapper';
-import { CardActivatedEvent } from '@m0banking/common';
+import { CardActivatedEvent, CardStatus } from '@m0banking/common';
 import { CardActivatedListener } from '../CardActivatedListener';
+import { Card } from '../../../model/card';
 
 const setup = async () => {
   const listener = new CardActivatedListener(natsWrapper.client);
@@ -25,4 +26,14 @@ const setup = async () => {
   return { listener, data, msg };
 };
 
-it('');
+it(' updated and saved the the card info  ', async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const updatedCard = await Card.findById(data.id);
+
+  if (!updatedCard) throw new Error('Card not found');
+
+  expect(updatedCard.info.status).toEqual(CardStatus.Active);
+});
