@@ -7,6 +7,8 @@ import {
   paramsChecker,
   requireAuth
 } from '@m0banking/common';
+import { natsWrapper } from '../natswrapper';
+import { CardBlockedPublisher } from '../events/publisher/CardBlockedPublisher';
 
 const router = express.Router();
 
@@ -27,6 +29,15 @@ router.patch(
       { new: true }
     );
 
+    await new CardBlockedPublisher(natsWrapper.client).publish({
+      id: card.id,
+      version: card.version + 1,
+      reason: 'shit',
+      user: card.user
+    });
+
+
+ 
     res.status(200).json({ status: 'sucess', data: updatedCard });
   }
 );
