@@ -248,25 +248,58 @@ it('returns a 201, when the existing card has expired', async () => {
 
 
 it('publishes a card created publisher on succssful card creation ', async () => {
-  const account = await accountBuilder();
+                                                                                   const account = await accountBuilder();
 
-  await request(app)
-    .post('/api/v1/card')
-    .set('Cookie', await global.signin(account.user.id))
-    .send({
-      accountId: account.id,
-      billingAddress: 'G50 Balogun gambari compd',
-      networkType: CardNetwork.Visa,
-      type: CardType.Credit
-    })
-    .expect(201);
+                                                                                   await request(
+                                                                                     app
+                                                                                   )
+                                                                                     .post(
+                                                                                       '/api/v1/card'
+                                                                                     )
+                                                                                     .set(
+                                                                                       'Cookie',
+                                                                                       await global.signin(
+                                                                                         account
+                                                                                           .user
+                                                                                           .id
+                                                                                       )
+                                                                                     )
+                                                                                     .send(
+                                                                                       {
+                                                                                         accountId:
+                                                                                           account.id,
+                                                                                         billingAddress:
+                                                                                           'G50 Balogun gambari compd',
+                                                                                         networkType:
+                                                                                           CardNetwork.Visa,
+                                                                                         type:
+                                                                                           CardType.Credit
+                                                                                       }
+                                                                                     )
+                                                                                     .expect(
+                                                                                       201
+                                                                                     );
 
-  expect(natsWrapper.client.publish).toHaveBeenCalled();
+                                                                                   expect(
+                                                                                     natsWrapper
+                                                                                       .client
+                                                                                       .publish
+                                                                                   ).toHaveBeenCalled();
 
-  console.log((natsWrapper.client.publish as jest.Mock).mock.calls[0][1]);
+                                                                                   console.log(
+                                                                                     (natsWrapper
+                                                                                       .client
+                                                                                       .publish as jest.Mock)
+                                                                                       .mock
+                                                                                       .calls[0][1]
+                                                                                   );
 
-  expect(
-    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
-  ).toBeDefined();
-});
+                                                                                   expect(
+                                                                                     (natsWrapper
+                                                                                       .client
+                                                                                       .publish as jest.Mock)
+                                                                                       .mock
+                                                                                       .calls[0][1]
+                                                                                   ).toBeDefined();
+                                                                                 });
 

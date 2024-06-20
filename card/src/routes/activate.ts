@@ -39,5 +39,3 @@ router.patch(
 );
 
 export { router as cardActivatedRouter };
-
-

@@ -6,7 +6,6 @@ import { CardType } from '../../enums/CardType';
 import { accountBuilder } from '../../test/builders';
 import { Card } from '../../model/card';
 import { CardStatus } from '../../enums/CardStatus';
-import { isExportSpecifier } from 'typescript';
 import { natsWrapper } from '../../natswrapper';
 
 it('it returns a 401 for unautheticated user', async () => {

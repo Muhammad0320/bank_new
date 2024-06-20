@@ -48,6 +48,7 @@ global.signin = async (id?: string, role?: UserRole) => {
     passwordConfirm: 'ngjiorjrioiojrriior',
     role: role || UserRole.User,
     avatar: 'shit image',
+
     createdAt: new Date(),
     status: UserStatus.Active
   };
