@@ -15,8 +15,6 @@ export const accountChecker = (type?: string) => async (
   if (!type) {
     const card = await Card.findById(req.params.id).populate('account');
 
-    console.log(card, 'card from  the new middlware ------------');
-
     if (!card) throw new NotFound('Card not found');
 
     account = card.account;
