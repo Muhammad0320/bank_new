@@ -30,9 +30,7 @@ console.log('Hi mom');
 const rootUrl = '/api/v1/card';
 
 app.use(currentUser);
-
 app.use(rootUrl, cardCreatedRouter);
-app.use(accountChecker());
 app.use(rootUrl, cardUpdateRouter);
 app.use(rootUrl, cardBlockedRouter);
 app.use(rootUrl, cardActivatedRouter);
