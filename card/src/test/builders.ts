@@ -5,7 +5,8 @@ import {
   AccountCurrency,
   AccountStatus,
   AccountTier,
-  AccountType
+  AccountType,
+  CryptoManager
 } from '@m0banking/common';
 import { DateFxns } from '../services/helper';
 import { CardNetwork } from '../enums/CardNewtwork';
@@ -15,6 +16,8 @@ export const accountBuilder = async (
   userId?: string,
   status?: AccountStatus
 ) => {
+  const hashedPin = await CryptoManager.hash('1234');
+
   return await Account.buildAccount({
     id: accId || new mongoose.Types.ObjectId().toHexString(),
     no: 2349043000,
@@ -23,7 +26,7 @@ export const accountBuilder = async (
       id: userId || new mongoose.Types.ObjectId().toHexString()
     },
     balance: 9999,
-    pin: '1234',
+    pin: hashedPin,
     tier: AccountTier.Private,
     type: AccountType.Current,
     status: status || AccountStatus.Active,
