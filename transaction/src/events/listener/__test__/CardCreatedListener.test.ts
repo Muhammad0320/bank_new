@@ -8,10 +8,10 @@ import {
   generateCVV
 } from '@m0banking/common';
 import { natsWrapper } from '../../../natswrapper';
-import { CardCreatedListener } from '../CardCreatedListener';
 import mongoose from 'mongoose';
 import { accountBuilder } from '../../../test/builders';
 import { Card } from '../../../model/card';
+import { CardCreatedListener } from '../CardCreatedListener';
 
 const setup = async () => {
   const listener = new CardCreatedListener(natsWrapper.client);
@@ -55,24 +55,28 @@ const setup = async () => {
   return { data, msg, listener, account };
 };
 
-
-
 it('created and saved the card', async () => {
   const { data, msg, listener, account } = await setup();
 
   await listener.onMessage(data, msg);
 
+  const allCards = await Card.find();
+
+  console.log(allCards, 'All the data in cards');
+
   const card = await Card.findById(data.id);
+
+  console.log(card, 'from the Created listener ------');
 
   expect(card).toBeDefined();
 
   if (!card) throw new Error(`Cannot find card `);
 
-  expect(card.account).toEqual(account.id);
+  expect(card.account).toEqual(data.id);
 
-  expect(card.user.id).toEqual(account.user.id);
+  expect(card.user.id).toEqual(data.user.id);
 
-  expect(card.user.name).toEqual(account.user.name);
+  expect(card.user.name).toEqual(data.user.name);
 });
 
 

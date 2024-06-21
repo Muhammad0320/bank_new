@@ -67,19 +67,16 @@ router.post(
     if (!currentCard)
       throw new BadRequest('Invalid card credentials: account ');
 
-    console.log(currentCard, 'from the card transaction');
 
     const isCorrectCardNo = await CryptoManager.compare(
       currentCard.info.no,
-      "" + cardNumber
+      '' + cardNumber
     );
 
     const isCorrectCardCvv = await CryptoManager.compare(
       currentCard.info.cvv,
-      "" + cvv
-
+      '' + cvv
     );
-
     const account = await Account.findById(currentCard.account);
 
     if (!account) throw new NotFound('Account not found');

@@ -9,7 +9,12 @@ export class CardCreatedListener extends Listener<CardCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: CardCreatedEvent['data'], msg: Message) {
-    await Card.buildCard(data);
+    const card = await Card.buildCard(data);
+
+    console.log(card, 'from the card created listener it self --------');
+
+    if (!card) throw new Error('Card could not be created');
+
 
     msg.ack();
   }
