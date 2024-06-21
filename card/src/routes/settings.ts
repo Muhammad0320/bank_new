@@ -13,6 +13,7 @@ import {
 import { Card } from '../model/card';
 import { CardUpdatedPublisher } from '../events/publisher/CardUpdatedEvent';
 import { natsWrapper } from '../natswrapper';
+import { accountChecker } from '../middleware/acccountChecker';
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.patch(
   paramsChecker('id'),
   [dailyLimitsValidator(), weeklyLimitsValidator(), monthlyLimitsValidator()],
   requestValidator,
+  accountChecker(),
   async (req: Request, res: Response) => {
     const { weekly, monthly, daily } = req.body;
 
@@ -52,7 +54,7 @@ router.patch(
       status: 'success',
       card: updatedCard
     });
-  };
+  }
 );
 
 export { router as cardUpdateRouter };

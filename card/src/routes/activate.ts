@@ -4,6 +4,7 @@ import { CardStatus } from '../enums/CardStatus';
 import { Card } from '../model/card';
 import { CardActivatedPublisher } from '../events/publisher/CardActivatedPublisher';
 import { natsWrapper } from '../natswrapper';
+import { accountChecker } from '../middleware/acccountChecker';
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.patch(
   '/:id/activate',
   requireAuth,
   paramsChecker('id'),
+  accountChecker(),
   async (req: Request, res: Response) => {
     const card = await Card.findById(req.params.id);
 
