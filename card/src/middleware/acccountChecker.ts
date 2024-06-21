@@ -4,7 +4,8 @@ import {
   AccountStatus,
   BadRequest,
   Forbidden,
-  NotFound
+  NotFound,
+  UserRole
 } from '@m0banking/common';
 import { Card } from '../model/card';
 
@@ -27,7 +28,10 @@ export const accountChecker = (type?: string) => async (
 
   if (!account) throw new NotFound('Account not found');
 
-  if (account.user.id !== req.currentUser.id)
+  if (
+    account.user.id !== req.currentUser.id &&
+    req.currentUser.role === UserRole.User
+  )
     throw new Forbidden('You are not allowed to perform this action');
 
   if (account.status !== AccountStatus.Active)
@@ -35,5 +39,3 @@ export const accountChecker = (type?: string) => async (
 
   next();
 };
-
-
