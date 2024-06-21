@@ -1,11 +1,11 @@
 import { User } from "../../types/CardFieldTypes";
 import { Subjects } from "../Subjects";
-export interface CardBlockedEent {
+export interface CardBlockedEvent {
     subject: Subjects.CardBlocked;
     data: {
         id: string;
         version: number;
-        reason: string;
+        reason?: string;
         user: User;
     };
 }

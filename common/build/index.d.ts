@@ -40,6 +40,7 @@ export * from "./events/types/AccountStatusEnum";
 export * from "./events/txn/TxnTransferCreatedEvent";
 export * from "./events/user/UserPasswordUpdatedEvent";
 export * from "./events/txn/TxnWithdrawalCreatedEvent";
+export * from "./events/txn/TxnCardCreatedEvent";
 export * from "./events/types/AccountCurrencyEnum";
 export * from "./events/card/CardBlockedEvent";
 export * from "./events/card/CardCreatedEvent";

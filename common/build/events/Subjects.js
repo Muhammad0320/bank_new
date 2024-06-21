@@ -15,6 +15,7 @@ var Subjects;
     Subjects["TxnDepositCreated"] = "txnDeposit:created";
     Subjects["TxnWithdrawalCreated"] = "txnWithdrawal:created";
     Subjects["TxnTransferCreated"] = "txnTransfer:created";
+    Subjects["TxnCardCreated"] = "txnCard:created";
     //
     Subjects["CardCreated"] = "card:created";
     Subjects["CardBlocked"] = "card:blocked";
