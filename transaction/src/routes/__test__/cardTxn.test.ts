@@ -48,7 +48,7 @@ const cardBuilder = async (account: AccountDoc, cardData: cardDataType) => {
 
   return Card.buildCard({
     id: new mongoose.Types.ObjectId().toHexString(),
-    account,
+    account: account.id,
     user: {
       id: account.user.id,
       name: account.user.name
@@ -83,9 +83,6 @@ it('returns a 401 for unauthenticated access', async () => {
 });
 
 it('returns a 400 for invalid card number format', async () => {
-
-
-
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin())
@@ -102,7 +99,7 @@ it('returns a 400 for invalid card number format', async () => {
       account: new mongoose.Types.ObjectId().toHexString()
     })
     .expect(400);
-  
+
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin())
@@ -211,9 +208,6 @@ it('returns a 400 for invalid expiry date format', async () => {
 });
 
 it('returns a 400 for invalid cardName format ', async () => {
-
-
-
   await request(app)
     .post('/api/v1/txn/card')
     .set('Cookie', await global.signin())
@@ -288,7 +282,7 @@ it('returns a 400 if the provides account are not of valid format ', async () =>
 
 it('returns a 403 if a user tried to transact with another users card', async () => {
   const unhashedNo = generateCardNumber();
-  const unhashedcvv =  generateCVV();
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -300,12 +294,10 @@ it('returns a 403 if a user tried to transact with another users card', async ()
     billingAddress: 'G50, Balogun Gambari compound'
   };
 
-
   const account = await accountBuilder(AccountStatus.Active, 5000);
   const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
 
   const card = await cardBuilder(account, cardData);
-
 
   await request(app)
     .post('/api/v1/txn/card')
@@ -325,12 +317,10 @@ it('returns a 403 if a user tried to transact with another users card', async ()
     .expect(403);
 });
 
-
 it('returns a 400 on invalid credentials ', async () => {
-    const unhashedNo = generateCardNumber();
+  const unhashedNo = generateCardNumber();
 
-    const unhashedcvv =  generateCVV();
-
+  const unhashedcvv = generateCVV();
 
   const hashedNo = await CryptoManager.hash(unhashedNo);
 
@@ -551,8 +541,6 @@ it('returns a 400 for insufficient fund', async () => {
   const beneficiaryAccount = await accountBuilder(AccountStatus.Active, 50);
 
   const card = await cardBuilder(account, cardData);
-
-  console.log(account, 'from insufficient -------------------------');
 
   await request(app)
     .post('/api/v1/txn/card')
