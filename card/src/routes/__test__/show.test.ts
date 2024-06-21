@@ -1,6 +1,8 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
+import { accountBuilder } from '../../test/builders';
+import { CardNetwork, CardType } from '@m0banking/common';
 
 it('returns a 401, for invalid request', async () => {
   await request(app)
@@ -17,8 +19,6 @@ it('returns a 400 for invalid mongoose id', async () => {
     .expect(400);
 });
 
-
-
 it('returns a 400 if the card id provided is valid but does not match any in the db', async () => {
   await request(app)
     .get('/api/v1/card/' + new mongoose.Types.ObjectId().toHexString())
@@ -27,4 +27,25 @@ it('returns a 400 if the card id provided is valid but does not match any in the
     .expect(400);
 });
 
+it('returns a 403 for unallowed user', async () => {
+  const account = await accountBuilder();
 
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .get('/api/v1/card' + data.id)
+    .set('Cookie', await global.signin())
+    .send()
+    .expect(403);
+});

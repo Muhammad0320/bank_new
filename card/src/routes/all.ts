@@ -1,5 +1,5 @@
 import { accessibleTo, requireAuth, UserRole } from '@m0banking/common';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import { Card } from '../model/card';
 
 const router = express.Router();
@@ -16,3 +16,6 @@ router.get(
 );
 
 export { router as getAllCardRouter };
+
+
+
