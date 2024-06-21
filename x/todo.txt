@@ -15,32 +15,39 @@
 
  // add year checking to params checker
 
+
+// 20 june
+
+Add a cardTxn event in the common module.
+
+
+
  // 11 june
+Cvv and card no hasing should be done in the model ✅
 
-Cvv and card no hasing should be done in the model
+Fix the current user is the common module ✅
 
-Fix the current user is the common module 
+Add card publisher ans listeners to common module ✅
+
+Update how user send jwt data as session: i.e just the user object only and nothing else ✅
+
+ Add a middlware that runs before all card handlers, in the app ts, that make sure that the account trying to do that is ACTIVE. -- june 20
 
 
-Add card publisher ans listeners to common module
+Before blocking a card, account pin must me provided. -- june 20
 
-Update how user send jwt data as session: i.e just the user object only and nothing else
+Add txn card related eventing -- june 20
 
- Add a middlware that runs before all card handlers, in the app ts, that make sure that the account trying to do that is active,
+Add eventing to card srv route handlers -- june 20;
 
- Add a middleware that also runs after all card handlers, to make sure a card belonging to a user isn't blocked.
 
-Before blocking a card, account pin must me provided.
+Tranferring naira to dollar account and vise versa. 
 
-Add eventing to card srv route handlers
+Deduct from dad's airtime tomorrow. ✅
 
-Tranferring naira to dollar account and vise versa.
+will change all card forbidden to a middle that automatically does that. 
 
-Deduct from dad's airtime tomorrow.
-
-will change all card forbidden to a middle that automatically does that.
-
-Add The cryto and helper fxns to common.
+Add The cryto and helper fxns to common. ✅
 
 Add show, getAll and getOne card to card srv.
 
@@ -48,10 +55,13 @@ Adhere to the fat model and thin controller principle - so add the card info has
 
 Before blocking a card, the card it self must have a status of ACTIVE
 
-Apart from assertion with status code, also use data
+Apart from assertion with status code, also use data ✅
 
 
-Add test to chek for the new presave hook added in card model
+Add test to chek for the new presave hook added in card model 
 
 
  Post on linkindin today, About the project and NEVER MISS A DAY and create a brand new X account, for all coding related stuffs.
+
+
+Update the CardBlocked event name in common -- june 20 
