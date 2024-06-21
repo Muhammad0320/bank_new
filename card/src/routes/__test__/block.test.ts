@@ -26,6 +26,31 @@ it('returns a 404 if the provided id is not matched w/ any card ', async () => {
 });
 
 
+it('returns a 400  for invalid pin', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .patch(`/api/v1/card/${data.id}/block`)
+    .set('Cookie', await global.signin())
+    .send({ pin: '1234' })
+    .expect(400);
+});
+
+
+
 
 it('returns a 400 if the card is alredy blocked ', async () => {
   const account = await accountBuilder();
