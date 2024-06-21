@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 import { accountBuilder } from '../../test/builders';
-import { CardNetwork, CardType } from '@m0banking/common';
+import { CardNetwork, CardType, UserRole } from '@m0banking/common';
 
 it('returns a 401, for invalid request', async () => {
   await request(app)
@@ -27,7 +27,7 @@ it('returns a 400 if the card id provided is valid but does not match any in the
     .expect(400);
 });
 
-it('returns a 403 for unallowed user', async () => {
+it('returns a 403 for anauthorized user', async () => {
   const account = await accountBuilder();
 
   const {
