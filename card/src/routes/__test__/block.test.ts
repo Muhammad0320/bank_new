@@ -25,6 +25,8 @@ it('returns a 404 if the provided id is not matched w/ any card ', async () => {
     .expect(404);
 });
 
+
+
 it('returns a 400 if the card is alredy blocked ', async () => {
   const account = await accountBuilder();
 
@@ -52,7 +54,7 @@ it('returns a 400 if the card is alredy blocked ', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
-    .send()
+    .send({ pin: '1234' })
     .expect(400);
 });
 
@@ -75,7 +77,7 @@ it('returns a 200, when everything is valid', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
-    .send()
+    .send({ pin: '1234' })
     .expect(200);
 });
 
@@ -98,7 +100,7 @@ it(' publishes a cardBlockedEvent, on successful account blockage', async () => 
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
-    .send()
+    .send({ pin: '1234' })
     .expect(200);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
