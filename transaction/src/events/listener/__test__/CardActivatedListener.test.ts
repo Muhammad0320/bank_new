@@ -1,10 +1,9 @@
-import mongoose from 'mongoose';
-import { Message } from 'node-nats-streaming';
-import { natsWrapper } from '../../../natswrapper';
 import { CardActivatedEvent, CardStatus } from '@m0banking/common';
-import { CardActivatedListener } from '../CardActivatedListener';
+import { Message } from 'node-nats-streaming';
 import { Card } from '../../../model/card';
+import { natsWrapper } from '../../../natswrapper';
 import { CardBuilder } from '../../../test/builders';
+import { CardActivatedListener } from '../CardActivatedListener';
 
 const setup = async () => {
   const listener = new CardActivatedListener(natsWrapper.client);
@@ -37,8 +36,6 @@ it(' updated and saved the the card info  ', async () => {
   expect(updatedCard.info.status).toEqual(CardStatus.Active);
 });
 
-
-
 it('acks the message', async () => {
   const { listener, data, msg } = await setup();
 
@@ -46,4 +43,3 @@ it('acks the message', async () => {
 
   expect(msg.ack).toHaveBeenCalled();
 });
-

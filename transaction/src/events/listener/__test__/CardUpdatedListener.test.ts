@@ -30,7 +30,6 @@ const setup = async () => {
 };
 
 
-
 it("updates the card's settings ", async () => {
   const { msg, listener, data } = await setup();
 
@@ -47,9 +46,6 @@ it("updates the card's settings ", async () => {
   expect(updatedCard.settings.monthlyLimit).toEqual(data.settings.monthlyLimit);
 });
 
-
-  
-
 it('acks the messgae', async () => {
   const { msg, listener, data } = await setup();
 
@@ -57,4 +53,5 @@ it('acks the messgae', async () => {
 
   expect(msg.ack).toHaveBeenCalled();
 });
+
 
