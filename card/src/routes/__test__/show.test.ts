@@ -73,3 +73,29 @@ it('returns a 200 if it is an admin', async () => {
     .send()
     .expect(200);
 });
+
+
+
+
+it('returns a 200 for authorized user', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .get('/api/v1/card' + data.id)
+    .set('Cookie', await global.signin(account.user.id))
+    .send()
+    .expect(200);
+});
