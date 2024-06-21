@@ -67,7 +67,6 @@ router.post(
     if (!currentCard)
       throw new BadRequest('Invalid card credentials: account ');
 
-
     const isCorrectCardNo = await CryptoManager.compare(
       currentCard.info.no,
       '' + cardNumber
@@ -109,20 +108,22 @@ router.post(
     if (currentCard.info.status === CardStatus.Expired)
       throw new BadRequest('Expired card');
 
-
     if (beneficiaryAcc.status !== AccountStatus.Active)
       throw new BadRequest(' Inactive beneficiary account ');
 
     const updatedAccount = await account.updateOne(
-      { balance: account.balance - amount },
+      {
+        balance: account.balance - amount
+      },
       { new: true }
     );
 
     const updatedBeneficiary = await beneficiaryAcc.updateOne(
-      { balance: beneficiaryAcc.balance + +amount },
+      {
+        balance: beneficiaryAcc.balance + +amount
+      },
       { new: true }
     );
-    
 
     const newTransfer = await Txn.buildTxn({
       account: currentCard.account.id,
@@ -154,8 +155,12 @@ router.post(
       }
     });
 
-    res.status(201).json({ status: 'success', data: newTransfer });
+    res.status(201).json({
+      status: 'success',
+      data: newTransfer
+    });
   }
 );
+
 
 export { router as cardTxn };
