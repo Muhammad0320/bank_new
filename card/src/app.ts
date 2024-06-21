@@ -7,6 +7,7 @@ import { cardCreatedRouter } from './routes/new';
 import { cardUpdateRouter } from './routes/settings';
 import { cardActivatedRouter } from './routes/activate';
 import { cardBlockedRouter } from './routes/block';
+import { accountChecker } from './middleware/acccountChecker';
 
 const app = express();
 
@@ -30,8 +31,9 @@ const rootUrl = '/api/v1/card';
 
 app.use(currentUser);
 
-app.use(rootUrl, cardUpdateRouter);
 app.use(rootUrl, cardCreatedRouter);
+app.use(accountChecker());
+app.use(rootUrl, cardUpdateRouter);
 app.use(rootUrl, cardBlockedRouter);
 app.use(rootUrl, cardActivatedRouter);
 
