@@ -26,7 +26,7 @@ router.patch(
       .withMessage('Please provide a valid pin')
   ],
   async (req: Request, res: Response) => {
-    const card = await Card.findById(req.params.id);
+    const card = await Card.findById(req.params.id).populate('account');
 
     if (!!!card) throw new NotFound('Card not found');
 
