@@ -23,49 +23,36 @@ router.patch(
   [dailyLimitsValidator(), weeklyLimitsValidator(), monthlyLimitsValidator()],
   requestValidator,
   async (req: Request, res: Response) => {
-                                           const {
-                                             weekly,
-                                             monthly,
-                                             daily
-                                           } = req.body;
+    const { weekly, monthly, daily } = req.body;
 
-                                           const card = await Card.findById(
-                                             req.params.id
-                                           );
+    const card = await Card.findById(req.params.id);
 
-                                           if (!card)
-                                             throw new NotFound(
-                                               'Card not found error'
-                                             );
+    if (!card) return;
 
-                                           await card.updateOne(
-                                             {
-                                               settings: {
-                                                 dailyLimit: +daily,
-                                                 weeklyLimit: +weekly,
-                                                 monthlyLimit: +monthly
-                                               }
-                                             },
-                                             { new: true }
-                                           );
+    await card.updateOne(
+      {
+        settings: {
+          dailyLimit: +daily,
+          weeklyLimit: +weekly,
+          monthlyLimit: +monthly
+        }
+      },
+      { new: true }
+    );
 
-                                           const updatedCard = await Card.findById(
-                                             card.id
-                                           );
+    const updatedCard = await Card.findById(card.id);
 
-                                           await new CardUpdatedPublisher(
-                                             natsWrapper.client
-                                           ).publish({
-                                             id: card.id,
-                                             version: card.version + 1,
-                                             settings: updatedCard!.settings
-                                           });
+    await new CardUpdatedPublisher(natsWrapper.client).publish({
+      id: card.id,
+      version: card.version + 1,
+      settings: updatedCard!.settings
+    });
 
-                                           res.status(200).json({
-                                             status: 'success',
-                                             card: updatedCard
-                                           });
-                                         }
+    res.status(200).json({
+      status: 'success',
+      card: updatedCard
+    });
+  };
 );
 
 export { router as cardUpdateRouter };
