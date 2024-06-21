@@ -12,6 +12,7 @@ export enum Subjects {
   TxnDepositCreated = "txnDeposit:created",
   TxnWithdrawalCreated = "txnWithdrawal:created",
   TxnTransferCreated = "txnTransfer:created",
+  TxnCardCreated = "txnCard:created",
 
   //
 
