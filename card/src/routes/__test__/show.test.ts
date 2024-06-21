@@ -8,4 +8,12 @@ it('returns a 401, for invalid request', async () => {
     .expect(401);
 });
 
-it('returns a 400 for invalid mongoose id', async () => {});
+it('returns a 400 for invalid mongoose id', async () => {
+  await request(app)
+    .get('/api/v1/card/shitid')
+    .set('Cookie', await global.signin())
+    .send()
+    .expect(400);
+});
+
+
