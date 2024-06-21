@@ -4,6 +4,10 @@ import { natsWrapper } from './natswrapper';
 import { AccountCreatedListener } from './events/listener/AccountCreatedListener';
 import { AccountBlockedListener } from './events/listener/AccountBlockedListener';
 import { AccountUnblockedListener } from './events/listener/AccountUnBlockedListener';
+import { CardCreatedListener } from './events/listener/CardCreatedListener';
+import { CardUpdatedListener } from './events/listener/CardUpdatedListener';
+import { CardBlockedListener } from './events/listener/CardBlockedListener';
+import { CardActivatedListener } from './events/listener/CardActivatedListener';
 
 const start = async () => {
   const port = 3000;
@@ -27,28 +31,32 @@ const start = async () => {
   }
 
   try {
-    await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL
-    );
+        await natsWrapper.connect(
+          process.env.NATS_CLUSTER_ID,
+          process.env.NATS_CLIENT_ID,
+          process.env.NATS_URL
+        );
 
-    natsWrapper.client.on('close', () => {
-      console.log(' NATS connection closed! ');
-      process.exit();
-    });
+        natsWrapper.client.on('close', () => {
+          console.log(' NATS connection closed! ');
+          process.exit();
+        });
 
-    process.on('SIGTERM', () => natsWrapper.client.close());
-    process.on('SIGINT', () => natsWrapper.client.close());
+        process.on('SIGTERM', () => natsWrapper.client.close());
+        process.on('SIGINT', () => natsWrapper.client.close());
 
-    new AccountCreatedListener(natsWrapper.client).listen();
-    new AccountBlockedListener(natsWrapper.client).listen();
-    new AccountUnblockedListener(natsWrapper.client).listen();
+        new AccountCreatedListener(natsWrapper.client).listen();
+        new AccountBlockedListener(natsWrapper.client).listen();
+        new AccountUnblockedListener(natsWrapper.client).listen();
+        new CardCreatedListener(natsWrapper.client).listen();
+        new CardUpdatedListener(natsWrapper.client).listen();
+        new CardActivatedListener(natsWrapper.client).listen();
+        new CardBlockedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI);
 
-    console.log('connected to mongoDB');
-  } catch (error) {
+        console.log('connected to mongoDB');
+      } catch (error) {
     console.error(error);
   }
 
