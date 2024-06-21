@@ -8,10 +8,10 @@ import {
   paramsChecker,
   requireAuth
 } from '@m0banking/common';
+import { check } from 'express-validator';
 import { natsWrapper } from '../natswrapper';
 import { accountChecker } from '../middleware/acccountChecker';
 import { CardBlockedPublisher } from '../events/publisher/CardBlockedPublisher';
-import { check } from 'express-validator';
 
 const router = express.Router();
 

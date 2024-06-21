@@ -13,6 +13,7 @@ router.patch(
   requireAuth,
   paramsChecker('id'),
   accountChecker(),
+
   async (req: Request, res: Response) => {
     const card = await Card.findById(req.params.id);
 
@@ -41,3 +42,5 @@ router.patch(
 );
 
 export { router as cardActivatedRouter };
+
+

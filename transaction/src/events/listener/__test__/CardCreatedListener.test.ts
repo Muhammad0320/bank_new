@@ -56,22 +56,38 @@ const setup = async () => {
 };
 
 it('created and saved the card', async () => {
-  const { data, msg, listener } = await setup();
+                                               const {
+                                                 data,
+                                                 msg,
+                                                 listener
+                                               } = await setup();
 
-  await listener.onMessage(data, msg);
+                                               await listener.onMessage(
+                                                 data,
+                                                 msg
+                                               );
 
-  const card = await Card.findById(data.id);
+                                               const card = await Card.findById(
+                                                 data.id
+                                               );
 
-  expect(card).toBeDefined();
+                                               expect(card).toBeDefined();
 
-  if (!card) throw new Error(`Cannot find card `);
+                                               if (!card)
+                                                 throw new Error(
+                                                   `Cannot find card `
+                                                 );
 
-  expect(card.id).toEqual(data.id);
+                                               expect(card.id).toEqual(data.id);
 
-  expect(card.user.id).toEqual(data.user.id);
+                                               expect(card.user.id).toEqual(
+                                                 data.user.id
+                                               );
 
-  expect(card.user.name).toEqual(data.user.name);
-});
+                                               expect(card.user.name).toEqual(
+                                                 data.user.name
+                                               );
+                                             });
 
 
 it('acks the message', async () => {

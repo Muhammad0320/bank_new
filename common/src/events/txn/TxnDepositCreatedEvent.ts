@@ -1,4 +1,5 @@
 import { Subjects } from "../Subjects";
+import { AccountStatus } from "../types/AccountStatusEnum";
 
 export interface TxnDepositCreatedEvent {
   subject: Subjects.TxnDepositCreated;
