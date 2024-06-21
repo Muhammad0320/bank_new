@@ -3,6 +3,7 @@ import { CardStatus } from '../enums/CardStatus';
 import express, { Request, Response } from 'express';
 import {
   BadRequest,
+  CryptoManager,
   NotFound,
   paramsChecker,
   requireAuth
@@ -10,6 +11,7 @@ import {
 import { natsWrapper } from '../natswrapper';
 import { accountChecker } from '../middleware/acccountChecker';
 import { CardBlockedPublisher } from '../events/publisher/CardBlockedPublisher';
+import { check } from 'express-validator';
 
 const router = express.Router();
 
@@ -18,49 +20,47 @@ router.patch(
   requireAuth,
   paramsChecker('id'),
   accountChecker(),
+  [
+    check('pin')
+      .isInt({ min: 4, max: 4 })
+      .withMessage('Please provide a valid pin')
+  ],
   async (req: Request, res: Response) => {
-                                           const card = await Card.findById(
-                                             req.params.id
-                                           );
+    const card = await Card.findById(req.params.id);
 
-                                           if (!!!card)
-                                             throw new NotFound(
-                                               'Card not found'
-                                             );
+    if (!!!card) throw new NotFound('Card not found');
 
-                                           if (
-                                             card.info.status ===
-                                             CardStatus.Blocked
-                                           )
-                                             throw new BadRequest(
-                                               'Card already blocked'
-                                             );
+    const isCorrectPin = await CryptoManager.compare(
+      card.account.pin,
+      '' + req.body.pin
+    );
 
-                                           const updatedCard = await Card.updateOne(
-                                             {
-                                               info: {
-                                                 status: CardStatus.Active
-                                               }
-                                             },
-                                             { new: true }
-                                           );
+    if (!isCorrectPin) throw new BadRequest(' Wrong pin, try again ');
 
-                                           await new CardBlockedPublisher(
-                                             natsWrapper.client
-                                           ).publish({
-                                             id: card.id,
-                                             version: card.version + 1,
-                                             reason: 'shit',
-                                             user: card.user
-                                           });
+    if (card.info.status === CardStatus.Blocked)
+      throw new BadRequest('Card already blocked');
 
-                                           res
-                                             .status(200)
-                                             .json({
-                                               status: 'sucess',
-                                               data: updatedCard
-                                             });
-                                         }
+    const updatedCard = await Card.updateOne(
+      {
+        info: {
+          status: CardStatus.Active
+        }
+      },
+      { new: true }
+    );
+
+    await new CardBlockedPublisher(natsWrapper.client).publish({
+      id: card.id,
+      version: card.version + 1,
+      reason: 'shit',
+      user: card.user
+    });
+
+    res.status(200).json({
+      status: 'sucess',
+      data: updatedCard
+    });
+  }
 );
 
 export { router as cardBlockedRouter };
