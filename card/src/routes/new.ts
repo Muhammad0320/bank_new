@@ -19,6 +19,7 @@ import { Account } from '../model/Account';
 import express, { Response, Request } from 'express';
 import { CardCreatedPublisher } from '../events/publisher/CardCreatedPublisher';
 import { natsWrapper } from '../natswrapper';
+import { accountChecker } from '../middleware/acccountChecker';
 
 const router = express.Router();
 
@@ -32,6 +33,8 @@ router.post(
     typeValidator()
   ],
   requestValidator,
+  accountChecker('new'),
+
   async (req: Request, res: Response) => {
     const { accountId, billingAddress, networkType, type } = req.body;
 
@@ -71,7 +74,6 @@ router.post(
 
     res.status(201).json({
       status: 'success',
-
       message:
         'Card Successfully created. Head over to the `/activate`, for card activation',
       data: newCard
