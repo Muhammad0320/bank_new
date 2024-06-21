@@ -45,7 +45,7 @@ it('returns a 400  for invalid pin', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin())
-    .send({ pin: 1234 })
+    .send({ pin: 1235 })
     .expect(400);
 });
 

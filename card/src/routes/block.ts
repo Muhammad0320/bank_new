@@ -30,6 +30,8 @@ router.patch(
 
     if (!!!card) throw new NotFound('Card not found');
 
+    console.log(card.account, 'from card block handler -------------------');
+
     const isCorrectPin = await CryptoManager.compare(
       card.account.pin,
       '' + req.body.pin
