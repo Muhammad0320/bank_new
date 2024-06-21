@@ -137,12 +137,16 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
 };
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
-  const card = await Card.create({ _id: attrs.id, ...attrs });
-  
-  return card;
-};
+                                                                  const card = await Card.create(
+                                                                    {
+                                                                      _id:
+                                                                        attrs.id,
+                                                                      ...attrs
+                                                                    }
+                                                                  );
 
-
+                                                                  return card;
+                                                                };
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,

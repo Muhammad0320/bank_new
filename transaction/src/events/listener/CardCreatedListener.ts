@@ -11,13 +11,9 @@ export class CardCreatedListener extends Listener<CardCreatedEvent> {
   async onMessage(data: CardCreatedEvent['data'], msg: Message) {
     const card = await Card.buildCard(data);
 
-    console.log(card, 'from the card created listener it self --------');
-
     if (!card) throw new Error('Card could not be created');
 
 
     msg.ack();
   }
 }
-
-
