@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { Account } from '../model/Account';
-import { AccountStatus, BadRequest, NotFound } from '@m0banking/common';
+import {
+  AccountStatus,
+  BadRequest,
+  Forbidden,
+  NotFound
+} from '@m0banking/common';
 import { Card } from '../model/card';
 
 export const accountChecker = (type?: string) => async (
@@ -21,6 +26,9 @@ export const accountChecker = (type?: string) => async (
   }
 
   if (!account) throw new NotFound('Account not found');
+
+  if (account.user.id !== req.currentUser.id)
+    throw new Forbidden('You are not allowed to perform this action');
 
   if (account.status !== AccountStatus.Active)
     throw new BadRequest('This account is not active');

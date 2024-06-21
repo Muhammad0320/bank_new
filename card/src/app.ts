@@ -2,11 +2,13 @@ import cookieSession from 'cookie-session';
 import express from 'express';
 import 'express-async-errors';
 
-import { currentUser, globalErrorHandler, NotFound } from '@m0banking/common';
 import { cardActivatedRouter } from './routes/activate';
 import { cardBlockedRouter } from './routes/block';
 import { cardCreatedRouter } from './routes/new';
 import { cardUpdateRouter } from './routes/settings';
+import { getAllCardRouter } from './routes/all';
+import { currentUser, globalErrorHandler, NotFound } from '@m0banking/common';
+import { showCardRouter } from './routes/show';
 
 const app = express();
 
@@ -32,6 +34,8 @@ app.use(currentUser);
 app.use(rootUrl, cardCreatedRouter);
 app.use(rootUrl, cardUpdateRouter);
 app.use(rootUrl, cardBlockedRouter);
+app.use(rootUrl, getAllCardRouter);
+app.use(rootUrl, showCardRouter);
 app.use(rootUrl, cardActivatedRouter);
 
 app.all('*', () => {
