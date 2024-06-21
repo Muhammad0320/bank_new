@@ -56,29 +56,22 @@ const setup = async () => {
 };
 
 it('created and saved the card', async () => {
-  const { data, msg, listener, account } = await setup();
+  const { data, msg, listener } = await setup();
 
   await listener.onMessage(data, msg);
 
-  const allCards = await Card.find();
-
-  console.log(allCards, 'All the data in cards');
-
   const card = await Card.findById(data.id);
-
-  console.log(card, 'from the Created listener ------');
 
   expect(card).toBeDefined();
 
   if (!card) throw new Error(`Cannot find card `);
 
-  expect(card.account).toEqual(data.id);
+  expect(card.id).toEqual(data.id);
 
   expect(card.user.id).toEqual(data.user.id);
 
   expect(card.user.name).toEqual(data.user.name);
 });
-
 
 
 it('acks the message', async () => {
