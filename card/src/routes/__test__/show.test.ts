@@ -89,8 +89,6 @@ it('returns a 200 for authorized user', async () => {
     })
     .expect(201);
 
-  console.log(data.id, '-----------------------------------');
-
   await request(app)
     .get('/api/v1/card/' + data.id)
     .set('Cookie', await global.signin(account.user.id))
