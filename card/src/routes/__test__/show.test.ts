@@ -19,12 +19,12 @@ it('returns a 400 for invalid mongoose id', async () => {
     .expect(400);
 });
 
-it('returns a 400 if the card id provided is valid but does not match any in the db', async () => {
+it('returns a 404 if the card id provided is valid but does not match any in the db', async () => {
   await request(app)
     .get('/api/v1/card/' + new mongoose.Types.ObjectId().toHexString())
     .set('Cookie', await global.signin())
     .send()
-    .expect(400);
+    .expect(404);
 });
 
 it('returns a 403 for anauthorized user', async () => {
@@ -44,12 +44,11 @@ it('returns a 403 for anauthorized user', async () => {
     .expect(201);
 
   await request(app)
-    .get('/api/v1/card' + data.id)
+    .get('/api/v1/card/' + data.id)
     .set('Cookie', await global.signin())
     .send()
     .expect(403);
 });
-
 
 it('returns a 200 if it is an admin', async () => {
   const account = await accountBuilder();
@@ -68,12 +67,11 @@ it('returns a 200 if it is an admin', async () => {
     .expect(201);
 
   await request(app)
-    .get('/api/v1/card' + data.id)
+    .get('/api/v1/card/' + data.id)
     .set('Cookie', await global.signin(undefined, UserRole.Admin))
     .send()
     .expect(200);
 });
-
 
 it('returns a 200 for authorized user', async () => {
   const account = await accountBuilder();
@@ -91,8 +89,10 @@ it('returns a 200 for authorized user', async () => {
     })
     .expect(201);
 
+  console.log(data.id, '-----------------------------------');
+
   await request(app)
-    .get('/api/v1/card' + data.id)
+    .get('/api/v1/card/' + data.id)
     .set('Cookie', await global.signin(account.user.id))
     .send()
     .expect(200);

@@ -130,8 +130,6 @@ it('returns a 403, for unauthorized user access', async () => {
 it('returns a 200, when everything is valid', async () => {
   const account = await accountBuilder();
 
-  console.log('from the 200 -------------------------');
-
   const {
     body: { data }
   } = await request(app)
@@ -148,7 +146,9 @@ it('returns a 200, when everything is valid', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
     .set('Cookie', await global.signin(account.user.id))
-    .send({ pin: 1234 })
+    .send({
+      pin: 1234
+    })
     .expect(200);
 });
 
