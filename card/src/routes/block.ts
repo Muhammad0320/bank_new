@@ -6,6 +6,7 @@ import {
   CryptoManager,
   NotFound,
   paramsChecker,
+  requestValidator,
   requireAuth
 } from '@m0banking/common';
 import { check } from 'express-validator';
@@ -24,6 +25,7 @@ router.patch(
       .isInt({ min: 4, max: 4 })
       .withMessage('Please provide a valid pin')
   ],
+  requestValidator,
   accountChecker(),
   async (req: Request, res: Response) => {
     const card = await Card.findById(req.params.id).populate('account');
