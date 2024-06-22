@@ -27,15 +27,15 @@ export const accountChecker = (type?: string) => async (
   }
 
   if (!account) throw new NotFound('Account not found');
+  
+    if (account.status !== AccountStatus.Active)
+      throw new BadRequest('This account is not active');
 
-  if (
-    account.user.id !== req.currentUser.id &&
-    req.currentUser.role === UserRole.User
-  )
-    throw new Forbidden('You are not allowed to perform this action');
-
-  if (account.status !== AccountStatus.Active)
-    throw new BadRequest('This account is not active');
+    if (
+      account.user.id !== req.currentUser.id &&
+      req.currentUser.role === UserRole.User
+    )
+      throw new Forbidden('You are not allowed to perform this action');
 
   next();
 };

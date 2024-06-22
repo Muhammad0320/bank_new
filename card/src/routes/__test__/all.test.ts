@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { CardNetwork, CardType, UserRole } from '@m0banking/common';
 import { accountBuilder } from '../../test/builders';
+import { CardNetwork, CardType, UserRole } from '@m0banking/common';
 
 it(' returns a 401 for unauthrized acces ', async () => {
   await request(app)
