@@ -31,7 +31,8 @@ it('retuns a 404 if the id does not match any existing card', async () => {
     .expect(404);
 });
 
-it('returns a 200 when everyting is valid ', async () => {
+
+it('returns a 403 on unauthorized user access', async () => {
   const account = await accountBuilder();
 
   const {
@@ -50,6 +51,29 @@ it('returns a 200 when everyting is valid ', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/activate`)
     .set('Cookie', await global.signin())
+    .send()
+    .expect(403);
+});
+
+it('returns a 200 when everyting is valid ', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .patch(`/api/v1/card/${data.id}/activate`)
+    .set('Cookie', await global.signin(account.user.id))
     .send()
     .expect(200);
 });
@@ -72,7 +96,7 @@ it('publishes a cardActivatedPublishr with the right data, on successful activat
 
   await request(app)
     .patch(`/api/v1/card/${data.id}/activate`)
-    .set('Cookie', await global.signin())
+    .set('Cookie', await global.signin(account.user.id))
     .send()
     .expect(200);
 
