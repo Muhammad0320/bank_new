@@ -75,8 +75,6 @@ it('returns a 200 if it is an admin', async () => {
 });
 
 
-
-
 it('returns a 200 for authorized user', async () => {
   const account = await accountBuilder();
 

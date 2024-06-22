@@ -201,3 +201,4 @@ it('publishes a cardUpdatedEvent, on successful card update', async () => {
     (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
   ).toBeDefined();
 });
+

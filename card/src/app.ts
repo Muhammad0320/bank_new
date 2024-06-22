@@ -7,8 +7,8 @@ import { cardBlockedRouter } from './routes/block';
 import { cardCreatedRouter } from './routes/new';
 import { cardUpdateRouter } from './routes/settings';
 import { getAllCardRouter } from './routes/all';
-import { currentUser, globalErrorHandler, NotFound } from '@m0banking/common';
 import { showCardRouter } from './routes/show';
+import { currentUser, globalErrorHandler, NotFound } from '@m0banking/common';
 
 const app = express();
 
