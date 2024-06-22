@@ -20,13 +20,13 @@ router.patch(
   '/:id/block',
   requireAuth,
   paramsChecker('id'),
+  accountChecker(),
   [
     check('pin')
-      .isInt({ min: 4, max: 4 })
+      .isLength({ min: 4, max: 4 })
       .withMessage('Please provide a valid pin')
   ],
   requestValidator,
-  accountChecker(),
   async (req: Request, res: Response) => {
     const card = await Card.findById(req.params.id).populate('account');
 

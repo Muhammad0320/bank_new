@@ -44,7 +44,7 @@ it('returns a 400  for invalid pin format', async () => {
 
   await request(app)
     .patch(`/api/v1/card/${data.id}/block`)
-    .set('Cookie', await global.signin())
+    .set('Cookie', await global.signin(account.user.id))
     .send({ pin: 125 })
     .expect(400);
 });
@@ -129,6 +129,8 @@ it('returns a 403, for unauthorized user access', async () => {
 
 it('returns a 200, when everything is valid', async () => {
   const account = await accountBuilder();
+
+  console.log('from the 200 -------------------------');
 
   const {
     body: { data }
