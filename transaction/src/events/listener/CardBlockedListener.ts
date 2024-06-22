@@ -25,3 +25,4 @@ export class CardBlockedListener extends Listener<CardBlockedEvent> {
     msg.ack();
   }
 };
+

@@ -1,11 +1,11 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
+import { Card } from '../../model/card';
 import { CardType } from '../../enums/CardType';
+import { natsWrapper } from '../../natswrapper';
 import { accountBuilder } from '../../test/builders';
 import { CardNetwork } from '../../enums/CardNewtwork';
-import { Card } from '../../model/card';
-import { natsWrapper } from '../../natswrapper';
 
 it(' returns a 401 for unauthenticated requests ', async () => {
   await request(app)
@@ -108,7 +108,8 @@ it('returns a 404 when the provided id does not match any existing card', async 
     .expect(404);
 });
 
-it('returns 200, when everything is working', async () => {
+
+it('returns a 403 if unauthorized user tried to update card settings', async () => {
   const account = await accountBuilder();
 
   const {
@@ -127,6 +128,33 @@ it('returns 200, when everything is working', async () => {
   await request(app)
     .patch(`/api/v1/card/${data.id}/settings`)
     .set('Cookie', await global.signin())
+    .send({
+      daily: 500,
+      weekly: 5000,
+      monthly: 50000
+    })
+    .expect(403);
+});
+
+it('returns 200, when everything is working', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  await request(app)
+    .patch(`/api/v1/card/${data.id}/settings`)
+    .set('Cookie', await global.signin(account.user.id))
     .send({
       daily: 500,
       weekly: 5000,
@@ -159,7 +187,7 @@ it('publishes a cardUpdatedEvent, on successful card update', async () => {
 
   await request(app)
     .patch(`/api/v1/card/${data.id}/settings`)
-    .set('Cookie', await global.signin())
+    .set('Cookie', await global.signin(account.user.id))
     .send({
       daily: 500,
       weekly: 5000,
