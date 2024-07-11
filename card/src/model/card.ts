@@ -178,6 +178,9 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
   const cvv = generateCVV();
 
+  const hashedCardNo = new Crypto().encrypt(cardNumber);
+  const hashedCardCvv = new Crypto().encrypt(cvv);
+
   const cardObject = {
     account: attrs.account,
     user: attrs.user,
@@ -185,8 +188,8 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
       billingAddress: attrs.billingAddress,
       networkType: attrs.networkType,
       cardType: attrs.type,
-      no: cardNumber,
-      cvv: cvv
+      no: hashedCardNo,
+      cvv: hashedCardCvv
     }
   };
 
