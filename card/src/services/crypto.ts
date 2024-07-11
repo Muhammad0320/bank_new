@@ -1,48 +1,36 @@
-import crypto from 'crypto';
+import crypto, { createCipheriv, createDecipheriv } from 'crypto';
 
 export class Crypto {
-         encryptionMethod = 'AES-256-CBC';
+  encryptionMethod = 'AES-256-CBC';
 
-         encrypt(tobeHahsedText: string) {
-           const key = crypto
-             .createHash('sha512')
-             .update(process.env.SECRET_KEY!, 'utf-8')
-             .digest('hex')
-             .substring(0, 32);
-           const iv = crypto
-             .createHash('sha512')
-             .update(process.env.SECRET_IV!, 'utf-8')
-             .digest('hex')
-             .substring(0, 16);
+  encrypt(tobeHahsedText: string) {
+    const key = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_KEY!, 'utf-8')
+      .digest('hex')
+      .substring(0, 32);
+    const iv = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_IV!, 'utf-8')
+      .digest('hex')
+      .substring(0, 16);
 
-           const encryptor = crypto.createCipheriv(
-             this.encryptionMethod,
-             key,
-             iv
-           );
+    const encryptor = createCipheriv(this.encryptionMethod, key, iv);
 
-           const encryptedString =
-             encryptor.update(tobeHahsedText, 'utf8', 'base64') +
-             encryptor.final('base64');
+    const encryptedString =
+      encryptor.update(tobeHahsedText, 'utf8', 'base64') +
+      encryptor.final('base64');
 
-           return `${Buffer.from(encryptedString).toString(
-             'base64'
-           )}.${key}.${iv}`;
-         }
+    return `${Buffer.from(encryptedString).toString('base64')}.${key}.${iv}`;
+  }
 
-         decrypt(encryptionString: string) {
-           const [encryptedMessage, key, iv] = encryptionString.split('');
+  decrypt(encryptionString: string) {
+    const [encryptedMessage, key, iv] = encryptionString.split('');
 
-           const buf = Buffer.from(encryptedMessage, 'base64').toString('utf8');
+    const buf = Buffer.from(encryptedMessage, 'base64').toString('utf8');
 
-           const decryptor = crypto.createDecipheriv(
-             this.encryptionMethod,
-             key,
-             iv
-           );
+    const decryptor = createDecipheriv(this.encryptionMethod, key, iv);
 
-           return (
-             decryptor.update(buf, 'base64', 'utf8') + decryptor.final('utf8')
-           );
-         }
-       }
+    return decryptor.update(buf, 'base64', 'utf8') + decryptor.final('utf8');
+  }
+}
