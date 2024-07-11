@@ -1,6 +1,4 @@
-import crypto from 'crypto';
 import randomatic from 'randomatic';
-
 
 // Function to generate a 16-digit card number
 export function generateCardNumber(): string {
@@ -27,5 +25,3 @@ function luhnChecksum(number: string): string {
   }
   return ((10 - (sum % 10)) % 10) + '';
 }
-
-
