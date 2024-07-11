@@ -1,27 +1,18 @@
-import randomatic from 'randomatic';
+import crypto from 'crypto';
 
-// Function to generate a 16-digit card number
-export function generateCardNumber(): string {
-  let cardNumber = randomatic('0', 15); // Generate first 15 digits
-  let checksum = luhnChecksum(cardNumber);
-  return cardNumber + checksum;
-}
+export class Crypto {
+  encryptionMethod = 'AES-256-CBC';
 
-// Function to generate a 3-digit CVV
-export function generateCVV(): string {
-  return randomatic('0', 3);
-}
-
-// Luhn Algorithm to calculate the checksum digit
-function luhnChecksum(number: string): string {
-  let sum = 0;
-  for (let i = 0; i < number.length; i++) {
-    let digit = parseInt(number[i]);
-    if (i % 2 === number.length % 2) {
-      digit *= 2;
-      if (digit > 9) digit -= 9;
-    }
-    sum += digit;
+  static encrypt(tobeHahsedText: string) {
+    const key = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_KEY!, 'utf-8')
+      .digest('hex')
+      .substring(0, 32);
+    const iv = crypto
+      .createHash('sha512')
+      .update(process.env.SECRET_IV!, 'utf-8')
+      .digest('hex')
+      .substring(0, 16);
   }
-  return ((10 - (sum % 10)) % 10) + '';
 }
