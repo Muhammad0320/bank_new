@@ -13,6 +13,7 @@ import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
 import { DateFxns } from '../services/helper';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { Crypto } from '../services/crypto';
 
 type CardTxnAttrs = {
   no: string;
@@ -166,6 +167,13 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
   // const {card: decryptedCard, cvv: decryptedCvv} = decrypt(no, cvv)
 };
 
+cardSchema.pre<CardDoc>('findOne', async function(next) {
+  this.info.no = new Crypto().decrypt(this.info.no);
+  this.info.cvv = new Crypto().decrypt(this.info.cvv);
+
+  next();
+});
+
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
   const cvv = generateCVV();
@@ -199,5 +207,4 @@ cardSchema.statics.findByLastVersionAndId = async function(
 const Card = mongoose.model<CardDoc, CardModel>('Card', cardSchema);
 
 export { Card };
-
 
