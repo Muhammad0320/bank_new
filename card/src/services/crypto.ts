@@ -35,14 +35,14 @@ export class Crypto {
 
            const buf = Buffer.from(encryptedMessage, 'base64').toString('utf8');
 
-           const decrptor = crypto.createDecipheriv(
+           const decryptor = crypto.createDecipheriv(
              this.encryptionMethod,
              key,
              iv
            );
 
            return (
-             decrptor.update(buf, 'base64', 'utf8') + decrptor.final('utf8')
+             decryptor.update(buf, 'base64', 'utf8') + decryptor.final('utf8')
            );
          }
        }
