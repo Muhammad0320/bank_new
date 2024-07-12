@@ -14,6 +14,8 @@ jest.mock('../natswrapper.ts');
 beforeAll(async () => {
   process.env.JWT_KEY = 'my-super-long-and-ultra-secured-jwt-secret-key';
   process.env.JWT_EXPIRES_IN = '24';
+  process.env.SECRET_KEY = 'fd85b494-aaaa';
+  process.env.SECRET_IV = 'smslt';
   mongo = await MongoMemoryServer.create();
 
   const mongoUri = await mongo.getUri();
