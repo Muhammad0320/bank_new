@@ -1,25 +1,22 @@
 import {
-  AccountStatus,
   BadRequest,
   CardStatus,
   Forbidden,
-  NotFound,
   requestValidator,
-  requireAuth,
-  UserRole
+  requireAuth
 } from '@m0banking/common';
+import express, { Request, Response } from 'express';
+import { CardCreatedPublisher } from '../events/publisher/CardCreatedPublisher';
+import { accountChecker } from '../middleware/acccountChecker';
+import { Account } from '../model/Account';
+import { Card } from '../model/card';
+import { natsWrapper } from '../natswrapper';
 import {
   accountValidator,
   billingAddressValidator,
   netwokTypeValidator,
   typeValidator
 } from '../services/validators';
-import { Card } from '../model/card';
-import { Account } from '../model/Account';
-import express, { Response, Request } from 'express';
-import { CardCreatedPublisher } from '../events/publisher/CardCreatedPublisher';
-import { natsWrapper } from '../natswrapper';
-import { accountChecker } from '../middleware/acccountChecker';
 
 const router = express.Router();
 
@@ -63,6 +60,8 @@ router.post(
       }
     });
 
+    console.log(newCard, 'This was the newly created card');
+
     await new CardCreatedPublisher(natsWrapper.client).publish({
       id: newCard.id,
       version: newCard.version,
@@ -71,8 +70,6 @@ router.post(
       settings: newCard.settings,
       info: newCard.info
     });
-
-    console.log(newCard, 'This was the newly created card');
 
     res.status(201).json({
       status: 'success',
@@ -84,5 +81,3 @@ router.post(
 );
 
 export { router as cardCreatedRouter };
-
-
