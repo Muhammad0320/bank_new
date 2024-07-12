@@ -41,7 +41,7 @@ type CardDoc = mongoose.Document &
     account: AccountDoc;
     user: User;
     info: Info;
-    decryptedInfo: { no: string; cvv: string; }
+    decryptedInfo: { no: string; cvv: string; } | null;
   };
 
 type CardModel = mongoose.Model<CardDoc> & {
@@ -164,20 +164,18 @@ cardSchema.pre('save', async function(next) {
 
 cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
-                           const { mm, yy } = DateFxns();
+    const { mm, yy } = DateFxns();
 
-                           this.info!.expiryDate = new Date(yy, mm);
-                           this.info!.no = new Crypto().encrypt(this.info!.no);
-                           this.info!.cvv = new Crypto().encrypt(
-                             this.info!.cvv
-                           );
+    this.info!.expiryDate = new Date(yy, mm);
+    this.info!.no = new Crypto().encrypt(this.info!.no);
+    this.info!.cvv = new Crypto().encrypt(this.info!.cvv);
 
-                           if (this.isNew) {
-                             console.log('This is a new copy of card document');
-                           }
+    if (this.isNew) {
+      console.log('This is a new copy of card document');
+    }
 
-                           next();
-                         }
+    next();
+  }
 });
 
 cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
