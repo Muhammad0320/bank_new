@@ -170,13 +170,16 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
 };
 
 cardSchema.post('findOne', async function(doc: CardDoc, next) {
-  console.log(doc.info, 'from the post find hook hook');
-
+  
   if (doc && doc.info) {
-    doc.info.no = new Crypto().decrypt(doc.info.no);
-    doc.info.cvv = new Crypto().decrypt(doc.info.cvv);
+                         console.log(doc.info, 'from the post find hook hook');
 
-    await doc.save();
+                         doc.info.no = new Crypto().decrypt(doc.info.no);
+                         doc.info.cvv = new Crypto().decrypt(doc.info.cvv);
+
+                         await doc.save();
+                       } else {
+    console.log('Inkan deeee --------------');
   }
   next();
 });
