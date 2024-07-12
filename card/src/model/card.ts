@@ -169,12 +169,12 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
   // const {card: decryptedCard, cvv: decryptedCvv} = decrypt(no, cvv)
 };
 
-// cardSchema.pre<CardDoc>('findOne', async function(next) {
-//   this.info.no = new Crypto().decrypt(this.info.no);
-//   this.info.cvv = new Crypto().decrypt(this.info.cvv);
+cardSchema.pre('findOne', async function(this: CardDoc, next) {
+  this.info.no = new Crypto().decrypt(this.info.no);
+  this.info.cvv = new Crypto().decrypt(this.info.cvv);
 
-//   next();
-// });
+  next();
+});
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
