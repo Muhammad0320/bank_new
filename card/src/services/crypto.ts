@@ -25,31 +25,14 @@ export class Crypto {
   }
 
   decrypt(encryptionString: string) {
-                                      const [
-                                        encryptedMessage,
-                                        key,
-                                        iv
-                                      ] = encryptionString.split('');
+    const [encryptedMessage, key, iv] = encryptionString.split('.');
 
-                                      let buf: string | Buffer = Buffer.from(
-                                        encryptedMessage,
-                                        'base64'
-                                      );
+    let buf: string | Buffer = Buffer.from(encryptedMessage, 'base64');
 
-                                      buf = buf.toString('utf-8');
+    buf = buf.toString('utf-8');
 
-                                      const decryptor = createDecipheriv(
-                                        this.encryptionMethod,
-                                        key,
-                                        iv
-                                      );
+    const decryptor = createDecipheriv(this.encryptionMethod, key, iv);
 
-                                      return (
-                                        decryptor.update(
-                                          buf,
-                                          'base64',
-                                          'utf8'
-                                        ) + decryptor.final('utf8')
-                                      );
-                                    }
+    return decryptor.update(buf, 'base64', 'utf8') + decryptor.final('utf8');
+  }
 }
