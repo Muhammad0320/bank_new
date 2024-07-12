@@ -272,7 +272,7 @@ it('publishes a card created publisher on succssful card creation ', async () =>
 
 it('hashes the card no stored in the db', async () => {
   const account = await accountBuilder();
-
+  
   const {
     body: { data }
   } = await request(app)
@@ -291,6 +291,8 @@ it('hashes the card no stored in the db', async () => {
   const currentCard = await Card.findById(data.id);
 
   if (!currentCard) throw new Error('Card not found');
+
+  console.log(currentCard, 'the current card from the new test ts');
 
   expect(currentCard.info.no).not.toEqual(data.info.no);
 });

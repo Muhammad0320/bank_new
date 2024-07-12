@@ -41,6 +41,7 @@ type CardDoc = mongoose.Document &
     account: AccountDoc;
     user: User;
     info: Info;
+    decryptedInfo: { no: string; cvv: string; }
   };
 
 type CardModel = mongoose.Model<CardDoc> & {
@@ -137,6 +138,20 @@ const cardSchema = new mongoose.Schema(
 cardSchema.set('versionKey', 'version');
 cardSchema.plugin(updateIfCurrentPlugin);
 
+
+cardSchema.virtual('decryptedInfo', {
+  get() {
+    if (this && this.info) {
+      return {
+        no: new Crypto().decrypt(this.info.no),
+        cvv: new Crypto().decrypt(this.info.cvv)
+      };
+    } else {
+      return null;
+    }
+  }
+});
+
 cardSchema.pre('save', async function(next) {
   if (this.isModified() && this.info?.cardType === CardType.Debit) {
     this.info!.maxCredit = undefined;
@@ -169,20 +184,7 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
   // const {card: decryptedCard, cvv: decryptedCvv} = decrypt(no, cvv)
 };
 
-cardSchema.post('findOne', async function(doc: CardDoc, next) {
-  
-  if (doc && doc.info) {
-                         console.log(doc.info, 'from the post find hook hook');
 
-                         doc.info.no = new Crypto().decrypt(doc.info.no);
-                         doc.info.cvv = new Crypto().decrypt(doc.info.cvv);
-
-                         await doc.save();
-                       } else {
-    console.log('Inkan deeee --------------');
-  }
-  next();
-});
 
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
