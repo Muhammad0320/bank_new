@@ -12,8 +12,8 @@ import {
 import mongoose from 'mongoose';
 import { AccountDoc } from './Account';
 import { DateFxns } from '../services/helper';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Crypto } from '../services/crypto';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 type CardTxnAttrs = {
   no: string;
