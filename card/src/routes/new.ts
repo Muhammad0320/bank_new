@@ -72,6 +72,8 @@ router.post(
       info: newCard.info
     });
 
+    console.log(newCard, 'This was the newly created card');
+
     res.status(201).json({
       status: 'success',
       message:

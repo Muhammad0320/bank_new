@@ -292,5 +292,5 @@ it('hashes the card no stored in the db', async () => {
 
   if (!currentCard) throw new Error('Card not found');
 
-  expect(currentCard.info.no).not.toEqual(data.info.id);
+  expect(currentCard.info.no).not.toEqual(data.info.no);
 });

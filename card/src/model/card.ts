@@ -149,18 +149,20 @@ cardSchema.pre('save', async function(next) {
 
 cardSchema.pre('save', async function(next) {
   if (this.isModified()) {
-    const { mm, yy } = DateFxns();
+                           const { mm, yy } = DateFxns();
 
-    this.info!.expiryDate = new Date(yy, mm);
-    this.info!.no = (await CryptoManager.hash(this.info!.no)) as string;
-    this.info!.cvv = (await CryptoManager.hash(this.info!.cvv)) as string;
-  }
+                           this.info!.expiryDate = new Date(yy, mm);
+                           this.info!.no = new Crypto().encrypt(this.info!.no);
+                           this.info!.cvv = new Crypto().encrypt(
+                             this.info!.cvv
+                           );
 
-  if (this.isNew) {
-    console.log('This is a new copy of card document');
-  }
+                           if (this.isNew) {
+                             console.log('This is a new copy of card document');
+                           }
 
-  next();
+                           next();
+                         }
 });
 
 cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
@@ -178,9 +180,6 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
   const cvv = generateCVV();
 
-  const hashedCardNo = new Crypto().encrypt(cardNumber);
-  const hashedCardCvv = new Crypto().encrypt(cvv);
-
   const cardObject = {
     account: attrs.account,
     user: attrs.user,
@@ -188,8 +187,8 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
       billingAddress: attrs.billingAddress,
       networkType: attrs.networkType,
       cardType: attrs.type,
-      no: hashedCardNo,
-      cvv: hashedCardCvv
+      no: cardNumber,
+      cvv: cvv
     }
   };
 
