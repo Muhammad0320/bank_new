@@ -288,8 +288,6 @@ it('hashes the card no stored in the db', async () => {
 
   const currentCard = await Card.findById(data.id);
 
-  console.log(currentCard, 'the newly created card');
-
   if (!currentCard || !currentCard.decryptedInfo)
     throw new Error('Card not found');
 
