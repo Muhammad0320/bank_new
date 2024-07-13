@@ -120,6 +120,8 @@ it('returns  a decryoted card data', async () => {
     .send()
     .expect(200);
 
-  expect(data.info.no).not.toEqual(data.decryptedInfo.no);
-  expect(data.info.cvv).not.toEqual(data.decryptedInfo.cvv);
+    console.log(cardData, 'from show test ts ----');
+
+    expect(data.info.no).not.toEqual(cardData.decryptedInfo.no);
+    expect(data.info.cvv).not.toEqual(cardData.decryptedInfo.cvv);
 });
