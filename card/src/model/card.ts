@@ -139,21 +139,19 @@ cardSchema.set('versionKey', 'version');
 cardSchema.plugin(updateIfCurrentPlugin);
 
 
-cardSchema.virtual('decryptedInfo', {
-  get() {
-          console.log(this, 'the this from the new card virtual');
+cardSchema.virtual('decryptedInfo').get(function() {
+  console.log(this, 'the this from the new card virtual');
 
-          if (this && this.info) {
-            console.log('Code reacjed this place');
+  if (this && this.info) {
+    console.log('Code reacjed this place');
 
-            return {
-              no: new Crypto().decrypt(this.info.no),
-              cvv: new Crypto().decrypt(this.info.cvv)
-            };
-          } else {
-            return null;
-          }
-        }
+    return {
+      no: new Crypto().decrypt(this.info.no),
+      cvv: new Crypto().decrypt(this.info.cvv)
+    };
+  } else {
+    return null;
+  }
 });
 
 cardSchema.pre('save', async function(next) {
@@ -186,8 +184,6 @@ cardSchema.methods.validateTxn = async function(attrs: CardTxnAttrs) {
   // const {card: decryptedCard, cvv: decryptedCvv} = decrypt(no, cvv)
 };
 
-
-
 cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
   const cardNumber = generateCardNumber();
   const cvv = generateCVV();
@@ -208,6 +204,7 @@ cardSchema.statics.buildCard = async function(attrs: CardAttrs) {
 
   return card;
 };
+
 
 cardSchema.statics.findByLastVersionAndId = async function(
   id: string,
