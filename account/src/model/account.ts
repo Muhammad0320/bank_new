@@ -224,11 +224,11 @@ accountSchema.pre('save', async function(next) {
 //   next();
 // });
 
-// accountSchema.pre('find', function(next) {
-//   console.log(this.getQuery(), 'from the new pre find');
+accountSchema.pre('find', function(next) {
+  console.log(this.getQuery(), 'from the new pre find');
 
-//   next();
-// });
+  next();
+});
 
 const Account = mongoose.model<AccountDoc, AccountModel>(
   'Account',

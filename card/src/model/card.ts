@@ -2,7 +2,6 @@ import {
   CardNetwork,
   CardStatus,
   CardType,
-  CryptoManager,
   generateCardNumber,
   generateCVV,
   Info,
@@ -10,10 +9,10 @@ import {
   User
 } from '@m0banking/common';
 import mongoose from 'mongoose';
-import { AccountDoc } from './Account';
-import { DateFxns } from '../services/helper';
-import { Crypto } from '../services/crypto';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { Crypto } from '../services/crypto';
+import { DateFxns } from '../services/helper';
+import { AccountDoc } from './Account';
 
 type CardTxnAttrs = {
   no: string;
