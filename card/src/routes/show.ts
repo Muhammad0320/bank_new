@@ -15,7 +15,10 @@ router.get(
 
     if (!card) throw new NotFound(' Card not found ');
 
-    res.status(200).json({ status: 'success', data: card });
+    res.status(200).json({
+      status: 'success',
+      data: card
+    });
   }
 );
 
