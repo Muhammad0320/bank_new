@@ -140,11 +140,7 @@ cardSchema.plugin(updateIfCurrentPlugin);
 
 
 cardSchema.virtual('decryptedInfo').get(function() {
-  console.log(this, 'the this from the new card virtual');
-
   if (this && this.info) {
-    console.log('Code reacjed this place');
-
     return {
       no: new Crypto().decrypt(this.info.no),
       cvv: new Crypto().decrypt(this.info.cvv)
