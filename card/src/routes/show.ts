@@ -17,7 +17,7 @@ router.get(
 
     res.status(200).json({
       status: 'success',
-      data: card
+      data: { ...card, decryptedInfo: card.decryptedInfo }
     });
   }
 );
