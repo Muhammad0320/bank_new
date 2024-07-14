@@ -96,3 +96,30 @@ it('returns a 200 for authorized user', async () => {
     .expect(200);
 });
 
+
+it('returns the decryped card info on successful response', async () => {
+  const account = await accountBuilder();
+
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/card')
+    .set('Cookie', await global.signin(account.user.id))
+    .send({
+      accountId: account.id,
+      billingAddress: 'G50 Balogun gambari compd',
+      networkType: CardNetwork.Visa,
+      type: CardType.Credit
+    })
+    .expect(201);
+
+  const {
+    body: { data: cardData }
+  } = await request(app)
+    .get('/api/v1/card/' + data.id)
+    .set('Cookie', await global.signin(account.user.id))
+    .send()
+    .expect(200);
+
+  expect(cardData.decryptedInfo.no).not.toEqual(data.decryptedInfo.no);
+});
