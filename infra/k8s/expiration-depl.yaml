@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account-depl
+  name: expiration-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: account
+      app: expiration
   template:
     metadata:
       labels:
-        app: account
+        app: expiration
     spec:
       containers:
-        - name: account
-          image: muhammad0320/account
+        - name: expiration
+          image: muhammad0320/expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -25,7 +25,7 @@ spec:
             - name: NATS_URL
               value: "http://nats-srv:4222"
             - name: MONGO_URI
-              value: "mongodb://account-mongo-srv:27017/account"
+              value: "mongodb://expiration-mongo-srv:27017/expiration"
             - name: JWT_EXPIRES_IN
               value: "24"
             - name: JWT_KEY
@@ -37,12 +37,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: account-srv
+  name: expiration-srv
 spec:
   selector:
-    app: account
+    app: expiration
   ports:
-    - name: account
+    - name: expiration
       protocol: TCP
       port: 3000
       targetPort: 3000
