@@ -57,3 +57,11 @@ spec:
                 name: card-srv
                 port:
                   number: 3000
+
+          - path: /api/v1/expiration/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: expiration-srv
+                port:
+                  number: 3000
