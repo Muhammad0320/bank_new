@@ -21,11 +21,10 @@
   "license": "ISC",
   "dependencies": {
     "@m0banking/common": "^1.0.31",
-   
+    "bull": "^4.15.1",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "express-validator": "^7.0.1",
-
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   },
