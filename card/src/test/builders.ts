@@ -6,6 +6,7 @@ import {
   AccountStatus,
   AccountTier,
   AccountType,
+  CardType,
   CryptoManager
 } from '@m0banking/common';
 import { DateFxns } from '../services/helper';
@@ -37,28 +38,26 @@ export const accountBuilder = async (
   });
 };
 
-// export const cardBuilder = async () => {
+export const cardBuilder = async () => {
+  const { yy, mm, dd } = DateFxns();
 
-//     const { yy, mm, dd } = DateFxns();
+  const account = await accountBuilder();
 
-//     const account = await accountBuilder()
+  return await Card.create({
+    account: account.id,
 
-//     return   await Card.create({
-//         account: account.id,
+    user: {
+      id: account.user.id,
+      name: account.user.name
+    },
 
-//         user: {
-//           id: account.user.id,
-//           name: account.user.name
-//         },
-
-//         info: {
-//           billingAddress,
-//           network: CardNetwork.Visa,
-//           type,
-//           no: '124928928578566',
-//           cvv: '123',
-//           expiryDate: new Date(yy, mm, dd)
-//         }
-//       });
-
-// }
+    info: {
+      billingAddress: 'G50 Balogun gambari compd',
+      network: CardNetwork.Visa,
+      type: CardType.Debit,
+      no: '124928928578566',
+      cvv: '123',
+      expiryDate: new Date(yy, mm, dd)
+    }
+  });
+};
