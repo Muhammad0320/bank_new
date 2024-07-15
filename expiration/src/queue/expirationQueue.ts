@@ -7,3 +7,7 @@ interface Payload {
 export const cardExpirationQueue = new Queue<Payload>('card:expiration', {
   redis: { host: process.env.REDIS_HOST! }
 });
+
+
+cardExpirationQueue.process(async job => {});
+
