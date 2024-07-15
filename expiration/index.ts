@@ -1,6 +1,7 @@
 import { app } from './app';
 import mongoose from 'mongoose';
 import { natsWrapper } from './natswrapper';
+import { CardCreatedListener } from './src/events/listeners/CardCreatedListener';
 
 const start = async () => {
   const port = 3000;
@@ -38,7 +39,7 @@ const start = async () => {
         process.on('SIGTERM', () => natsWrapper.client.close());
         process.on('SIGINT', () => natsWrapper.client.close());
 
-
+        new CardCreatedListener(natsWrapper.client).listen();
 
         await mongoose.connect(process.env.MONGO_URI);
 
