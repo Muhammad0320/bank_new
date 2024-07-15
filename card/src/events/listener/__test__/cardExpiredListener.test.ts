@@ -41,4 +41,14 @@ it('publishes card expiration event', async () => {
   listener.onMessage(data, msg);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  // Add anothet test to asset the changes
+});
+
+it('acks the message', async () => {
+  const { data, msg, listener } = await setup();
+
+  listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
 });
