@@ -13,5 +13,6 @@ export declare enum Subjects {
     CardCreated = "card:created",
     CardBlocked = "card:blocked",
     CardActivated = "card:activated",
-    CardUpdated = "card:updated"
+    CardUpdated = "card:updated",
+    CardExpired = "card:expired"
 }

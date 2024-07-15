@@ -63,3 +63,4 @@ __exportStar(require("./events/card/CardBlockedEvent"), exports);
 __exportStar(require("./events/card/CardCreatedEvent"), exports);
 __exportStar(require("./events/card/CardUpdatedEvent"), exports);
 __exportStar(require("./events/card/CardActivatedEvent"), exports);
+__exportStar(require("./events/card/CardExpirationEvent"), exports);

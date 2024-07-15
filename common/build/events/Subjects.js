@@ -21,4 +21,6 @@ var Subjects;
     Subjects["CardBlocked"] = "card:blocked";
     Subjects["CardActivated"] = "card:activated";
     Subjects["CardUpdated"] = "card:updated";
+    Subjects["CardExpired"] = "card:expired";
 })(Subjects || (exports.Subjects = Subjects = {}));
+;
