@@ -55,3 +55,4 @@ export * from "./events/card/CardBlockedEvent";
 export * from "./events/card/CardCreatedEvent";
 export * from "./events/card/CardUpdatedEvent";
 export * from "./events/card/CardActivatedEvent";
+export * from "./events/card/CardExpirationEvent";
