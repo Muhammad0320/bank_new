@@ -123,3 +123,4 @@ it('returns the decryped card info on successful response', async () => {
 
   expect(cardData.decryptedInfo.no).not.toEqual(data.decryptedInfo.no);
 });
+
