@@ -32,3 +32,13 @@ it('updates and saves card status', async () => {
 
   expect(refetchedCard?.info.status).toEqual(CardStatus.Expired);
 });
+
+
+
+it('publishes card expiration event', async () => {
+  const { data, msg, listener } = await setup();
+
+  listener.onMessage(data, msg);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
