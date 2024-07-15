@@ -4,6 +4,7 @@ import { natsWrapper } from './natswrapper';
 import { AccountCreatedListener } from './events/listener/AccountCreatedListener';
 import { AccountBlockedListener } from './events/listener/AccountBlockedListener';
 import { AccountUnblockedListener } from './events/listener/AccountUnBlockedListener';
+import { CardExpiredListener } from './events/listener/CardExpiredListener';
 
 const start = async () => {
   const port = 3000;
@@ -44,6 +45,7 @@ const start = async () => {
     new AccountCreatedListener(natsWrapper.client).listen();
     new AccountBlockedListener(natsWrapper.client).listen();
     new AccountUnblockedListener(natsWrapper.client).listen();
+    new CardExpiredListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
 
