@@ -1,7 +1,7 @@
 import { app } from './app';
 import mongoose from 'mongoose';
 import { natsWrapper } from './natswrapper';
-import { CardCreatedListener } from './src/events/listeners/CardCreatedListener';
+import { CardCreatedListener } from './events/listeners/CardCreatedListener';
 
 const start = async () => {
   const port = 3000;

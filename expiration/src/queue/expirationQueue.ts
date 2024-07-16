@@ -1,6 +1,6 @@
 import Queue from 'bull';
 import { CardExpirationPublisher } from '../events/publisher/CardExpirationPublisher';
-import { natsWrapper } from '../../natswrapper';
+import { natsWrapper } from '../natswrapper';
 
 interface Payload {
   cardId: string;
