@@ -16,14 +16,15 @@ export class CardExpiredListener extends Listener<CardExpirationEvent> {
   async onMessage(data: CardExpirationEvent['data'], msg: Message) {
     const card = await Card.findById(data.cardId);
 
-    
     if (!card) throw new Error('Card not found');
 
-    card.set({ info: { ...card.info, status: CardStatus.Expired } });
+    card.set({
+      info: {
+        ...card.info,
+        status: CardStatus.Expired
+      }
+    });
     await card.save();
-
-    console.log(card, 'The card from the listener');
-
 
     msg.ack();
   }
