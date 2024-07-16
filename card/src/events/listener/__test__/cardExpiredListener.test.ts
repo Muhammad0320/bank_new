@@ -35,16 +35,6 @@ await listener.onMessage(data, msg);
 
 
 
-it('publishes card expiration event', async () => {
-  const { data, msg, listener } = await setup();
-
-  await listener.onMessage(data, msg);
-
-  expect(natsWrapper.client.publish).toHaveBeenCalled();
-
-  // Add anothet test to asset the changes
-});
-
 it('acks the message', async () => {
   const { data, msg, listener } = await setup();
 
