@@ -26,7 +26,7 @@ const setup = async () => {
 it('updates and saves card status', async () => {
   const { card, data, msg, listener } = await setup();
 
-  listener.onMessage(data, msg);
+await listener.onMessage(data, msg);
 
   const refetchedCard = await Card.findById(card.id);
 
@@ -38,7 +38,7 @@ it('updates and saves card status', async () => {
 it('publishes card expiration event', async () => {
   const { data, msg, listener } = await setup();
 
-  listener.onMessage(data, msg);
+  await listener.onMessage(data, msg);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 
@@ -48,7 +48,7 @@ it('publishes card expiration event', async () => {
 it('acks the message', async () => {
   const { data, msg, listener } = await setup();
 
-  listener.onMessage(data, msg);
+  await listener.onMessage(data, msg);
 
   expect(msg.ack).toHaveBeenCalled();
 });
