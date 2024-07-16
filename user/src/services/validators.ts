@@ -30,3 +30,9 @@ export const passwordConfirmationValidator = () =>
     .isString()
     .custom((input: string, { req }) => input === req.body.password)
     .withMessage('Passwords are not the same');
+
+export const phoneValidator = () => {
+  body('phone')
+    .isMobilePhone('any')
+    .withMessage('Please provide a valid phone number');
+};
