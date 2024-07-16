@@ -1,6 +1,5 @@
-import { CardBlockedEent, Publisher, Subjects } from '@m0banking/common';
+import { CardBlockedEvent, Publisher, Subjects } from '@m0banking/common';
 
-export class CardBlockedPublisher extends Publisher<CardBlockedEent> {
+export class CardBlockedPublisher extends Publisher<CardBlockedEvent> {
   readonly subject = Subjects.CardBlocked;
 }
-
