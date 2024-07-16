@@ -22,6 +22,7 @@ type UserAttrs = {
   role: UserRole;
   avatar: string;
   createdAt: Date;
+  phone: number
 };
 
 type UserDoc = mongoose.Document &
@@ -83,6 +84,11 @@ const userSchema = new mongoose.Schema(
       enum: Object.values(UserStatus),
 
       default: UserStatus.Active
+    },
+
+    phone: {
+      type: Number,
+      required: true
     },
 
     createdAt: {
