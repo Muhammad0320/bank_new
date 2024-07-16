@@ -16,18 +16,18 @@ type UserUpdatesObj = {
 type UserAttrs = {
   name: string;
   email: string;
-  status: UserStatus;
   password: string;
   passwordConfirm: string;
-  role: UserRole;
-  avatar: string;
-  createdAt: Date;
+  role?: UserRole;
   phone: number
 };
 
 type UserDoc = mongoose.Document &
-  UserAttrs & {
-    version: number;
+UserAttrs & {
+  version: number;
+  createdAt: Date;
+  status: UserStatus;
+  avatar: string;
     signinTimeStamps: Date[];
 
     updates: UserUpdatesObj[];
