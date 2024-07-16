@@ -4,7 +4,8 @@ import {
   emailValidator,
   nameValidator,
   passwordConfirmationValidator,
-  passwordValidator
+  passwordValidator,
+  phoneValidator
 } from '../services/validators';
 import { natsWrapper } from '../natswrapper';
 import express, { Request, Response } from 'express';
@@ -20,13 +21,14 @@ router.post(
     emailValidator(),
     nameValidator(),
     passwordValidator(),
-    passwordConfirmationValidator()
+    passwordConfirmationValidator(),
+    phoneValidator()
   ],
 
   requestValidator,
 
   async (req: Request, res: Response) => {
-    const { email, ...attrs } = req.body;
+    const { email, name, password, passwordConfirm, phone } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -36,7 +38,13 @@ router.post(
       );
     }
 
-    const user = await User.buildUser({ ...attrs, email });
+    const user = await User.buildUser({
+      email,
+      password,
+      passwordConfirm,
+      name,
+      phone
+    });
 
     const token = jwt.sign({ user }, process.env.JWT_KEY!, {
       expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
@@ -50,7 +58,7 @@ router.post(
       email: user.email,
       name: user.name,
       password: user.password,
-      role: user.role,
+      role: user.role!,
       id: user.id
     });
 
