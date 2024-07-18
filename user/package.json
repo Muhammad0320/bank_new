@@ -36,7 +36,6 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
     "@types/jest": "^29.5.12",
     "@types/supertest": "^6.0.2",
     "eslint": "^5.16.0",

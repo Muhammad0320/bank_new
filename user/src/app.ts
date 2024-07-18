@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
@@ -11,7 +11,6 @@ import { globalErrorHandler, NotFound } from '@m0banking/common';
 import { updateUserRouter } from './routes/update';
 
 const app = express();
-
 
 app.set('trust proxy', true);
 
@@ -32,6 +31,12 @@ app.use(
 console.log('Hi mom');
 
 const rootUrl = '/api/v1/user';
+
+app.get(rootUrl, (req, res: Response) => {
+  res.status(200).json({
+    message: 'Allihamdullilah'
+  });
+});
 
 app.use(rootUrl, signinRouter);
 app.use(rootUrl, signoutRouter);
