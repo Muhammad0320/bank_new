@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { signinRouter } from './routes/signin';
@@ -11,7 +12,10 @@ import { updateUserRouter } from './routes/update';
 
 const app = express();
 
+
 app.set('trust proxy', true);
+
+app.use(cors());
 
 app.use(express.json());
 
