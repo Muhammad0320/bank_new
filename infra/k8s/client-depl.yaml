@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: muhammad0320client
+          image: muhammad0320/client
 
 ---
 apiVersion: v1
