@@ -67,3 +67,13 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+
+
+    - image: muhammad0320/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
