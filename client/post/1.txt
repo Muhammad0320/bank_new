@@ -1,0 +1,14 @@
+
+
+Day 1.
+
+
+🚀 Hey everyone! I’m MuhammadAwwal, a Full stack developer working on an exciting microservices banking web app. Due to unforeseen issues, my previous account (@codemaestro_7) was suspended, but I’m back and ready to share the frontend journey with (Next.js and TS)  from scratch! #Intro #TechTwitter #connect .
+
+🏦 This project, aims to revolutionize online banking with features like secure card validation, real-time transactions, and a user-friendly dashboard. I’ve just completed the layout of the Dashboard page. Actual content would be inserted later ! #WebApp #Banking
+
+🔧 I’ll be sharing regular updates, technical insights, and progress on this journey. Follow along for a deep dive into building a robust, scalable banking app! 
+
+Let’s connect #connect  and grow together. 
+
+#Coding  #DeveloperJourney

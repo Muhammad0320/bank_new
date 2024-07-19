@@ -1,0 +1,22 @@
+{
+  "node": {
+    "1634440b539c07bcc4652fc98657196f99b117d5": {
+      "workers": {
+        "app/(content)/auth/signup/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS-PC%5C%5CDesktop%5C%5Cbank--f%5C%5Cactions%5C%5Cauth.ts%22%2C%5B%22%24%24ACTION_0%22%2C%22signupAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/(content)/auth/signup/page": "action-browser"
+      }
+    },
+    "17b71ddc37ee74fa849b84e7a93368df16f0a40a": {
+      "workers": {
+        "app/(content)/auth/signup/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5CASUS-PC%5C%5CDesktop%5C%5Cbank--f%5C%5Cactions%5C%5Cauth.ts%22%2C%5B%22%24%24ACTION_0%22%2C%22signupAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/(content)/auth/signup/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "Faco1mZ6lfBYctsaJ/QQw2ewXNjVDtjEDSeJZ+PWrJU="
+}
