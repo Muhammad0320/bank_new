@@ -9,10 +9,10 @@ import {
   User
 } from '@m0banking/common';
 import mongoose from 'mongoose';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Crypto } from '../services/crypto';
 import { DateFxns } from '../services/helper';
 import { AccountDoc } from './Account';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 type CardTxnAttrs = {
   no: string;
