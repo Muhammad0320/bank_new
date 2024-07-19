@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/innate-algebra-414708/client
+          image: muhammad0320client
 
 ---
 apiVersion: v1
