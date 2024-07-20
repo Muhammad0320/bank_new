@@ -5,7 +5,8 @@ import {
   nameValidator,
   passwordConfirmationValidator,
   passwordValidator,
-  phoneValidator
+  phoneValidator,
+  usernameValidator
 } from '../services/validators';
 import { natsWrapper } from '../natswrapper';
 import express, { Request, Response } from 'express';
@@ -22,15 +23,30 @@ router.post(
     nameValidator(),
     passwordValidator(),
     passwordConfirmationValidator(),
-    phoneValidator()
+    phoneValidator(),
+    usernameValidator()
   ],
 
   requestValidator,
 
   async (req: Request, res: Response) => {
-    const { email, name, password, passwordConfirm, phone } = req.body;
+    const {
+      email,
+      name,
+      password,
+      passwordConfirm,
+      phone,
+      username
+    } = req.body;
 
     const existingUser = await User.findOne({ email });
+
+    const existingUsername = await User.findOne({ username });
+
+    if (!!existingUsername)
+      throw new BadRequest(
+        'This username is in use, Please craft another unique username'
+      );
 
     if (!!existingUser) {
       throw new BadRequest(
@@ -43,7 +59,8 @@ router.post(
       password,
       passwordConfirm,
       name,
-      phone
+      phone,
+      username
     });
 
     const token = jwt.sign({ user }, process.env.JWT_KEY!, {
