@@ -15,6 +15,7 @@ const UserSchema = z.object({
   phone: z.number().min(13, 'Invalid phone format'),
   password: z.string().min(8, 'Password too short'),
   passwordConfirm: z.string(),
+  username: z.string().min(6, 'Invalid username format: min of 6 chars'),
 });
 
 export type FormSchema = z.infer<typeof UserSchema>;
