@@ -5,7 +5,7 @@ import User from '../../model/user';
 
 it('return status other that 404, to assert the availablility of the route', async () => {
   const response = await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: 'shitman@gmail.com',
       password: 'shitpassword'
@@ -16,7 +16,7 @@ it('return status other that 404, to assert the availablility of the route', asy
 
 it('return a 400 on invalid email', async () => {
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: 'shitman@gmail.com',
       password: 'shitpassword'
@@ -24,7 +24,7 @@ it('return a 400 on invalid email', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       password: 'shitpassword'
     })
@@ -46,14 +46,14 @@ it('returns a 400 on incorrect password', async () => {
     .expect(201);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email
     })
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email,
       password: 'shitpassword'
@@ -76,7 +76,7 @@ it('returns a 200 on valid inputs', async () => {
     .expect(201);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'
@@ -99,7 +99,7 @@ it('asserts that a cookie was set to the headers', async () => {
     .expect(201);
 
   const response = await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'
@@ -124,7 +124,7 @@ it('increments signinTimestamps field on every signins', async () => {
     .expect(201);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'
@@ -132,7 +132,7 @@ it('increments signinTimestamps field on every signins', async () => {
     .expect(200);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/user/signin/email')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'
