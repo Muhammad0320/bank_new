@@ -35,3 +35,11 @@ export const phoneValidator = () =>
   body('phone')
     .isMobilePhone('any')
     .withMessage('Please provide a valid phone number');
+
+
+export const usernameValidator = () =>
+  body('username')
+    .isString()
+    .notEmpty()
+    .isLength({ min: 3 })
+    .withMessage('Please provide a valid username: min of 3 chars');
