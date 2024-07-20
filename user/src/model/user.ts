@@ -19,7 +19,8 @@ type UserAttrs = {
   password: string;
   passwordConfirm: string;
   role?: UserRole;
-  phone: number
+  phone: number;
+  username: string;
 };
 
 type UserDoc = mongoose.Document &
@@ -49,6 +50,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       required: [true, 'This field is required.']
+    },
+
+    username: {
+      type: String,
+      unique: true,
+      required: true
     },
 
     password: {
