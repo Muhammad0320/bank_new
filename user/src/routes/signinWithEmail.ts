@@ -25,7 +25,7 @@ router.post(
     const existingUser = await User.findOne({ email }).select('+password');
 
     if (!existingUser) {
-      throw new BadRequest('Invalid login credentials email ');
+      throw new BadRequest('Invalid signin credentials ');
     }
 
     const isCorrectPassword = await CryptoManager.compare(
@@ -34,7 +34,7 @@ router.post(
     );
 
     if (!isCorrectPassword) {
-      throw new BadRequest('Invalid login credentials password ');
+      throw new BadRequest('Invalid signin credentials');
     }
 
     const token = jwt.sign({ user: existingUser }, process.env.JWT_KEY!, {
