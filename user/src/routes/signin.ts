@@ -7,7 +7,7 @@ import { emailValidator, passwordValidator } from '../services/validators';
 const router = express.Router();
 
 router.post(
-  '/signin',
+  '/signin/email',
 
   [emailValidator(), passwordValidator()],
 
