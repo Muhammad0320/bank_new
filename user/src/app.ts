@@ -1,14 +1,14 @@
-import express, { Response } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
-import { signinRouter } from './routes/signinW/Email';
+import express, { Response } from 'express';
 import { signoutRouter } from './routes/signout';
+import { updateUserRouter } from './routes/update';
 import { createUserRouter } from './routes/signup';
 import { currentUserRouter } from './routes/currentUser';
 import { passwordUpdateRouter } from './routes/updatesPassword';
 import { globalErrorHandler, NotFound } from '@m0banking/common';
-import { updateUserRouter } from './routes/update';
+import { signinWithEmailRouter } from './routes/signinWithEmail';
 
 const app = express();
 
@@ -38,12 +38,12 @@ app.get(rootUrl, (req, res: Response) => {
   });
 });
 
-app.use(rootUrl, signinRouter);
 app.use(rootUrl, signoutRouter);
 app.use(rootUrl, createUserRouter);
 app.use(rootUrl, updateUserRouter);
 app.use(rootUrl, currentUserRouter);
 app.use(rootUrl, passwordUpdateRouter);
+app.use(rootUrl, signinWithEmailRouter);
 
 app.all('*', () => {
   throw new NotFound('Route not found');
