@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { formDataConverter } from '../utils/formatter';
 import { signupApi } from '../services/signup';
+import { fromZodError } from 'zod-validation-error';
 
 const UserSchema = z.object({
   name: z.string({ message: 'Invalid name format' }),
@@ -36,14 +37,13 @@ export const signupAction = async (prevState: any, formData: FormData) => {
   console.log(user);
 
   if (!user.success) {
+    console.log(fromZodError(user.error));
     throw new Error('Something has gone wrong');
   }
 
   const data = await signupApi(user.data);
 
   console.log(data);
-
-  console.log('It reached here');
 
   // revalidateTag('signup');
   // redirect('/');
