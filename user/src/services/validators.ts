@@ -38,8 +38,8 @@ export const phoneValidator = () =>
 
 
 export const usernameValidator = () =>
-  body('username')
-    .isString()
-    .notEmpty()
-    .isLength({ min: 3 })
-    .withMessage('Please provide a valid username: min of 3 chars');
+         body('username')
+           .isString()
+           .notEmpty()
+           .isLength({ min: 6 })
+           .withMessage('Please provide a valid username: min of 6 chars');
