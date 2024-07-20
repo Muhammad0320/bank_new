@@ -9,6 +9,7 @@ import { currentUserRouter } from './routes/currentUser';
 import { passwordUpdateRouter } from './routes/updatesPassword';
 import { globalErrorHandler, NotFound } from '@m0banking/common';
 import { signinWithEmailRouter } from './routes/signinWithEmail';
+import { signinWithUsernameRouter } from './routes/signinWithUsername';
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use(rootUrl, updateUserRouter);
 app.use(rootUrl, currentUserRouter);
 app.use(rootUrl, passwordUpdateRouter);
 app.use(rootUrl, signinWithEmailRouter);
+app.use(rootUrl, signinWithUsernameRouter);
 
 app.all('*', () => {
   throw new NotFound('Route not found');
