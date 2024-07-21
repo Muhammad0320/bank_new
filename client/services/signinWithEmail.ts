@@ -2,7 +2,7 @@ import { SigninWEmailSchema, User } from '../type/User';
 import { rootUrl } from '../utils/variable';
 
 export const SigninWithEmail = async (formData: SigninWEmailSchema) => {
-  const res = await fetch(`${rootUrl}/signin/email`, {
+  const res = await fetch(`${rootUrl}/user/signin/email`, {
     method: 'Post',
     body: JSON.stringify(formData),
 
