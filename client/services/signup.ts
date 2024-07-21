@@ -1,4 +1,4 @@
-import { FormSchema, User } from '../actions/auth';
+import { FormSchema, User } from '../type/User';
 import { rootUrl } from '../utils/variable';
 
 export const signupApi: (data: FormSchema) => Promise<User> = async (
