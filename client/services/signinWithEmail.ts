@@ -9,6 +9,10 @@ export const SigninWithEmail = async (formData: SigninWEmailSchema) => {
     headers: {
       'Content-Type': 'application/json',
     },
+
+    next: {
+      tags: ['signin', 'email'],
+    },
   });
 
   if (!res.ok) {
