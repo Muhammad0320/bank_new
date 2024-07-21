@@ -9,6 +9,22 @@ import { formDataConverter } from '../utils/formatter';
 import { signupApi } from '../services/signup';
 import { fromZodError } from 'zod-validation-error';
 
+const PasswordType = z.object({
+  password: z.string().min(8, 'Password too short'),
+});
+
+const SigninWithEmailForm = z
+  .object({
+    email: z.string().email({ message: 'Provide a valid email' }),
+  })
+  .merge(PasswordType);
+
+const SigninWithUsername = z
+  .object({
+    username: z.string().min(6, 'Invalid username format: min of 6 chars'),
+  })
+  .merge(PasswordType);
+
 const UserSchema = z.object({
   name: z.string({ message: 'Invalid name format' }),
   email: z.string().email('Invalid email format'),
