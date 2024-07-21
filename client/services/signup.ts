@@ -4,7 +4,7 @@ import { rootUrl } from '../utils/variable';
 export const signupApi: (data: FormSchema) => Promise<User> = async (
   formData: FormSchema
 ) => {
-  const res = await fetch(`${rootUrl}/signup`, {
+  const res = await fetch(`${rootUrl}/user/signup`, {
     method: 'Post',
     body: JSON.stringify(formData),
 
