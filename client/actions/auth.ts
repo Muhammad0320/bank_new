@@ -57,7 +57,7 @@ export const signupAction = async (prevState: any, formData: FormData) => {
   console.log(user);
 
   if (!user.success) {
-    console.log(fromZodError(user.error));
+    console.log(fromZodError(user.error), 'The error sent back from zod error');
     throw new Error('Something has gone wrong');
   }
 

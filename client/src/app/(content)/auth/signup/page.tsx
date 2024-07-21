@@ -18,6 +18,7 @@ const FormPage = () => {
         <Input id="password" label=" password" type="password" />
         <Input id="passwordConfirm" label="password confirm" type="password" />
         <Input id="phone" label="phone" type="number" />
+        <Input id="username" label="username" type="text" />
 
         <Button pending="Submitting"> Submit </Button>
       </form>
