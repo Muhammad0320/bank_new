@@ -14,7 +14,7 @@ export const signinWithUsername = async (formData: SigninWUsernameSchema) => {
   if (!res.ok) {
     console.log(res);
 
-    throw new Error('somrthing hsppend while signining in');
+    throw new Error('something happened while signining in');
   }
 
   const data = (await res.json()) as User;
