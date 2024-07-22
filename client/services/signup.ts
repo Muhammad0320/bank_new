@@ -6,11 +6,13 @@ export const signupApi: (data: FormSchema) => Promise<User> = async (
 ) => {
   const res = await fetch(`${rootUrl}/user/signup`, {
     method: 'POST',
-    body: JSON.stringify(formData),
 
     headers: {
       'Content-Type': 'application/json',
     },
+
+    body: JSON.stringify(formData),
+
     next: {
       tags: ['signup'],
     },
