@@ -2,7 +2,7 @@ import { SigninWUsernameSchema, User } from '../type/User';
 import { rootUrl } from '../utils/variable';
 
 export const signinWithUsername = async (formData: SigninWUsernameSchema) => {
-  const res = await fetch(rootUrl + '/user/signin/username', {
+  const res = await fetch('/api/v1/user/signin/username', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
