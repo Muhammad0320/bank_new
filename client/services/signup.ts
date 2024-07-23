@@ -3,7 +3,7 @@ import https from 'https';
 import { FormSchema, User } from '../type/User';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: 'https://banking.dev/api/v1',
   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
 });
 
@@ -20,3 +20,4 @@ export const signupApi: (formData: FormSchema) => Promise<User> = async (
     throw error;
   }
 };
+// pass1234
