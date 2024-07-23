@@ -4,10 +4,7 @@ import { rootUrl } from '../utils/variable';
 import https from 'https';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://banking.dev/api/v1',
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false, // Ignore self-signed certificate
-  }),
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
 
 export const signupApi: (formData: FormSchema) => Promise<User> = async (
