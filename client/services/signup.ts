@@ -1,13 +1,21 @@
 import axios from 'axios';
 import { FormSchema, User } from '../type/User';
 import { rootUrl } from '../utils/variable';
+import https from 'https';
+
+const axiosInstance = axios.create({
+  baseURL: 'https://banking.dev/api/v1',
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false, // Ignore self-signed certificate
+  }),
+});
 
 export const signupApi: (formData: FormSchema) => Promise<User> = async (
   formData: FormSchema
 ) => {
-  const res = await axios.post('/api/v1/user/signup', { ...formData });
+  const res = await axiosInstance.get('https://banking.dev/api/v1/user');
 
-  const data = await res.data();
+  const data = res.data();
 
   console.log(data, 'from the signup api ');
 
