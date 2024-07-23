@@ -9,6 +9,10 @@ export const signinWithUsername = async (formData: SigninWUsernameSchema) => {
     },
 
     body: JSON.stringify(formData),
+
+    next: {
+      tags: ['signin', 'username'],
+    },
   });
 
   if (!res.ok) {
