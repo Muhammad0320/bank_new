@@ -13,11 +13,13 @@ const axiosInstance = axios.create({
 export const signupApi: (formData: FormSchema) => Promise<User> = async (
   formData: FormSchema
 ) => {
-  const res = await axiosInstance.get('https://banking.dev/api/v1/user');
-
-  const data = res.data();
-
-  console.log(data, 'from the signup api ');
-
-  return data;
+  try {
+    const res = await axiosInstance.get('/user');
+    const data = res.data;
+    console.log(data, 'from the signup api');
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
 };
