@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  webpack: config => {
-    config.watchOptions.poll = 300;
-    return config;
-  },
+  /* config options here */
 };
 
 export default nextConfig;
