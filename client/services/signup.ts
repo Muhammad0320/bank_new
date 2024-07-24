@@ -9,7 +9,9 @@ const axiosInstance = axios.create({
 
 export const signupApi = async (formData: FormSchema) => {
   try {
-    const res = await axiosInstance.get('/user');
+    // const res = await axiosInstance.get('/user');
+
+    const res = await axios.get('/api/v1/user');
 
     const data = res.data;
     console.log(data, 'from the signup api');
