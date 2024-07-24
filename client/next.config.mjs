@@ -7,7 +7,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*', // Capture any API requests
-        destination: 'https://banking.dev/api/v1/:path*', // Forward to backend URL
+        destination: 'https://banking.com/api/v1/:path*', // Forward to backend URL
       },
     ];
   },
