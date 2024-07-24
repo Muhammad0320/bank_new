@@ -7,12 +7,11 @@ const axiosInstance = axios.create({
   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
 });
 
-export const signupApi: (formData: FormSchema) => Promise<User> = async (
-  formData: FormSchema
-) => {
+export const signupApi = async (formData: FormSchema) => {
   try {
-    const res = await axiosInstance.get('/user');
-    const data = res.data;
+    // const res = await axiosInstance.get('/user');
+    const res = await fetch('https://banking.com/api/v1/user');
+    const data = res;
     console.log(data, 'from the signup api');
     return data;
   } catch (error) {
