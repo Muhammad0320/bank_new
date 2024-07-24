@@ -3,7 +3,7 @@ import https from 'https';
 import { FormSchema, User } from '../type/User';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://banking.dev/api/v1',
+  baseURL: 'https://banking.com/api/v1',
   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
 });
 
