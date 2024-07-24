@@ -16,6 +16,7 @@ export const StyledBody = styled.body`
 
 export const MainContainer = styled.main`
   grid-column: 2 / -1;
+  background-color: var(--black-color-light);
   grid-row: 2 / -1;
 
   padding-block: ${() => ClampComponent(900, 1250, 2.5, 3.5)};
