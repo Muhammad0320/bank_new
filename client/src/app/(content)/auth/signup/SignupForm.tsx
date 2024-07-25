@@ -11,7 +11,7 @@ import { axiosInstance } from '../../../../../lib/axios';
 const FormPage: FC<{
   action: (prevState: any, data: FormData) => Promise<{ error: [] }>;
 }> = () => {
-  const initialState: any = { message: [] };
+  const initialState: any = { error: [] };
 
   const [state, formAction] = useFormState(signupAction, initialState);
 
