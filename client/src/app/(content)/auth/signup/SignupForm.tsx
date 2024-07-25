@@ -4,11 +4,13 @@ import { useFormState } from 'react-dom';
 import { signupAction } from '../../../../../actions/auth';
 import Input from '../../../../../components/UI/Input';
 import Button from '../../../../../components/UI/Button';
-import { FormEvent } from 'react';
+import { FC, FormEvent } from 'react';
 import axios from 'axios';
 import { axiosInstance } from '../../../../../lib/axios';
 
-const FormPage = () => {
+const FormPage: FC<{
+  action: (prevState: any, data: FormData) => Promise<{ error: [] }>;
+}> = () => {
   const initialState: any = { message: [] };
 
   const [state, formAction] = useFormState(signupAction, initialState);
