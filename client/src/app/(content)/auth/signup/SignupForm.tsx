@@ -1,12 +1,10 @@
 'use client';
 
+import { FC, FormEvent } from 'react';
 import { useFormState } from 'react-dom';
 import { signupAction } from '../../../../../actions/auth';
-import Input from '../../../../../components/UI/Input';
 import Button from '../../../../../components/UI/Button';
-import { FC, FormEvent } from 'react';
-import axios from 'axios';
-import { axiosInstance } from '../../../../../lib/axios';
+import Input from '../../../../../components/UI/Input';
 
 const FormPage: FC<{
   action: (prevState: any, data: FormData) => Promise<{ error: [] }>;
@@ -17,7 +15,6 @@ const FormPage: FC<{
 
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
-
   };
 
   return (
