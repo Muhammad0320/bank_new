@@ -1,3 +1,5 @@
+'use server';
+
 import axios from 'axios';
 import { FormSchema } from '../type/User';
 import { formDataConverter } from '../utils/formatter';
