@@ -1,21 +1,18 @@
 'use client';
 
-import { FC, FormEvent } from 'react';
+import { FC } from 'react';
 import { useFormState } from 'react-dom';
-import { signupAction } from '../../../../../actions/auth';
-import Button from '../../../../../components/UI/Button';
 import Input from '../../../../../components/UI/Input';
+import Button from '../../../../../components/UI/Button';
 
 const FormPage: FC<{
   action: (prevState: any, data: FormData) => Promise<{ error: [] }>;
-}> = () => {
+}> = ({ action }) => {
   const initialState: any = { error: [] };
 
-  const [state, formAction] = useFormState(signupAction, initialState);
+  const [state, formAction] = useFormState(action, initialState);
 
-  const handleSignup = async (e: FormEvent) => {
-    e.preventDefault();
-  };
+  console.log(state, 'The error state from code');
 
   return (
     <div>
