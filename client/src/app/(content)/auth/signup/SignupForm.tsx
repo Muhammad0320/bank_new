@@ -18,13 +18,6 @@ const FormPage: FC<{
   const handleSignup = async (e: FormEvent) => {
     e.preventDefault();
 
-    // try {
-    //   const res = await ('/api/v1/user');
-
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.log('Foem Error:', error);
-    // }
   };
 
   return (
