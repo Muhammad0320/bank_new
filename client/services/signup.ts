@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { FormSchema } from '../type/User';
 
-export const signupApi = async (formData: FormSchema) => {
+export const signupApi = async (prevState: any, formData: FormSchema) => {
   try {
     // const res = await axiosInstance.get('/user');
-
 
     const errors = [{}];
 
@@ -16,7 +15,6 @@ export const signupApi = async (formData: FormSchema) => {
     return {
       errors,
     };
-
   } catch (error) {
     console.error('Fetch error:', error);
     throw error;
