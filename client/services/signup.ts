@@ -5,7 +5,7 @@ import { formDataConverter } from '../utils/formatter';
 export const signupApi: (
   prevState: any,
   formData: FormData
-) => Promise<{ errors: [] }> = async (prevState: any, formData: FormData) => {
+) => Promise<{ errors: {}[] }> = async (prevState: any, formData: FormData) => {
   try {
     const formDatas = formDataConverter(formData);
 
