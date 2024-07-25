@@ -1,8 +1,5 @@
 import axios from 'axios';
-import https from 'https';
-import { FormSchema, User } from '../type/User';
-
-
+import { FormSchema } from '../type/User';
 
 export const signupApi = async (formData: FormSchema) => {
   try {
