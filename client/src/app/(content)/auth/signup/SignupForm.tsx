@@ -6,9 +6,9 @@ import Input from '../../../../../components/UI/Input';
 import Button from '../../../../../components/UI/Button';
 
 const FormPage: FC<{
-  action: (prevState: { error: [] }, data: FormData) => Promise<{ error: [] }>;
+  action: (prevState: any, data: FormData) => Promise<{ errors: [] }>;
 }> = ({ action }) => {
-  const [state, formAction] = useFormState(action, { error: [] });
+  const [state, formAction] = useFormState(action, { errors: [] });
 
   console.log(state, 'The error state from code');
 

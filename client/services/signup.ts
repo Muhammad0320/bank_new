@@ -13,11 +13,9 @@ export const signupApi = async (formData: FormSchema) => {
     const data = res.data;
     console.log(data, 'from the signup api');
 
-    if (errors && errors.length) {
-      return {
-        errors,
-      };
-    }
+    return {
+      errors,
+    };
 
   } catch (error) {
     console.error('Fetch error:', error);
