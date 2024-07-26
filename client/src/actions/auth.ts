@@ -1,7 +1,7 @@
 'use server';
 
 import { fromZodError } from 'zod-validation-error';
-import { signupApi } from '../services/signup';
+import { signupApi } from '../lib/signup';
 import { FormSchema, UserSchema } from '../../type/User';
 import { formDataConverter } from '../../utils/formatter';
 
