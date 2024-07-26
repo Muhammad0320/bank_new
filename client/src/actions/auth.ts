@@ -1,9 +1,9 @@
 'use server';
 
 import { fromZodError } from 'zod-validation-error';
-import { signupApi } from '../services/signup';
-import { FormSchema, UserSchema } from '../type/User';
-import { formDataConverter } from '../utils/formatter';
+import { signupApi } from '../../services/signup';
+import { FormSchema, UserSchema } from '../../type/User';
+import { formDataConverter } from '../../utils/formatter';
 
 export const signupAction = async (prevState: any, formData: FormData) => {
   const parsedData = formDataConverter<FormSchema>(formData);
