@@ -10,6 +10,8 @@ export const signupAction = async (prevState: any, formData: FormData) => {
 
   const user = UserSchema.safeParse(parsedData);
 
+  const errors = [{}];
+
   console.log(user);
 
   if (!user.success) {
@@ -20,6 +22,12 @@ export const signupAction = async (prevState: any, formData: FormData) => {
   const data = await signupApi(user.data);
 
   console.log(data, 'From the server action');
+
+  if (errors.length) {
+    return {
+      errors,
+    };
+  }
 
   // revalidateTag('signup');
   // redirect('/');
