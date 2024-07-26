@@ -23,11 +23,9 @@ export const signupAction = async (prevState: any, formData: FormData) => {
 
   console.log(data, 'From the server action');
 
-  if (errors.length) {
-    return {
-      errors,
-    };
-  }
+  return {
+    errors,
+  };
 
   // revalidateTag('signup');
   // redirect('/');
