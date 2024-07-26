@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FormSchema } from '../type/User';
+import { FormSchema } from '../../type/User';
 
 export const signupApi = async (formData: FormSchema) => {
   try {

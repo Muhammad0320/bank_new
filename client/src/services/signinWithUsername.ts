@@ -1,5 +1,5 @@
-import { SigninWUsernameSchema, User } from '../type/User';
-import { rootUrl } from '../utils/variable';
+import { SigninWUsernameSchema, User } from '../../type/User';
+import { rootUrl } from '../../utils/variable';
 
 export const signinWithUsername = async (formData: SigninWUsernameSchema) => {
   const res = await fetch('/api/v1/user/signin/username', {
