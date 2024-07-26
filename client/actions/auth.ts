@@ -19,7 +19,7 @@ export const signupAction = async (prevState: any, formData: FormData) => {
 
   const data = await signupApi(user.data);
 
-  console.log(data);
+  console.log(data, 'From the server action');
 
   // revalidateTag('signup');
   // redirect('/');
