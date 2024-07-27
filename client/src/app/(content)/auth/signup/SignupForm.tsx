@@ -1,10 +1,10 @@
 'use client';
 
+import axios from 'axios';
 import { FC, FormEvent } from 'react';
 import { useFormState } from 'react-dom';
 import Input from '../../../../../components/UI/Input';
 import Button from '../../../../../components/UI/Button';
-import axios from 'axios';
 
 const FormPage: FC<{
   action: (prevState: any, formData: FormData) => Promise<{ errors: {}[] }>;
