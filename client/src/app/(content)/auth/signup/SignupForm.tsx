@@ -20,7 +20,7 @@ const FormPage: FC<{
 
     const data = res.data;
 
-    console.log(data);
+    console.log(data, 'Test Data gotten back from signup form ts');
   };
 
   // return (
